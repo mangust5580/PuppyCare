@@ -1,0 +1,88 @@
+{% from "shared/components/picture.njk" import picture %}
+{% from "shared/components/icon.njk" import icon %}
+{% from "shared/components/button.njk" import button %}
+
+{% set subscribeBenefits = [
+  { title: "Эксклюзивные акции", text: "Только для подписчиков", icon: "common-gift", variant: "gift" },
+  { title: "Полезные советы", text: "Уход, питание, здоровье", icon: "pets-paw", variant: "tips" },
+  { title: "Новинки и события", text: "Будьте в курсе первыми", icon: "common-calendar", variant: "news" }
+] %}
+
+<div class="subscribe-modal" data-subscribe-modal hidden>
+  <div class="subscribe-modal__overlay" data-subscribe-modal-close></div>
+
+  <section
+    class="subscribe-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="subscribe-modal-title"
+    aria-describedby="subscribe-modal-description"
+    tabindex="-1"
+  >
+    <button class="subscribe-modal__close" type="button" aria-label="Закрыть окно подписки" data-subscribe-modal-close>
+      {{ icon("ui-close", decorative=true) }}
+    </button>
+
+    <div class="subscribe-modal__body">
+
+      <div class="subscribe-modal__content">
+        <p class="subscribe-modal__eyebrow">Оставайтесь с нами</p>
+        <h2 class="subscribe-modal__title" id="subscribe-modal-title">Подпишитесь на нашу рассылку</h2>
+        <p class="subscribe-modal__text" id="subscribe-modal-description">Получите <span class="subscribe-modal__highlight">30% скидку</span> на первый заказ, подписавшись сегодня!</p>
+
+        <form class="subscribe-modal__form" method="post" action="index.html" data-subscribe-modal-form>
+          <label class="visually-hidden" for="subscribe-modal-email">Ваш e-mail</label>
+          <div class="subscribe-modal__field">
+            <span class="subscribe-modal__field-icon" aria-hidden="true">{{ icon("contact-mail", size="sm") }}</span>
+            <input
+              class="subscribe-modal__input"
+              id="subscribe-modal-email"
+              name="email"
+              type="email"
+              placeholder="Введите ваш e-mail"
+              autocomplete="email"
+              required
+            >
+          </div>
+          {{ button("Подписаться", type="submit", variant="primary", size="large", extraClass="subscribe-modal__submit") }}
+          <p class="subscribe-modal__success" data-subscribe-modal-success role="status" aria-live="polite" hidden>Спасибо! Вы успешно подписались на рассылку.</p>
+        </form>
+
+        <p class="subscribe-modal__note">* Скидка действует только для новых подписчиков.</p>
+      </div>
+
+      <div class="subscribe-modal__media">
+        <span class="subscribe-modal__decor" aria-hidden="true">
+          <svg class="subscribe-modal__decor-shape subscribe-modal__decor-shape--heart-a" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="subscribe-modal__decor-shape subscribe-modal__decor-shape--heart-b" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="subscribe-modal__decor-shape subscribe-modal__decor-shape--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+        </span>
+        {{ picture({
+          src: "images/shared/hero-pets.png",
+          alt: "Собака и кошка PuppyCare рядом друг с другом",
+          width: "450",
+          height: "350",
+          className: "subscribe-modal__image",
+          pictureClass: "subscribe-modal__picture",
+          loading: "lazy",
+          decoding: "async",
+          retina: true
+        }) }}
+      </div>
+
+    </div>
+
+    <ul class="subscribe-modal__benefits" role="list">
+      {%- for benefit in subscribeBenefits %}
+      <li class="subscribe-modal__benefit">
+        <span class="subscribe-modal__benefit-icon subscribe-modal__benefit-icon--{{ benefit.variant }}" aria-hidden="true">{{ icon(benefit.icon, size="md") }}</span>
+        <span class="subscribe-modal__benefit-body">
+          <span class="subscribe-modal__benefit-title">{{ benefit.title }}</span>
+          <span class="subscribe-modal__benefit-text">{{ benefit.text }}</span>
+        </span>
+      </li>
+      {%- endfor %}
+    </ul>
+
+  </section>
+</div>

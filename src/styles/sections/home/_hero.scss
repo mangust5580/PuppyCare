@@ -1,0 +1,240 @@
+@use '../../helpers' as *;
+
+.home-hero {
+  position: relative;
+  overflow-x: clip;
+  background-color: var(--surface-base);
+}
+
+.home-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--space-32) fluid(80, 32);
+  padding-block: fluid(100, 56);
+  grid-template-areas:
+    "content ."
+    "features .";
+}
+
+.home-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  min-inline-size: 0;
+  grid-area: content;
+}
+
+.home-hero__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(56, 32);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.home-hero__text {
+  max-inline-size: 48ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-large-size);
+  line-height: var(--text-body-large-line-height);
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.home-hero__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+  font-size: var(--text-body-size);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+
+  @include transition-color;
+
+  &:hover {
+    color: var(--color-coral-600);
+  }
+
+  @include focus-visible;
+}
+
+.home-hero__phone-icon {
+  display: block;
+  flex-shrink: 0;
+  inline-size: 18px;
+  block-size: 18px;
+  color: var(--color-coral-600);
+}
+
+.home-hero__features {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-16);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  grid-area: features;
+  list-style: none;
+}
+
+.home-hero__feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.home-hero__feature-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-coral-100);
+  color: var(--color-coral-600);
+}
+
+.home-hero__feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.home-hero__feature-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  line-height: var(--text-body-line-height);
+}
+
+.home-hero__feature-text {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+}
+
+.home-hero__media {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  overflow: hidden;
+  inline-size: 58%;
+  min-inline-size: 0;
+  background-color: var(--surface-subtle);
+  border-end-start-radius: var(--radius-xl);
+  border-start-start-radius: var(--radius-xl);
+}
+
+.home-hero__picture {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.home-hero__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+@include media-down(1180px) {
+  .home-hero__inner {
+    grid-template-columns: 1fr;
+    padding-block-start: 0;
+    grid-template-areas:
+      "media"
+      "content"
+      "features";
+  }
+
+  .home-hero__content {
+    padding-block-start: fluid(64, 40);
+  }
+
+  .home-hero__media {
+    position: static;
+    align-self: start;
+    inline-size: calc(100% + var(--layout-container-inline) * 2);
+    max-block-size: fluid(720, 260);
+    aspect-ratio: 16 / 10;
+    margin-inline: calc(var(--layout-container-inline) * -1);
+    border-radius: 0;
+    grid-area: media;
+  }
+
+  .home-hero__image {
+    object-position: center 40%;
+  }
+
+  .home-hero__features {
+    gap: 0;
+    padding: var(--space-8);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    background-color: var(--surface-base);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .home-hero__feature {
+    padding: var(--space-16) var(--space-24);
+  }
+
+  .home-hero__feature + .home-hero__feature {
+    border-inline-start: 1px solid var(--border-subtle);
+  }
+}
+
+@include media-down('md') {
+  .home-hero__features {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero__feature {
+    padding: var(--space-16);
+  }
+
+  .home-hero__feature + .home-hero__feature {
+    border-block-start: 1px solid var(--border-subtle);
+    border-inline-start: 0;
+  }
+}
+
+// On small phones the stacked icon-above-text layout reads cramped; lay each
+// feature out as a compact horizontal row (icon left, text right) instead.
+@include media-down('sm') {
+  .home-hero__feature {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-16);
+  }
+
+  .home-hero__feature-body {
+    min-inline-size: 0;
+  }
+}
+
+@include reduce-motion {
+  .home-hero__phone {
+    transition: none;
+  }
+}

@@ -1,0 +1,205 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Пользовательское соглашение — PuppyCare" -%}
+  {%- set pageDescription = "Пользовательское соглашение PuppyCare: условия использования сайта, записи на услуги, ответственности сторон и обработки обращений." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "terms.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="terms">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+
+    {% set tocItems = [
+      { id: "general", text: "Общие условия" },
+      { id: "site-use", text: "Использование сайта" },
+      { id: "appointments", text: "Запись на услуги" },
+      { id: "content", text: "Информация на сайте" },
+      { id: "payments", text: "Оплата и отмена записи" },
+      { id: "liability", text: "Ответственность сторон" },
+      { id: "intellectual-property", text: "Интеллектуальная собственность" },
+      { id: "changes", text: "Изменение условий" },
+      { id: "contacts", text: "Контакты" }
+    ] %}
+
+    <main id="main" class="page__content legal-page" tabindex="-1" data-page-content>
+
+      <section class="legal-page__hero" aria-labelledby="terms-title">
+
+        <span class="legal-page__hero-decor" aria-hidden="true">
+          <svg class="legal-page__decor legal-page__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="legal-page__decor legal-page__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="legal-page__decor legal-page__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container legal-page__hero-inner">
+
+          <div class="legal-page__hero-content">
+
+            <p class="legal-page__eyebrow">Документы PuppyCare</p>
+
+            <h1 class="legal-page__title" id="terms-title">Пользовательское соглашение</h1>
+
+            <nav class="legal-page__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="legal-page__breadcrumbs-list" role="list">
+                <li class="legal-page__breadcrumbs-item">
+                  <a class="legal-page__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="legal-page__breadcrumbs-item">
+                  <span class="legal-page__breadcrumbs-current" aria-current="page">Пользовательское соглашение</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="legal-page__meta">Последнее обновление: 26 июня 2026 г.</p>
+
+            <p class="legal-page__intro">Настоящее Пользовательское соглашение определяет правила использования сайта PuppyCare, порядок записи на услуги, ограничения ответственности и условия взаимодействия с материалами сайта.</p>
+
+          </div>
+
+          <div class="legal-page__hero-media">
+            <span class="legal-page__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/shared/hero-pets.png",
+              alt: "Собака и кошка для страницы условий PuppyCare",
+              width: "450",
+              height: "350",
+              className: "legal-page__hero-image",
+              pictureClass: "legal-page__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="legal-page__body" aria-labelledby="terms-content-title">
+        <div class="container legal-page__layout">
+
+          <h2 id="terms-content-title" class="visually-hidden">Содержание и текст пользовательского соглашения</h2>
+
+          <aside class="legal-page__toc">
+            <nav class="legal-page__toc-inner" aria-label="Содержание соглашения">
+              <p class="legal-page__toc-title">Содержание</p>
+              <ol class="legal-page__toc-list" role="list">
+                {%- for item in tocItems %}
+                <li class="legal-page__toc-item">
+                  <a class="legal-page__toc-link" href="#{{ item.id }}">{{ item.text }}</a>
+                </li>
+                {%- endfor %}
+              </ol>
+            </nav>
+          </aside>
+
+          <article class="legal-page__article">
+
+            <section class="legal-page__section" id="general" aria-labelledby="general-title">
+              <h2 class="legal-page__section-title" id="general-title">Общие условия</h2>
+              <p class="legal-page__text">Настоящее соглашение регулирует использование сайта PuppyCare и связанных с ним сервисов. Пользуясь сайтом, отправляя заявку или записываясь на приём, пользователь подтверждает, что ознакомился с условиями и принимает их.</p>
+            </section>
+
+            <section class="legal-page__section" id="site-use" aria-labelledby="site-use-title">
+              <h2 class="legal-page__section-title" id="site-use-title">Использование сайта</h2>
+              <p class="legal-page__text">Пользователь обязуется использовать сайт только законным способом и не предпринимать действий, которые могут нарушить работу сайта, ограничить доступ других пользователей или повредить репутации PuppyCare.</p>
+              <ul class="legal-page__list" role="list">
+                <li>не пытаться получить несанкционированный доступ к разделам сайта;</li>
+                <li>не размещать ложные или некорректные данные в формах;</li>
+                <li>не использовать материалы сайта для незаконных целей;</li>
+                <li>не нарушать работу технических сервисов сайта.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="appointments" aria-labelledby="appointments-title">
+              <h2 class="legal-page__section-title" id="appointments-title">Запись на услуги</h2>
+              <p class="legal-page__text">Формы записи и обратной связи помогают предварительно согласовать услугу, дату и время визита. Отправка заявки не всегда означает автоматическое подтверждение записи: администратор PuppyCare может связаться с пользователем для уточнения деталей.</p>
+              <ul class="legal-page__list" role="list">
+                <li>пользователь указывает актуальные контактные данные;</li>
+                <li>время приёма подтверждается после связи с клиникой;</li>
+                <li>при изменении планов пользователь может заранее связаться с PuppyCare;</li>
+                <li>отдельные услуги могут требовать предварительной консультации.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="content" aria-labelledby="content-title">
+              <h2 class="legal-page__section-title" id="content-title">Информация на сайте</h2>
+              <p class="legal-page__text">Материалы сайта носят информационный характер и не заменяют очную консультацию ветеринарного специалиста. Для диагностики, лечения и назначения процедур необходимо обратиться к врачу.</p>
+            </section>
+
+            <section class="legal-page__section" id="payments" aria-labelledby="payments-title">
+              <h2 class="legal-page__section-title" id="payments-title">Оплата и отмена записи</h2>
+              <p class="legal-page__text">Информация о стоимости услуг может быть представлена на сайте для удобства пользователей. Итоговая стоимость зависит от выбранной услуги, состояния питомца и рекомендаций специалиста.</p>
+              <ul class="legal-page__list" role="list">
+                <li>условия оплаты уточняются при записи или в клинике;</li>
+                <li>пользователь может отменить или перенести визит, связавшись с PuppyCare;</li>
+                <li>специальные предложения и скидки могут иметь ограниченный срок действия;</li>
+                <li>подробности акций уточняются у администратора.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="liability" aria-labelledby="liability-title">
+              <h2 class="legal-page__section-title" id="liability-title">Ответственность сторон</h2>
+              <p class="legal-page__text">PuppyCare стремится поддерживать актуальность информации на сайте, однако не гарантирует отсутствие технических ошибок, временных сбоев или неточностей. Пользователь несёт ответственность за корректность предоставленных данных.</p>
+            </section>
+
+            <section class="legal-page__section" id="intellectual-property" aria-labelledby="intellectual-property-title">
+              <h2 class="legal-page__section-title" id="intellectual-property-title">Интеллектуальная собственность</h2>
+              <p class="legal-page__text">Тексты, изображения, элементы интерфейса, логотипы и иные материалы сайта принадлежат PuppyCare или используются на законных основаниях. Копирование и распространение материалов без разрешения не допускается, кроме случаев, предусмотренных законом.</p>
+            </section>
+
+            <section class="legal-page__section" id="changes" aria-labelledby="changes-title">
+              <h2 class="legal-page__section-title" id="changes-title">Изменение условий</h2>
+              <p class="legal-page__text">PuppyCare может обновлять настоящее соглашение при изменении сервисов, законодательства или внутренних процессов. Новая редакция публикуется на этой странице и применяется с момента размещения, если не указано иное.</p>
+            </section>
+
+            <section class="legal-page__section" id="contacts" aria-labelledby="contacts-title">
+              <h2 class="legal-page__section-title" id="contacts-title">Контакты</h2>
+              <p class="legal-page__text">По вопросам использования сайта и условий соглашения можно связаться с PuppyCare:</p>
+              <ul class="legal-page__contacts" role="list">
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-mail", decorative=true) }}</span>
+                  <a class="legal-page__contact-link" href="mailto:info@puppycare.ru">info@puppycare.ru</a>
+                </li>
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-phone", decorative=true) }}</span>
+                  <a class="legal-page__contact-link" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                </li>
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-location", decorative=true) }}</span>
+                  <span class="legal-page__contact-text">Москва, ул. Лесная, 12</span>
+                </li>
+              </ul>
+            </section>
+
+            <aside class="legal-page__cta" aria-labelledby="terms-cta-title">
+              <div class="legal-page__cta-content">
+                <h2 class="legal-page__cta-title" id="terms-cta-title">Остались вопросы?</h2>
+                <p class="legal-page__cta-text">Свяжитесь с нами, если хотите уточнить условия записи, оплаты или использования сайта PuppyCare.</p>
+              </div>
+              <div class="legal-page__cta-actions">
+                <a class="button button--primary button--large" href="contacts.html" data-feedback-modal-open>
+                  <span class="button__text">Связаться с нами</span>
+                </a>
+                <a class="legal-page__cta-phone" href="tel:+74951204567">
+                  {{ icon("contact-phone", className="legal-page__cta-phone-icon", size="sm") }}
+                  <span>+7 (495) 120-45-67</span>
+                </a>
+              </div>
+            </aside>
+
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

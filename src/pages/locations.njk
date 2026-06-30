@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Локации — PuppyCare" -%}
+  {%- set pageDescription = "Найдите ближайшую клинику PuppyCare в Москве: адреса филиалов, часы работы и запись на приём." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "locations.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="locations">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+    {% from "shared/components/button.njk" import button %}
+
+    {% set features = [
+      { title: "Удобное расположение", text: "Клиники в ключевых районах Москвы рядом с метро и парковками.", icon: "contact-location" },
+      { title: "Современное оборудование", text: "Используем передовые технологии для точной диагностики и лечения.", icon: "medical-microscope" },
+      { title: "Ежедневный приём", text: "Работаем без выходных, чтобы помочь вашему питомцу в любой день.", icon: "common-clock" }
+    ] %}
+
+    {% set clinics = [
+      { name: "Арбат", street: "ул. Новый Арбат, 21", city: "Москва, 119019", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Таганская", street: "ул. Большие Каменщики, 6", city: "Москва, 115172", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Сокольники", street: "ул. Стромынка, 11", city: "Москва, 107076", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Хамовники", street: "ул. Льва Толстого, 5/1", city: "Москва, 119021", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Пресненский", street: "Шмитовский пр-д, 16, стр. 2", city: "Москва, 123100", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Марьина Роща", street: "ул. Советской Армии, 7", city: "Москва, 129110", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Курская", street: "ул. Земляной Вал, 29, стр. 2", city: "Москва, 105064", hours: "Ежедневно 8:00 – 21:00" },
+      { name: "Черёмушки", street: "ул. Профсоюзная, 56", city: "Москва, 117418", hours: "Ежедневно 8:00 – 21:00" }
+    ] %}
+
+    <main id="main" class="page__content page-locations" tabindex="-1" data-page-content>
+
+      <section class="page-locations__hero" aria-labelledby="locations-title">
+
+        <span class="page-locations__hero-decor" aria-hidden="true">
+          <svg class="page-locations__decor page-locations__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-locations__decor page-locations__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-locations__decor page-locations__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-locations__hero-inner">
+
+          <div class="page-locations__hero-content">
+
+            <p class="page-locations__eyebrow">Наши клиники</p>
+
+            <h1 class="page-locations__title" id="locations-title">Локации</h1>
+
+            <nav class="page-locations__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-locations__breadcrumbs-list" role="list">
+                <li class="page-locations__breadcrumbs-item">
+                  <a class="page-locations__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-locations__breadcrumbs-item">
+                  <span class="page-locations__breadcrumbs-current" aria-current="page">Локации</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-locations__lead">Выберите ближайшую клинику PuppyCare в Москве — рядом с домом, работой или по пути.</p>
+
+          </div>
+
+          <div class="page-locations__hero-media">
+            <span class="page-locations__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/locations/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-locations__hero-image",
+              pictureClass: "page-locations__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-locations__overview" aria-labelledby="locations-overview-title">
+        <div class="container page-locations__overview-inner">
+
+          <div class="page-locations__map">
+            {{ picture({
+              src: "images/pages/locations/map-overview.jpg",
+              alt: "Схематичная карта Москвы с отмеченными клиниками PuppyCare",
+              width: "800",
+              height: "560",
+              className: "page-locations__map-image",
+              pictureClass: "page-locations__map-picture",
+              loading: "lazy",
+              decoding: "async",
+              retina: true
+            }) }}
+          </div>
+
+          <div class="page-locations__content">
+            <p class="page-locations__eyebrow page-locations__eyebrow--dark">Где нас найти</p>
+            <h2 class="page-locations__overview-title" id="locations-overview-title">Мы рядом с вами</h2>
+            <p class="page-locations__overview-text">Наши клиники удобно расположены по всей Москве, чтобы вы могли быстро получить помощь для вашего питомца — рядом с домом, работой или по пути.</p>
+
+            <div class="page-locations__overview-actions">
+              {{ button("Смотреть все клиники", tag="a", href="#locations-list", variant="primary", size="large") }}
+            </div>
+
+            <ul class="page-locations__features" role="list">
+              {%- for feature in features %}
+              <li class="page-locations__feature">
+                <span class="page-locations__feature-icon" aria-hidden="true">{{ icon(feature.icon, size="md") }}</span>
+                <div class="page-locations__feature-body">
+                  <h3 class="page-locations__feature-title">{{ feature.title }}</h3>
+                  <p class="page-locations__feature-text">{{ feature.text }}</p>
+                </div>
+              </li>
+              {%- endfor %}
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-locations__list" id="locations-list" aria-labelledby="locations-list-title">
+        <div class="container">
+
+          <div class="page-locations__list-head">
+            <p class="page-locations__eyebrow page-locations__eyebrow--dark">Адреса филиалов</p>
+            <h2 class="page-locations__list-title" id="locations-list-title">Наши клиники в Москве</h2>
+            <p class="page-locations__list-text">Восемь клиник в разных районах города — выберите удобную и запишитесь на приём онлайн.</p>
+          </div>
+
+          <ul class="page-locations__grid" role="list">
+            {%- for clinic in clinics %}
+            <li class="page-locations__card">
+              <span class="page-locations__card-icon" aria-hidden="true">{{ icon("contact-location", size="md") }}</span>
+              <h3 class="page-locations__card-title">{{ clinic.name }}</h3>
+              <address class="page-locations__card-address">
+                {{ clinic.street }}<br>
+                {{ clinic.city }}
+              </address>
+              <dl class="page-locations__card-meta">
+                <dt class="visually-hidden">Телефон</dt>
+                <dd class="page-locations__card-meta-item">
+                  <a class="page-locations__card-phone" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                </dd>
+                <dt class="visually-hidden">Часы работы</dt>
+                <dd class="page-locations__card-meta-item page-locations__card-hours">{{ clinic.hours }}</dd>
+              </dl>
+              {{ button("Записаться", tag="a", href="appointment.html", variant="outline", size="medium", extraClass="page-locations__card-link") }}
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "locations-cta",
+        eyebrow: "Запись на приём",
+        title: "Не знаете, какая клиника ближе?",
+        text: "Мы подскажем, где находится ближайшая клиника PuppyCare и поможем выбрать удобное время визита.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться онлайн",
+        primaryHref: "appointment.html"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

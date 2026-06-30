@@ -1,0 +1,113 @@
+@use 'sass:list';
+
+@mixin transition(
+  $properties,
+  $duration: 150ms,
+  $easing: ease
+) {
+  $transitions: ();
+
+  @each $property in $properties {
+    $transitions: list.append(
+      $transitions,
+      #{$property} $duration $easing,
+      $separator: comma
+    );
+  }
+
+  transition: $transitions;
+}
+
+@mixin transition-base(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(
+    (color, background-color, border-color, box-shadow, opacity, transform),
+    $duration,
+    $easing
+  );
+}
+
+@mixin transition-color(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(color, $duration, $easing);
+}
+
+@mixin transition-background(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(background-color, $duration, $easing);
+}
+
+@mixin transition-border(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(border-color, $duration, $easing);
+}
+
+@mixin transition-opacity(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(opacity, $duration, $easing);
+}
+
+@mixin transition-transform(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(transform, $duration, $easing);
+}
+
+@mixin transition-shadow(
+  $duration: 150ms,
+  $easing: ease
+) {
+  @include transition(box-shadow, $duration, $easing);
+}
+
+@mixin ring-shadow(
+  $ring-color: var(--border-focus),
+  $separator-color: var(--surface-base),
+  $inner-width: 2px,
+  $outer-width: 6px
+) {
+  box-shadow:
+    0 0 0 $inner-width $separator-color,
+    0 0 0 $outer-width $ring-color;
+}
+
+@mixin focus-visible(
+  $outline-color: var(--border-focus),
+  $shadow: var(--shadow-focus),
+  $outline-width: 2px,
+  $outline-offset: 2px
+) {
+  &:focus-visible {
+    outline: $outline-width solid $outline-color;
+    box-shadow: $shadow;
+    outline-offset: $outline-offset;
+  }
+}
+
+@mixin focus-within-ring(
+  $ring-color: var(--border-focus),
+  $separator-color: var(--surface-base),
+  $inner-width: 2px,
+  $outer-width: 6px
+) {
+  &:focus-within {
+    @include ring-shadow($ring-color, $separator-color, $inner-width, $outer-width);
+  }
+}
+
+@mixin reduce-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

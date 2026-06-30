@@ -1,0 +1,83 @@
+{% from "shared/components/picture.njk" import picture %}
+
+{% set news = [
+  {
+    category: "Здоровье",
+    title: "Как правильно подготовить питомца к вакцинации",
+    date: "20 мая 2026",
+    datetime: "2026-05-20",
+    href: "blog.html",
+    image: "images/home/news/vaccination-preparation.jpg",
+    imageAlt: "Ветеринар осматривает собаку перед вакцинацией"
+  },
+  {
+    category: "Уход",
+    title: "Сезонная линька: советы по уходу за шерстью",
+    date: "8 апреля 2026",
+    datetime: "2026-04-08",
+    href: "blog.html",
+    image: "images/home/news/seasonal-shedding.jpg",
+    imageAlt: "Собаку бережно вычесывают во время ухода за шерстью"
+  },
+  {
+    category: "Питание",
+    title: "Как выбрать корм, подходящий именно вашему питомцу",
+    date: "12 марта 2026",
+    datetime: "2026-03-12",
+    href: "blog.html",
+    image: "images/home/news/pet-food-choice.jpg",
+    imageAlt: "Собака рядом с миской корма"
+  },
+  {
+    category: "Новости",
+    title: "PuppyCare открывает новую клинику в Москве",
+    date: "18 февраля 2026",
+    datetime: "2026-02-18",
+    href: "blog.html",
+    image: "images/home/news/new-clinic-moscow.jpg",
+    imageAlt: "Интерьер современной клиники PuppyCare"
+  }
+] %}
+
+<section class="home-news" aria-labelledby="home-news-title">
+  <div class="container">
+    <div class="home-news__inner">
+
+      <header class="home-news__header">
+        <h2 class="home-news__title" id="home-news-title">Последние новости</h2>
+        <a class="home-news__link" href="blog.html">Все новости →</a>
+      </header>
+
+      <ul class="home-news__list" role="list">
+        {%- for item in news %}
+        <li class="home-news__item">
+          <article class="home-news-card">
+            <a class="home-news-card__media-link" href="{{ item.href }}">
+              <span class="home-news-card__media">
+                {{ picture({
+                  src: item.image,
+                  alt: item.imageAlt,
+                  width: "360",
+                  height: "240",
+                  className: "home-news-card__image",
+                  pictureClass: "home-news-card__picture",
+                  loading: "lazy",
+                  decoding: "async",
+                  retina: true
+                }) }}
+              </span>
+              <span class="home-news-card__badge">{{ item.category }}</span>
+            </a>
+            <div class="home-news-card__body">
+              <p class="home-news-card__category">{{ item.category }}</p>
+              <h3 class="home-news-card__title"><a href="{{ item.href }}">{{ item.title }}</a></h3>
+              <time class="home-news-card__date" datetime="{{ item.datetime }}">{{ item.date }}</time>
+            </div>
+          </article>
+        </li>
+        {%- endfor %}
+      </ul>
+
+    </div>
+  </div>
+</section>

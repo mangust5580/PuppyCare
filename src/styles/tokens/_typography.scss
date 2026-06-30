@@ -1,0 +1,64 @@
+:root {
+  --font-family-base: 'Manrope', sans-serif;
+
+  // Type scale — desktop
+  --text-display-size: 48px;
+  --text-display-line-height: 56px;
+  --text-display-weight: 800;
+  --text-display-tracking: -0.01em;
+  --text-h1-size: 40px;
+  --text-h1-line-height: 48px;
+  --text-h1-weight: 700;
+  --text-h1-tracking: -0.005em;
+  --text-h2-size: 28px;
+  --text-h2-line-height: 36px;
+  --text-h2-weight: 700;
+  --text-h2-tracking: -0.005em;
+  --text-h3-size: 22px;
+  --text-h3-line-height: 30px;
+  --text-h3-weight: 600;
+  --text-h4-size: 18px;
+  --text-h4-line-height: 26px;
+  --text-h4-weight: 600;
+  --text-body-large-size: 16px;
+  --text-body-large-line-height: 24px;
+  --text-body-large-weight: 400;
+  --text-body-size: 14px;
+  --text-body-line-height: 22px;
+  --text-body-weight: 400;
+  --text-small-size: 13px;
+  --text-small-line-height: 20px;
+  --text-small-weight: 400;
+  --text-caption-size: 12px;
+  --text-caption-line-height: 18px;
+  --text-caption-weight: 400;
+  --text-button-size: 14px;
+  --text-button-line-height: 20px;
+  --text-button-weight: 600;
+  --text-button-tracking: 0.005em;
+  --text-nav-size: 14px;
+  --text-nav-line-height: 20px;
+  --text-nav-weight: 500;
+  --text-nav-tracking: 0.003em;
+  --text-overline-size: 12px;
+  --text-overline-line-height: 16px;
+  --text-overline-weight: 700;
+  --text-overline-tracking: 0.015em;
+}
+
+// Mobile overrides
+@media (width <= 767px) {
+  :root {
+    --text-display-size: 32px;
+    --text-display-line-height: 40px;
+    --text-h1-size: 28px;
+    --text-h1-line-height: 36px;
+    --text-h2-size: 22px;
+    --text-h2-line-height: 30px;
+    --text-h3-size: 18px;
+    --text-h3-line-height: 24px;
+    --text-h4-size: 16px;
+    --text-h4-line-height: 24px;
+    --text-overline-size: 11px;
+  }
+}

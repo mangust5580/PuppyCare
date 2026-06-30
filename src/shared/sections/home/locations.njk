@@ -1,0 +1,53 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/picture.njk" import picture %}
+{% from "shared/components/icon.njk" import icon %}
+
+{% set locations = [
+  { city: "Москва", address: "ул. Лесная, 12" },
+  { city: "Санкт-Петербург", address: "Невский проспект, 84" },
+  { city: "Новосибирск", address: "Красный проспект, 45" },
+  { city: "Екатеринбург", address: "ул. Малышева, 51" }
+] %}
+
+<section class="home-locations" aria-labelledby="home-locations-title">
+  <div class="container">
+    <div class="home-locations__inner">
+
+      <div class="home-locations__media">
+        {{ picture({
+          src: "images/home/locations-pets.png",
+          alt: "Собака и кошка для секции PuppyCare рядом с вами",
+          width: "400",
+          height: "280",
+          className: "home-locations__image",
+          pictureClass: "home-locations__picture",
+          loading: "lazy",
+          decoding: "async",
+          retina: true
+        }) }}
+      </div>
+
+      <div class="home-locations__content">
+        <h2 class="home-locations__title" id="home-locations-title">Мы рядом с вами по всей стране</h2>
+        <p class="home-locations__text">Сеть клиник PuppyCare работает в крупных городах, чтобы забота была ближе к вам и вашему питомцу.</p>
+        <div class="home-locations__actions">
+          {{ button("Найти ближайшую клинику", tag="a", href="locations.html", variant="primary", size="large") }}
+        </div>
+      </div>
+
+      <ul class="home-locations__list" role="list">
+        {%- for location in locations %}
+        <li class="home-locations__item">
+          <span class="home-locations__icon" aria-hidden="true">{{ icon("contact-location", decorative=true) }}</span>
+          <div class="home-locations__item-body">
+            <h3 class="home-locations__item-title">{{ location.city }}</h3>
+            <p class="home-locations__address">{{ location.address }}</p>
+            <a class="home-locations__link" href="locations.html">Смотреть на карте →</a>
+          </div>
+        </li>
+        {%- endfor %}
+      </ul>
+
+    </div>
+  </div>
+</section>

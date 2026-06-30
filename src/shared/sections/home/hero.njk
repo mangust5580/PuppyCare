@@ -1,0 +1,74 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/picture.njk" import picture %}
+{% from "shared/components/icon.njk" import icon %}
+
+<section class="home-hero" aria-labelledby="home-hero-title">
+  <div class="container home-hero__inner">
+
+    <div class="home-hero__content">
+
+      <h1 class="home-hero__title" id="home-hero-title">Заботливая помощь для ваших питомцев в любое время</h1>
+
+      <p class="home-hero__text">Мы предлагаем профессиональную и бережную заботу, чтобы ваши питомцы были здоровы, счастливы и окружены вниманием.</p>
+
+      <div class="home-hero__actions">
+        {{ button("Записаться онлайн", tag="a", href="appointment.html", variant="primary", size="large") }}
+        <a class="home-hero__phone" href="tel:+74951204567">
+          {{ icon("contact-phone", className="home-hero__phone-icon", size="sm") }}
+          <span>+7 (495) 120-45-67</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="home-hero__media">
+      {{ picture({
+        src: "images/home/hero-pets.jpg",
+        alt: "Иллюстрация с собакой и кошкой для PuppyCare",
+        width: "600",
+        height: "450",
+        className: "home-hero__image",
+        pictureClass: "home-hero__picture",
+        loading: "eager",
+        decoding: "async",
+        fetchpriority: "high",
+        retina: true
+      }) }}
+    </div>
+
+    <ul class="home-hero__features" role="list">
+
+      <li class="home-hero__feature">
+        <span class="home-hero__feature-icon" aria-hidden="true">
+          {{ icon("common-bolt", decorative=true) }}
+        </span>
+        <div class="home-hero__feature-body">
+          <p class="home-hero__feature-title">Быстрая помощь</p>
+          <p class="home-hero__feature-text">Оперативная помощь и экстренные визиты</p>
+        </div>
+      </li>
+
+      <li class="home-hero__feature">
+        <span class="home-hero__feature-icon" aria-hidden="true">
+          {{ icon("common-users", decorative=true) }}
+        </span>
+        <div class="home-hero__feature-body">
+          <p class="home-hero__feature-title">Опытные специалисты</p>
+          <p class="home-hero__feature-text">Команда ветеринаров и специалистов по уходу</p>
+        </div>
+      </li>
+
+      <li class="home-hero__feature">
+        <span class="home-hero__feature-icon" aria-hidden="true">
+          {{ icon("common-layers", decorative=true) }}
+        </span>
+        <div class="home-hero__feature-body">
+          <p class="home-hero__feature-title">Индивидуальный подход</p>
+          <p class="home-hero__feature-text">Забота с любовью и вниманием к деталям</p>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+</section>

@@ -1,0 +1,200 @@
+@use '../../helpers' as *;
+
+.home-news {
+  background-color: var(--surface-base);
+}
+
+.home-news__inner {
+  padding-block: 0 fluid(100, 56);
+}
+
+.home-news__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-block-end: fluid(48, 32);
+}
+
+.home-news__title {
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(36, 24);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.home-news__link {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--color-coral-600);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  text-decoration: none;
+
+  @include transition-color;
+
+  &:hover {
+    color: var(--color-coral-500);
+  }
+
+  @include focus-visible;
+}
+
+.home-news__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-news__item {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.home-news-card {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  block-size: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-base);
+  box-shadow: var(--shadow-sm);
+
+  @include transition((transform, border-color, box-shadow));
+
+  @include hover(false) {
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  &:focus-within {
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  @include reduce-motion {
+    transition: none;
+
+    @include hover(false) {
+      transform: none;
+    }
+  }
+}
+
+.home-news-card__media-link {
+  position: relative;
+  display: block;
+}
+
+.home-news-card__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+
+.home-news-card__picture,
+.home-news-card__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.home-news-card__image {
+  object-fit: cover;
+}
+
+.home-news-card__badge {
+  position: absolute;
+  inset-block-start: var(--space-12);
+  inset-inline-start: var(--space-12);
+  display: inline-flex;
+  align-items: center;
+  padding-block: var(--space-4);
+  padding-inline: var(--space-12);
+  border-radius: var(--radius-full);
+  background-color: var(--color-coral-600);
+  color: var(--text-inverse);
+  font-size: var(--text-small-size);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.home-news-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+}
+
+.home-news-card__category {
+  margin: 0;
+  color: var(--color-coral-600);
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  line-height: var(--text-overline-line-height);
+  letter-spacing: var(--text-overline-tracking);
+  text-transform: uppercase;
+}
+
+.home-news-card__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-body-large-size);
+  font-weight: 700;
+  line-height: var(--text-body-large-line-height);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    @include transition-color;
+
+    &:hover {
+      color: var(--color-coral-600);
+    }
+
+    &:focus-visible {
+      border-radius: var(--radius-xs);
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.home-news-card__date {
+  margin-block-start: auto;
+  padding-block-start: var(--space-4);
+  color: var(--text-tertiary);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+}
+
+@include media-down('lg') {
+  .home-news__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@include media-down('sm') {
+  .home-news__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  .home-news__list {
+    grid-template-columns: 1fr;
+  }
+}

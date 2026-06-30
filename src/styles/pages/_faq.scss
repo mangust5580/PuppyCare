@@ -1,0 +1,215 @@
+@use '../helpers' as *;
+
+.page-faq {
+  background-color: var(--surface-subtle);
+}
+
+.page-faq__eyebrow {
+  margin: 0;
+  color: var(--color-coral-400);
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  line-height: var(--text-overline-line-height);
+  letter-spacing: var(--text-overline-tracking);
+  text-transform: uppercase;
+}
+
+.page-faq__hero-content {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  max-inline-size: 56ch;
+}
+
+.page-faq__title {
+  margin: var(--space-8) 0 0;
+  color: var(--text-inverse);
+  font-size: fluid(56, 34);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+}
+
+.page-faq__breadcrumbs {
+  margin-block-start: var(--space-16);
+}
+
+.page-faq__breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+  list-style: none;
+}
+
+.page-faq__breadcrumbs-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-inline-size: 0;
+}
+
+.page-faq__breadcrumbs-item + .page-faq__breadcrumbs-item::before {
+  content: '/';
+  color: var(--color-navy-400);
+}
+
+.page-faq__breadcrumbs-link {
+  border-radius: var(--radius-xs);
+  color: var(--color-navy-200);
+  text-decoration: none;
+
+  @include transition-color;
+
+  @include hover {
+    color: var(--text-inverse);
+  }
+
+  @include focus-visible($outline-color: var(--color-coral-400), $shadow: none);
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.page-faq__breadcrumbs-current {
+  color: var(--color-coral-300);
+  font-weight: 600;
+}
+
+.page-faq__lead {
+  max-inline-size: 52ch;
+  margin: var(--space-24) 0 0;
+  color: var(--color-navy-200);
+  font-size: var(--text-body-large-size);
+  line-height: var(--text-body-large-line-height);
+}
+
+.page-faq__eyebrow--dark {
+  color: var(--color-coral-600);
+}
+
+.page-faq .page-faq__main .container {
+  padding-block: fluid(96, 56);
+}
+
+.page-faq__main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: fluid(48, 32);
+}
+
+.page-faq__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-inline-size: 0;
+}
+
+.page-faq__main-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(36, 24);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.page-faq__text {
+  max-inline-size: 52ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-large-size);
+  line-height: var(--text-body-large-line-height);
+}
+
+.page-faq__media {
+  overflow: clip;
+  inline-size: 100%;
+  min-inline-size: 0;
+  aspect-ratio: 4 / 3;
+  margin-block-start: var(--space-8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.page-faq__media-picture {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.page-faq__media-image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.page-faq__accordion-card {
+  min-inline-size: 0;
+}
+
+@include media-down('lg') {
+  .page-faq__main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.page-faq .page-faq__support .container {
+  padding-block: 0 fluid(96, 56);
+}
+
+.page-faq__support-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: fluid(48, 32);
+}
+
+.page-faq__support-accordion {
+  min-inline-size: 0;
+}
+
+.page-faq__support-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  min-inline-size: 0;
+}
+
+.page-faq__support-media {
+  overflow: clip;
+  inline-size: 100%;
+  min-inline-size: 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.page-faq__support-picture {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.page-faq__support-image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+@include media-down('lg') {
+  .page-faq__support-grid {
+    grid-template-columns: 1fr;
+  }
+}

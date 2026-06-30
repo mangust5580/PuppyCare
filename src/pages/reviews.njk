@@ -1,0 +1,239 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Отзывы — PuppyCare" -%}
+  {%- set pageDescription = "Отзывы владельцев питомцев о ветеринарной клинике PuppyCare: истории заботы, доверия и внимательного отношения к здоровью любимцев." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "reviews.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="reviews">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+
+    <main id="main" class="page__content page-reviews" tabindex="-1" data-page-content>
+
+      <section class="page-reviews__hero" aria-labelledby="reviews-title">
+
+        <span class="page-reviews__hero-decor" aria-hidden="true">
+          <svg class="page-reviews__decor page-reviews__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-reviews__decor page-reviews__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-reviews__decor page-reviews__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-reviews__hero-inner">
+
+          <div class="page-reviews__hero-content">
+
+            <p class="page-reviews__eyebrow">Мнения клиентов</p>
+
+            <h1 class="page-reviews__title" id="reviews-title">Отзывы</h1>
+
+            <nav class="page-reviews__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-reviews__breadcrumbs-list" role="list">
+                <li class="page-reviews__breadcrumbs-item">
+                  <a class="page-reviews__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-reviews__breadcrumbs-item">
+                  <span class="page-reviews__breadcrumbs-current" aria-current="page">Отзывы</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-reviews__lead">Собрали истории владельцев питомцев, которые доверяют PuppyCare здоровье и комфорт своих любимцев.</p>
+
+          </div>
+
+          <div class="page-reviews__hero-media">
+            <span class="page-reviews__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/reviews/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-reviews__hero-image",
+              pictureClass: "page-reviews__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-reviews__featured" aria-labelledby="reviews-featured-title">
+        <div class="container">
+
+          <div class="page-reviews__featured-head">
+            <p class="page-reviews__eyebrow page-reviews__eyebrow--dark">Отзывы</p>
+            <h2 class="page-reviews__featured-title" id="reviews-featured-title">Что говорят наши клиенты</h2>
+            <p class="page-reviews__featured-intro">Мы гордимся доверием, которое нам оказывают каждый день. Читайте реальные отзывы от владельцев питомцев о заботе, команде и результате нашей работы.</p>
+          </div>
+
+          <ul class="page-reviews__grid" role="list">
+            {%- set reviews = [
+              {
+                name: "Анна Петрова",
+                role: "Хозяйка Лаки",
+                text: "В PuppyCare мы обратились с проблемой дерматита у нашей собаки. Врач очень внимательно осмотрел Лаки, всё подробно объяснил и назначил лечение. Уже через неделю стало гораздо лучше.",
+                avatar: "images/pages/reviews/avatars/anna-petrova.jpg"
+              },
+              {
+                name: "Игорь Соколов",
+                role: "Хозяин Бусинки",
+                text: "Отличная клиника с внимательным персоналом. Делали вакцинацию нашей кошке — всё прошло спокойно и без стресса. Теперь только к вам.",
+                avatar: "images/pages/reviews/avatars/igor-sokolov.jpg"
+              },
+              {
+                name: "Мария Кузнецова",
+                role: "Хозяйка Муси",
+                text: "Спасибо за оперативную помощь. Доктор быстро диагностировал проблему и назначил лечение. Муся снова активная и игривая.",
+                avatar: "images/pages/reviews/avatars/maria-kuznetsova.jpg"
+              },
+              {
+                name: "Иван Соколов",
+                role: "Хозяин Буси",
+                text: "Профессиональные врачи, внимательный персонал и современное оборудование. Всегда получаем помощь на высоком уровне.",
+                avatar: "images/pages/reviews/avatars/ivan-sokolov.jpg"
+              }
+            ] -%}
+            {%- for review in reviews %}
+            <li class="page-reviews__grid-item">
+              <article class="page-reviews__card">
+                <div class="page-reviews__card-head">
+                  <div class="page-reviews__author">
+                    {{ picture({
+                      src: review.avatar,
+                      alt: "",
+                      width: "48",
+                      height: "48",
+                      className: "page-reviews__author-avatar-image",
+                      pictureClass: "page-reviews__author-avatar",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                    <div class="page-reviews__author-id">
+                      <p class="page-reviews__author-name">{{ review.name }}</p>
+                      <p class="page-reviews__author-meta">{{ review.role }}</p>
+                    </div>
+                  </div>
+                  <div class="page-reviews__rating" role="img" aria-label="Оценка 5 из 5">
+                    <span aria-hidden="true">★★★★★</span>
+                  </div>
+                </div>
+                <blockquote class="page-reviews__quote">
+                  <p>{{ review.text }}</p>
+                </blockquote>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      <section class="page-reviews__more" aria-labelledby="reviews-more-title">
+        <div class="container">
+
+          <div class="page-reviews__more-head">
+            <h2 class="page-reviews__more-title" id="reviews-more-title">Больше отзывов</h2>
+          </div>
+
+          <ul class="page-reviews__more-list" role="list">
+            {%- set moreReviews = [
+              {
+                name: "Екатерина Смирнова",
+                role: "Хозяйка Тедди",
+                avatar: "images/pages/reviews/avatars/ekaterina-smirnova.jpg",
+                text: "Делали чистку зубов нашему шпицу. Всё прошло отлично, Тедди чувствует себя прекрасно. Спасибо за чуткое отношение и подробные рекомендации."
+              },
+              {
+                name: "Дмитрий Волков",
+                role: "Хозяин Рекса",
+                avatar: "images/pages/reviews/avatars/dmitry-volkov.jpg",
+                text: "Привели Рекса на плановый осмотр. Врач всё проверил, ответил на вопросы и дал советы по уходу. Профессионально и по-доброму."
+              },
+              {
+                name: "Ольга Иванова",
+                role: "Хозяйка Симбы",
+                avatar: "images/pages/reviews/avatars/olga-ivanova.jpg",
+                text: "Кастрацию кота сделали быстро и аккуратно. Спасибо за подробные инструкции по уходу после процедуры. Очень довольны."
+              },
+              {
+                name: "Юлия Морозова",
+                role: "Хозяйка Чарли",
+                avatar: "images/pages/reviews/avatars/yulia-morozova.jpg",
+                text: "Лучший ветеринарный центр в нашем районе. Чарли всегда рад приходить — здесь его любят и заботятся о нём."
+              },
+              {
+                name: "Алексей Николаев",
+                role: "Хозяин Барсика",
+                avatar: "images/pages/reviews/avatars/alexey-nikolaev.jpg",
+                text: "Обратились с проблемой мочекаменной болезни. Назначенное лечение помогло, Барсик чувствует себя отлично. Спасибо за помощь."
+              },
+              {
+                name: "Светлана Орлова",
+                role: "Хозяйка Беллы",
+                avatar: "images/pages/reviews/avatars/svetlana-orlova.jpg",
+                text: "Очень внимательный и доброжелательный персонал. Белла перенесла операцию без стресса, быстро восстановилась. Рекомендую."
+              }
+            ] -%}
+            {%- for review in moreReviews %}
+            <li class="page-reviews__more-item">
+              <article class="page-reviews__card page-reviews__more-card">
+                <div class="page-reviews__card-head">
+                  <div class="page-reviews__author">
+                    {{ picture({
+                      src: review.avatar,
+                      alt: "",
+                      width: "48",
+                      height: "48",
+                      className: "page-reviews__author-avatar-image",
+                      pictureClass: "page-reviews__author-avatar",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                    <div class="page-reviews__author-id">
+                      <p class="page-reviews__author-name">{{ review.name }}</p>
+                      <p class="page-reviews__author-meta">{{ review.role }}</p>
+                    </div>
+                  </div>
+                  <div class="page-reviews__rating" role="img" aria-label="Оценка 5 из 5">
+                    <span aria-hidden="true">★★★★★</span>
+                  </div>
+                </div>
+                <blockquote class="page-reviews__quote">
+                  <p>{{ review.text }}</p>
+                </blockquote>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "reviews-cta",
+        eyebrow: "Запись на приём",
+        title: "Доверьте заботу профессионалам",
+        text: "Запишитесь на приём, и мы поможем вашему питомцу чувствовать себя здоровым, спокойным и счастливым.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться онлайн",
+        primaryHref: "appointment.html"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Запись на приём — PuppyCare" -%}
+  {%- set pageDescription = "Запишитесь на приём в PuppyCare — выберите удобное время, услугу и формат консультации для вашего питомца." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "appointment.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="appointment">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/forms/appointment-form.njk" import appointmentForm %}
+
+    <main id="main" class="page__content page-appointment" tabindex="-1" data-page-content>
+
+      <section class="page-appointment__hero" aria-labelledby="appointment-title">
+
+        <span class="page-appointment__hero-decor" aria-hidden="true">
+          <svg class="page-appointment__decor page-appointment__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-appointment__decor page-appointment__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-appointment__decor page-appointment__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-appointment__hero-inner">
+
+          <div class="page-appointment__hero-content">
+
+            <p class="page-appointment__eyebrow">Онлайн-запись</p>
+
+            <h1 class="page-appointment__title" id="appointment-title">Запись на приём</h1>
+
+            <nav class="page-appointment__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-appointment__breadcrumbs-list" role="list">
+                <li class="page-appointment__breadcrumbs-item">
+                  <a class="page-appointment__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-appointment__breadcrumbs-item">
+                  <span class="page-appointment__breadcrumbs-current" aria-current="page">Запись на приём</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-appointment__lead">Выберите удобное время визита, оставьте контактные данные, и мы свяжемся с вами для подтверждения записи.</p>
+
+          </div>
+
+          <div class="page-appointment__hero-media">
+            <span class="page-appointment__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/appointment/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-appointment__hero-image",
+              pictureClass: "page-appointment__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-appointment__booking" aria-labelledby="appointment-booking-title">
+        <div class="container page-appointment__booking-grid">
+
+          <div class="page-appointment__booking-aside">
+
+            <div class="page-appointment__media">
+              {{ picture({
+                src: "images/pages/services/therapy/process.jpg",
+                alt: "Ветеринар PuppyCare консультирует владельца питомца перед приёмом",
+                width: "560",
+                height: "420",
+                className: "page-appointment__media-image",
+                pictureClass: "page-appointment__media-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+
+            <ul class="page-appointment__benefits" role="list">
+              {%- set benefits = [
+                { icon: "common-bolt", title: "Быстрая запись", text: "Запишитесь на приём за несколько минут." },
+                { icon: "common-calendar-check", title: "Удобное время", text: "Выбирайте подходящую дату и время приёма." },
+                { icon: "common-chat", title: "Онлайн-консультации", text: "Получайте советы и помощь, не выходя из дома." },
+                { icon: "medical-stethoscope", title: "Заботливые врачи", text: "Опытные специалисты с заботой о каждом питомце." }
+              ] -%}
+              {%- for benefit in benefits %}
+              <li class="page-appointment__benefit-item">
+                <article class="page-appointment__benefit">
+                  <span class="page-appointment__benefit-icon" aria-hidden="true">{{ icon(benefit.icon, size="md") }}</span>
+                  <h3 class="page-appointment__benefit-title">{{ benefit.title }}</h3>
+                  <p class="page-appointment__benefit-text">{{ benefit.text }}</p>
+                </article>
+              </li>
+              {%- endfor %}
+            </ul>
+
+          </div>
+
+          <div class="page-appointment__form-col">
+            {{ appointmentForm("appointment-booking-title") }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-appointment__process" aria-labelledby="appointment-process-title">
+        <div class="container">
+
+          <div class="page-appointment__process-head">
+            <p class="page-appointment__eyebrow page-appointment__eyebrow--dark">Этапы записи</p>
+            <h2 class="page-appointment__process-title" id="appointment-process-title">Как это работает</h2>
+            <p class="page-appointment__process-text">Запись занимает несколько минут: оставьте заявку, дождитесь подтверждения и приходите на приём в удобное время.</p>
+          </div>
+
+          <ol class="page-appointment__process-list" role="list">
+            {%- set steps = [
+              { title: "Оставьте заявку", text: "Заполните форму и укажите удобные дату, время и услугу." },
+              { title: "Мы подтвердим запись", text: "Администратор свяжется с вами, уточнит детали и подтвердит визит." },
+              { title: "Приходите на приём", text: "Врач проведёт осмотр, ответит на вопросы и даст рекомендации по уходу." }
+            ] -%}
+            {%- for step in steps %}
+            <li class="page-appointment__step">
+              <span class="page-appointment__step-number" aria-hidden="true">{{ loop.index }}</span>
+              <h3 class="page-appointment__step-title">{{ step.title }}</h3>
+              <p class="page-appointment__step-text">{{ step.text }}</p>
+            </li>
+            {%- endfor %}
+          </ol>
+
+          <div class="page-appointment__process-media">
+            {{ picture({
+              src: "images/pages/about/clinic-process.jpg",
+              alt: "Современная клиника PuppyCare: зона приёма и ухода за питомцами",
+              width: "1200",
+              height: "480",
+              className: "page-appointment__process-image",
+              pictureClass: "page-appointment__process-picture",
+              loading: "lazy",
+              decoding: "async",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "appointment-cta",
+        eyebrow: "Готовы к визиту?",
+        title: "Готовы записаться на приём?",
+        text: "Оставьте заявку онлайн или позвоните нам — подберём удобное время и подготовим визит для вашего питомца.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Перейти к форме",
+        primaryHref: "#appointment-booking-title"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

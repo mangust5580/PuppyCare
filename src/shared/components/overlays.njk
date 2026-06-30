@@ -1,0 +1,267 @@
+{#
+  Overlay macros — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/overlays.njk" import
+       modal, modalTrigger, tooltip, miniPanel %}
+
+    {{ modal(
+         id="booking",
+         title="Оставьте заявку",
+         subtitle="Мы свяжемся с вами в ближайшее время",
+         content="<form>...</form>",
+         size="medium"
+       ) }}
+
+    {{ modalTrigger(target="booking", text="Записаться онлайн") }}
+
+    {{ tooltip(
+         id="privacy-tip",
+         text="Мы используем ваши данные только для записи на приём и не передаём третьим лицам.",
+         position="bottom"
+       ) }}
+
+    {{ miniPanel(
+         title="Нужна помощь?",
+         text="Напишите нам в чат, и мы ответим в течение 2 минут.",
+         actionText="Открыть чат",
+         actionHref="/chat",
+         closable=true
+       ) }}
+
+  modal parameters:
+    id         — unique id; required for aria-labelledby linkage (string)
+    title      — dialog title text (string)
+    subtitle   — optional subtitle below title (string)
+    content    — raw HTML for the body; output with | safe — caller is responsible for sanitization (string)
+    size       — small | medium | large (string, default "medium")
+    open       — render as visible on page load (boolean, default false)
+    closeLabel — aria-label for the close button (string, default "Закрыть")
+    footer     — optional raw HTML for the footer area; output with | safe (string)
+    titleTag   — h2 | h3 | h4, fallback h3 (string, default "h3")
+    extraClass — extra CSS classes on wrapper (string)
+
+  modalTrigger parameters:
+    target     — id of the modal to open (string)
+    text       — button label text (string)
+    tag        — button | a (string, default "button")
+    href       — href when tag="a"; rendered only when provided (string, default "")
+    variant    — primary | secondary | ghost (string, default "primary")
+    size       — small | medium | large (string, default "medium")
+    extraClass — extra CSS classes (string)
+
+  tooltip parameters:
+    id         — unique id linking trigger to content via aria-describedby (string)
+    trigger    — raw SVG/HTML for the trigger; output with | safe; defaults to info icon (string)
+    text       — tooltip text content (string)
+    position   — top | bottom | left | right (string, default "top")
+    extraClass — extra CSS classes on wrapper (string)
+
+  miniPanel parameters:
+    title      — panel heading text (string)
+    text       — description text (string)
+    icon       — optional raw SVG/HTML for icon; output with | safe (string)
+    actionText — optional CTA button text (string)
+    actionHref — CTA href; the CTA link renders only when both actionText and actionHref are set (string, default "")
+    closable   — show close button (boolean, default true)
+    extraClass — extra CSS classes on wrapper (string)
+#}
+
+
+{% from "shared/components/icon.njk" import icon %}
+
+
+{# ── modal ───────────────────────────────────────────────────────────────── #}
+
+{% macro modal(
+  id         = '',
+  title      = '',
+  subtitle   = '',
+  content    = '',
+  size       = 'medium',
+  open       = false,
+  closeLabel = 'Закрыть',
+  footer     = '',
+  titleTag   = 'h3',
+  extraClass = ''
+) %}
+
+  {%- set _size = size if size in ['small', 'medium', 'large'] else 'medium' -%}
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+
+  {%- set _classes = [
+    'modal',
+    'modal--' ~ _size,
+    ('is-open' if open),
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}" data-js-modal>
+    <div class="modal__backdrop" data-js-modal-backdrop></div>
+    <div class="modal__dialog"
+         role="dialog"
+         aria-modal="true"
+         {%- if id %} aria-labelledby="{{ id }}-title"{% endif %}
+         data-js-modal-dialog>
+
+      <div class="modal__header">
+        <div class="modal__header-text">
+          {%- if title %}
+          <{{ _titleTag }} class="modal__title"
+            {%- if id %} id="{{ id }}-title"{% endif %}>{{ title }}</{{ _titleTag }}>
+          {%- endif %}
+          {%- if subtitle %}
+          <p class="modal__subtitle">{{ subtitle }}</p>
+          {%- endif %}
+        </div>
+        <button class="modal__close"
+                type="button"
+                aria-label="{{ closeLabel }}"
+                data-js-modal-close>
+          {{ icon("ui-close", size="sm", decorative=true) }}
+        </button>
+      </div>
+
+      {%- if content %}
+      <div class="modal__body">
+        {# content must be trusted HTML — caller is responsible for sanitization #}
+        {{ content | safe }}
+      </div>
+      {%- endif %}
+
+      {%- if footer %}
+      <div class="modal__footer">
+        {# footer must be trusted HTML — caller is responsible for sanitization #}
+        {{ footer | safe }}
+      </div>
+      {%- endif %}
+
+    </div>
+  </div>
+
+{% endmacro %}
+
+
+{# ── modalTrigger ─────────────────────────────────────────────────────────── #}
+
+{% macro modalTrigger(
+  target     = '',
+  text       = '',
+  tag        = 'button',
+  href       = '',
+  variant    = 'primary',
+  size       = 'medium',
+  extraClass = ''
+) %}
+
+  {%- set _tag = tag if tag in ['button', 'a'] else 'button' -%}
+  {%- set _variant = variant if variant in ['primary', 'secondary', 'ghost'] else 'primary' -%}
+  {%- set _size = size if size in ['small', 'medium', 'large'] else 'medium' -%}
+
+  {%- set _classes = [
+    'button',
+    'button--' ~ _variant,
+    'button--' ~ _size,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  {%- if _tag == 'a' %}
+  <a class="{{ _classes }}"
+     {%- if href %} href="{{ href }}"{% endif %}
+     data-js-modal-trigger
+     data-target="{{ target }}">{{ text }}</a>
+  {%- else %}
+  <button class="{{ _classes }}"
+          type="button"
+          data-js-modal-trigger
+          data-target="{{ target }}">{{ text }}</button>
+  {%- endif %}
+
+{% endmacro %}
+
+
+{# ── tooltip ─────────────────────────────────────────────────────────────── #}
+
+{% macro tooltip(
+  id         = '',
+  trigger    = '',
+  text       = '',
+  position   = 'top',
+  extraClass = ''
+) %}
+
+  {%- set _position = position if position in ['top', 'bottom', 'left', 'right'] else 'top' -%}
+
+  {%- set _classes = [
+    'tooltip',
+    'tooltip--' ~ _position,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <span class="{{ _classes }}" data-js-tooltip>
+    <button class="tooltip__trigger"
+            type="button"
+            {%- if id %} aria-describedby="{{ id }}"{% endif %}>
+      {%- if trigger %}
+      {# trigger must be trusted SVG/HTML — caller is responsible for sanitization #}
+      {{ trigger | safe }}
+      {%- else %}
+      {# default info icon #}
+      {{ icon("ui-info", decorative=true) }}
+      {%- endif %}
+    </button>
+    {%- if text %}
+    <div class="tooltip__content"
+         role="tooltip"
+         {%- if id %} id="{{ id }}"{% endif %}>{{ text }}</div>
+    {%- endif %}
+  </span>
+
+{% endmacro %}
+
+
+{# ── miniPanel ────────────────────────────────────────────────────────────── #}
+
+{% macro miniPanel(
+  title      = '',
+  text       = '',
+  icon       = '',
+  actionText = '',
+  actionHref = '',
+  closable   = true,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'mini-panel',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}" data-js-panel>
+
+    {%- if closable %}
+    {# close button is a JS hook; no dismiss behavior without a handler on [data-js-panel-close] #}
+    <button class="mini-panel__close"
+            type="button"
+            aria-label="Закрыть панель"
+            data-js-panel-close>
+      {{ icon("ui-close", size="sm", decorative=true) }}
+    </button>
+    {%- endif %}
+
+    {%- if icon %}
+    {# icon must be trusted SVG/HTML — caller is responsible for sanitization #}
+    <span class="mini-panel__icon" aria-hidden="true">{{ icon | safe }}</span>
+    {%- endif %}
+
+    {%- if title %}<p class="mini-panel__title">{{ title }}</p>{% endif %}
+    {%- if text %}<p class="mini-panel__text">{{ text }}</p>{% endif %}
+
+    {%- if actionText and actionHref %}
+    <a class="mini-panel__action button button--primary button--medium"
+       href="{{ actionHref }}">{{ actionText }}</a>
+    {%- endif %}
+
+  </div>
+
+{% endmacro %}

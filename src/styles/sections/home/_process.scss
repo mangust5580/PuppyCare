@@ -1,0 +1,115 @@
+@use '../../helpers' as *;
+
+.home-process {
+  padding-block: 0 fluid(100, 56);
+  background-color: var(--surface-subtle);
+}
+
+.home-process__inner {
+  // Pink/powder backing removed: the section now blends with the page
+  // background (--surface-subtle) like its sibling sections. This wrapper only
+  // keeps the vertical rhythm so the title/steps spacing is unchanged.
+  padding-block: fluid(64, 40);
+}
+
+.home-process__header {
+  margin-block-end: fluid(56, 32);
+  text-align: center;
+}
+
+.home-process__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(36, 24);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.home-process__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-40) var(--space-40);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-process__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  min-inline-size: 0;
+  text-align: center;
+}
+
+.home-process__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--space-32);
+  inset-inline-start: 50%;
+  z-index: 0;
+  inline-size: calc(100% + var(--space-40));
+  border-block-start: 2px dashed var(--color-coral-300);
+}
+
+.home-process__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-64);
+  block-size: var(--space-64);
+  border-radius: var(--radius-full);
+  background-color: var(--color-coral-500);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-inverse);
+
+  svg {
+    inline-size: var(--space-24);
+    block-size: var(--space-24);
+  }
+}
+
+.home-process__number {
+  color: var(--color-coral-600);
+  font-size: var(--text-small-size);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.home-process__item-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-h4-size);
+  font-weight: var(--text-h4-weight);
+  line-height: var(--text-h4-line-height);
+}
+
+.home-process__item-text {
+  max-inline-size: 24ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+@include media-down('lg') {
+  .home-process__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-process__item:not(:last-child)::after {
+    content: none;
+  }
+}
+
+@include media-down('sm') {
+  .home-process__list {
+    grid-template-columns: 1fr;
+  }
+}

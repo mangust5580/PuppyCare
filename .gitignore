@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# lock files (allow user's choice)
+pnpm-lock.yaml
+yarn.lock
+
+# build output
+dist/
+/public/
+
+# build caches
+.cache/
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# misc
+*.map
+
+# temporary AI handoff
+AUDIT.md

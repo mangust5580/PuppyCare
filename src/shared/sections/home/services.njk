@@ -1,0 +1,40 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/cards.njk" import serviceCard %}
+{% from "shared/components/icon.njk" import icon %}
+
+{% set services = [
+  { title: "Плановые осмотры", text: "Регулярные осмотры для профилактики и раннего выявления заболеваний.", icon: icon("common-clipboard-check", decorative=true) },
+  { title: "Вакцинация", text: "Современные вакцины для защиты вашего питомца от заболеваний.", icon: icon("medical-shield", decorative=true) },
+  { title: "Анализы", text: "Лабораторная диагностика для точного выявления проблем со здоровьем.", icon: icon("medical-flask", decorative=true) },
+  { title: "Чистка зубов", text: "Профессиональная чистка зубов для здоровья полости рта.", icon: icon("medical-tooth", decorative=true) },
+  { title: "Уход и груминг", text: "Стрижка, купание и уход за шерстью любой породы.", icon: icon("pets-grooming", decorative=true) },
+  { title: "Передержка", text: "Комфортная передержка на время вашего отсутствия.", icon: icon("common-home", decorative=true) },
+  { title: "Срочная помощь", text: "Экстренная ветеринарная помощь 24/7, когда это необходимо.", icon: icon("services-emergency", decorative=true) },
+  { title: "Диетология", text: "Подбор питания для здоровья и долголетия питомца.", icon: icon("common-leaf", decorative=true) }
+] %}
+
+<section class="home-services" aria-labelledby="home-services-title">
+  <div class="container">
+    <div class="home-services__inner">
+
+      <header class="home-services__header">
+        <div class="home-services__heading">
+          <p class="home-services__eyebrow">Наши услуги</p>
+          <h2 class="home-services__title" id="home-services-title">Что мы предлагаем</h2>
+        </div>
+        <div class="home-services__actions">
+          {{ button("Все услуги", tag="a", href="services.html", variant="outline", size="medium") }}
+        </div>
+      </header>
+
+      <ul class="home-services__grid" role="list">
+        {%- for service in services %}
+        <li class="home-services__item">
+          {{ serviceCard(title=service.title, text=service.text, icon=service.icon, href="services.html") }}
+        </li>
+        {%- endfor %}
+      </ul>
+
+    </div>
+  </div>
+</section>

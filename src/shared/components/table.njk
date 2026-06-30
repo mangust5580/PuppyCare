@@ -1,0 +1,199 @@
+{#
+  Data Table macros — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/table.njk" import dataTable %}
+
+    {{ dataTable(
+         id="appointments",
+         title="Таблица записей",
+         caption="Список записей на приём",
+         columns=[
+           { key: "date",    label: "Дата" },
+           { key: "time",    label: "Время" },
+           { key: "service", label: "Услуга" },
+           { key: "doctor",  label: "Врач" },
+           { key: "status",  label: "Статус" },
+           { key: "action",  label: "Действие" }
+         ],
+         rows=[
+           {
+             date:    "25.05.2025",
+             time:    "10:00",
+             service: "Терапия",
+             doctor:  "Анна Петрова",
+             status:  { text: "Подтверждена", variant: "success" },
+             action:  { text: "Подробнее", href: "/detail/1", ariaLabel: "Подробнее о записи от 25.05.2025" }
+           },
+           {
+             date:    "28.05.2025",
+             time:    "14:00",
+             service: "Вакцинация",
+             doctor:  "Иван Смирнов",
+             status:  { text: "Ожидает", variant: "warning" },
+             action:  { text: "Подробнее", href: "/detail/2", ariaLabel: "Подробнее о записи от 28.05.2025", disabled: true }
+           },
+           {
+             date:    "01.06.2025",
+             time:    "11:00",
+             service: "Осмотр",
+             doctor:  "Мария Иванова",
+             status:  { text: "Отменена", variant: "error" },
+             action:  { text: "Подробнее", href: "/detail/3", ariaLabel: "Подробнее о записи от 01.06.2025" }
+           }
+         ]
+       ) }}
+
+  dataTable parameters:
+    id          — unique id for the table; enables aria-labelledby linkage when caption is absent (string)
+    caption     — <caption> text inside <table>; primary accessible name (string)
+    title       — visible heading above the table (string)
+                  when id is set and caption is absent, title element gets id="{{ id }}-title"
+                  and <table> gets aria-labelledby="{{ id }}-title"
+    description — optional description below title (string)
+    columns     — array of { key, label, align?, width? }
+                  key    — matches row object keys
+                  label  — header cell text
+                  align  — right | center (default: start)
+                  width  — inline style width, e.g. "120px" or "20%"
+    rows        — array of row objects; cell values may be:
+                  - plain string or number
+                  - { text, variant } for a status badge
+                    variant: success | warning | error | info | neutral
+                  - { text, href, ariaLabel?, disabled? } for an action link
+                    disabled=true: renders <a> without href, aria-disabled="true", tabindex="-1"
+    emptyText   — text shown when rows is empty (string, default "Нет данных")
+    actionText  — optional link text in the toolbar header (string)
+    actionHref  — toolbar action link href; the link renders only when both actionText and actionHref are set (string, default "")
+    extraClass  — extra CSS classes on wrapper (string)
+
+  Accessible name rule:
+    Pass caption      → <caption> is the accessible name (preferred)
+    Pass id + title   → aria-labelledby links <table> to the visible title
+    Neither           → <table> has no programmatic label (avoid in production)
+#}
+
+
+{# ── dataTable ───────────────────────────────────────────────────────────── #}
+
+{% macro dataTable(
+  id          = '',
+  caption     = '',
+  title       = '',
+  description = '',
+  columns     = [],
+  rows        = [],
+  emptyText   = 'Нет данных',
+  actionText  = '',
+  actionHref  = '',
+  extraClass  = ''
+) %}
+
+  {%- set _classes = [
+    'data-table',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  {# aria-labelledby: only when caption is absent and both id and title are provided #}
+  {%- set _titleId = (id ~ '-title') if (not caption and id and title) else '' -%}
+
+  {# colspan safety: at least 1 even if columns array is empty #}
+  {%- set _colspan = columns | length if columns | length > 0 else 1 -%}
+
+  <div class="{{ _classes }}" data-js-table>
+
+    {# Toolbar: title / description / optional action #}
+    {%- if title or description or actionText %}
+    <div class="data-table__header">
+      {%- if title or description %}
+      <div class="data-table__header-text">
+        {%- if title %}
+        <p class="data-table__title"
+           {%- if _titleId %} id="{{ _titleId }}"{% endif %}>{{ title }}</p>
+        {%- endif %}
+        {%- if description %}<p class="data-table__description">{{ description }}</p>{% endif %}
+      </div>
+      {%- endif %}
+      {%- if actionText and actionHref %}
+      <a class="data-table__action" href="{{ actionHref }}">{{ actionText }}</a>
+      {%- endif %}
+    </div>
+    {%- endif %}
+
+    <div class="data-table__scroll">
+      <table class="data-table__table"
+             {%- if _titleId %} aria-labelledby="{{ _titleId }}"{% endif %}>
+
+        {%- if caption %}
+        <caption class="data-table__caption">{{ caption }}</caption>
+        {%- endif %}
+
+        <thead class="data-table__head">
+          <tr>
+            {%- for col in columns %}
+            {%- set _thClasses = [
+              'data-table__cell',
+              'data-table__cell--header',
+              ('data-table__cell--right'  if col.align == 'right'),
+              ('data-table__cell--center' if col.align == 'center')
+            ] | select | join(' ') -%}
+            <th class="{{ _thClasses }}"
+                scope="col"
+                {%- if col.width %} style="width: {{ col.width }}"{% endif %}>
+              {{ col.label }}
+            </th>
+            {%- endfor %}
+          </tr>
+        </thead>
+
+        <tbody class="data-table__body">
+
+          {%- if rows | length == 0 %}
+          <tr>
+            <td class="data-table__cell data-table__empty"
+                colspan="{{ _colspan }}">{{ emptyText }}</td>
+          </tr>
+
+          {%- else %}
+          {%- for row in rows %}
+          <tr data-js-table-row>
+            {%- for col in columns %}
+            {%- set _cell = row[col.key] -%}
+            {%- set _tdClasses = [
+              'data-table__cell',
+              ('data-table__cell--right'  if col.align == 'right'),
+              ('data-table__cell--center' if col.align == 'center')
+            ] | select | join(' ') -%}
+            <td class="{{ _tdClasses }}">
+              {%- if _cell is defined and _cell.variant %}
+              <span class="data-table__status data-table__status--{{ _cell.variant }}">{{ _cell.text }}</span>
+              {%- elif _cell is defined and _cell.href %}
+              {%- if _cell.disabled %}
+              {# disabled action: no href, no JS hook, aria-disabled + tabindex=-1 #}
+              <a class="data-table__action-link"
+                 aria-disabled="true"
+                 tabindex="-1"
+                 {%- if _cell.ariaLabel %} aria-label="{{ _cell.ariaLabel }}"{% endif %}>{{ _cell.text }}</a>
+              {%- else %}
+              <a class="data-table__action-link"
+                 href="{{ _cell.href }}"
+                 {%- if _cell.ariaLabel %} aria-label="{{ _cell.ariaLabel }}"{% endif %}
+                 data-js-table-action>{{ _cell.text }}</a>
+              {%- endif %}
+              {%- else %}
+              {{ _cell }}
+              {%- endif %}
+            </td>
+            {%- endfor %}
+          </tr>
+          {%- endfor %}
+          {%- endif %}
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+{% endmacro %}

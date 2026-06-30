@@ -1,0 +1,21 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/icon.njk" import icon %}
+
+<section class="home-banner" aria-labelledby="home-banner-title">
+  <div class="container">
+    <div class="home-banner__inner">
+
+      <span class="home-banner__icon" aria-hidden="true">{{ icon("common-gift", decorative=true) }}</span>
+
+      <div class="home-banner__content">
+        <h2 class="home-banner__title" id="home-banner-title">Первый визит — со скидкой 10%!</h2>
+        <p class="home-banner__text">Запишитесь сейчас и получите скидку на первый приём для вашего питомца.</p>
+      </div>
+
+      <div class="home-banner__actions">
+        {{ button("Получить скидку", tag="a", href="appointment.html", variant="primary", size="large") }}
+      </div>
+
+    </div>
+  </div>
+</section>

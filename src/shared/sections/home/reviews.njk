@@ -1,0 +1,75 @@
+{% from "shared/components/picture.njk" import picture %}
+
+{% set homeReviews = [
+  {
+    name: "Анна Петрова",
+    meta: "Хозяйка Лаки",
+    text: "В PuppyCare мы обратились с проблемой дерматита у нашей собаки. Врач очень внимательно осмотрел Лаки, всё подробно объяснил и назначил лечение. Уже через неделю стало гораздо лучше.",
+    avatar: "images/pages/reviews/avatars/anna-petrova.jpg"
+  },
+  {
+    name: "Игорь Соколов",
+    meta: "Хозяин Бусинки",
+    text: "Отличная клиника с внимательным персоналом. Делали вакцинацию нашей кошке — всё прошло спокойно и без стресса. Теперь только к вам.",
+    avatar: "images/pages/reviews/avatars/igor-sokolov.jpg"
+  },
+  {
+    name: "Мария Кузнецова",
+    meta: "Хозяйка Муси",
+    text: "Спасибо за оперативную помощь. Доктор быстро диагностировал проблему и назначил лечение. Муся снова активная и игривая.",
+    avatar: "images/pages/reviews/avatars/maria-kuznetsova.jpg"
+  },
+  {
+    name: "Иван Соколов",
+    meta: "Хозяин Буси",
+    text: "Профессиональные врачи, внимательный персонал и современное оборудование. Всегда получаем помощь на высоком уровне.",
+    avatar: "images/pages/reviews/avatars/ivan-sokolov.jpg"
+  }
+] %}
+
+<section class="home-reviews" aria-labelledby="home-reviews-title">
+  <div class="container">
+    <div class="home-reviews__inner">
+
+      <header class="home-reviews__header">
+        <h2 class="home-reviews__title" id="home-reviews-title">Мнения наших клиентов</h2>
+        <a class="home-reviews__link" href="reviews.html">Смотреть все отзывы →</a>
+      </header>
+
+      <ul class="home-reviews__grid" role="list">
+        {%- for review in homeReviews %}
+        <li class="home-reviews__grid-item">
+          <article class="home-reviews__card">
+            <div class="home-reviews__card-head">
+              <div class="home-reviews__author">
+                {{ picture({
+                  src: review.avatar,
+                  alt: "",
+                  width: "48",
+                  height: "48",
+                  className: "home-reviews__avatar-image",
+                  pictureClass: "home-reviews__avatar-picture",
+                  loading: "lazy",
+                  decoding: "async",
+                  retina: true
+                }) }}
+                <div class="home-reviews__author-id">
+                  <p class="home-reviews__author-name">{{ review.name }}</p>
+                  <p class="home-reviews__author-meta">{{ review.meta }}</p>
+                </div>
+              </div>
+              <div class="home-reviews__rating" role="img" aria-label="Оценка 5 из 5">
+                <span aria-hidden="true">★★★★★</span>
+              </div>
+            </div>
+            <blockquote class="home-reviews__quote">
+              <p>{{ review.text }}</p>
+            </blockquote>
+          </article>
+        </li>
+        {%- endfor %}
+      </ul>
+
+    </div>
+  </div>
+</section>

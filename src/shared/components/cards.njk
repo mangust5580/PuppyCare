@@ -1,0 +1,281 @@
+{% from "shared/components/picture.njk" import picture %}
+
+{%- macro _stars(rating) -%}
+  {%- set _r = rating -%}
+  {%- if _r > 5 %}{%- set _r = 5 %}{%- endif -%}
+  {%- if _r < 0 %}{%- set _r = 0 %}{%- endif -%}
+  <div class="card__rating" role="img" aria-label="Рейтинг: {{ _r | round }} из 5">
+    <span aria-hidden="true">
+      {%- for i in range(1, 6) %}{{ '★' if i <= _r else '☆' }}{% endfor %}
+    </span>
+  </div>
+{%- endmacro -%}
+
+
+{% macro serviceCard(
+  title       = '',
+  text        = '',
+  image       = '',
+  imageAlt    = '',
+  imageWidth  = '360',
+  imageHeight = '240',
+  imageRetina = false,
+  price       = '',
+  href        = '',
+  ctaText     = 'Подробнее',
+  badge       = '',
+  icon        = '',
+  titleTag    = 'h3',
+  extraClass  = ''
+) %}
+
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+  {%- set _classes = [
+    'card',
+    'card--service',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <article class="{{ _classes }}">
+    {%- if image %}
+    <div class="card__media">
+      {{ picture({
+        src: image,
+        alt: imageAlt,
+        width: imageWidth,
+        height: imageHeight,
+        className: "card__image",
+        pictureClass: "card__picture",
+        loading: "lazy",
+        decoding: "async",
+        retina: imageRetina
+      }) }}
+      {%- if badge %}<span class="card__badge">{{ badge }}</span>{% endif %}
+    </div>
+    {% endif -%}
+    <div class="card__body">
+      {%- if icon %}
+      <span class="card__icon" aria-hidden="true">{{ icon | safe }}</span>
+      {% endif -%}
+      {%- if title %}<{{ _titleTag }} class="card__title">{{ title }}</{{ _titleTag }}>{% endif %}
+      {%- if text %}<p class="card__text">{{ text }}</p>{% endif %}
+      {%- if price %}<p class="card__price-label">{{ price }}</p>{% endif %}
+    </div>
+    {%- if href and ctaText %}
+    <div class="card__footer">
+      <a class="card__cta" href="{{ href }}">{{ ctaText }} →</a>
+    </div>
+    {% endif %}
+  </article>
+
+{% endmacro %}
+
+
+{% macro doctorCard(
+  name        = '',
+  specialty   = '',
+  image       = '',
+  imageAlt    = '',
+  imageWidth  = '360',
+  imageHeight = '240',
+  imageRetina = false,
+  meta        = '',
+  rating      = 0,
+  href        = '',
+  ctaText     = 'Записаться',
+  titleTag    = 'h3',
+  extraClass  = ''
+) %}
+
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+  {%- set _classes = [
+    'card',
+    'card--doctor',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <article class="{{ _classes }}">
+    {%- if image %}
+    <div class="card__media">
+      {{ picture({
+        src: image,
+        alt: imageAlt,
+        width: imageWidth,
+        height: imageHeight,
+        className: "card__image",
+        pictureClass: "card__picture",
+        loading: "lazy",
+        decoding: "async",
+        retina: imageRetina
+      }) }}
+    </div>
+    {% endif -%}
+    <div class="card__body">
+      {%- if name %}<{{ _titleTag }} class="card__title">{{ name }}</{{ _titleTag }}>{% endif %}
+      {%- if specialty %}<p class="card__meta">{{ specialty }}</p>{% endif %}
+      {%- if rating %}{{ _stars(rating) }}{% endif %}
+      {%- if meta %}<p class="card__text">{{ meta }}</p>{% endif %}
+    </div>
+    {%- if href and ctaText %}
+    <div class="card__footer">
+      <a class="button button--primary button--small" href="{{ href }}">{{ ctaText }}</a>
+    </div>
+    {% endif %}
+  </article>
+
+{% endmacro %}
+
+
+{% macro reviewCard(
+  quote          = '',
+  authorName     = '',
+  authorMeta     = '',
+  authorImage    = '',
+  authorImageAlt = '',
+  authorImageDecorative = false,
+  authorImageRetina = false,
+  authorImageWidth = '36',
+  authorImageHeight = '36',
+  authorPictureClass = 'card__avatar card__avatar--small',
+  authorImageClass = 'card__avatar-image',
+  authorInitials = '',
+  rating         = 0,
+  extraClass     = ''
+) %}
+
+  {%- set _classes = [
+    'card',
+    'card--review',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <article class="{{ _classes }}">
+    <div class="card__body">
+      {%- if rating %}{{ _stars(rating) }}{% endif %}
+      {%- if quote %}
+      <blockquote class="card__quote"><p>{{ quote }}</p></blockquote>
+      {% endif -%}
+      {%- if authorName or authorImage or authorInitials %}
+      <footer class="card__author">
+        {%- if authorImage %}
+        {{ picture({
+          src: authorImage,
+          alt: ('' if authorImageDecorative else (authorImageAlt if authorImageAlt else authorName)),
+          width: authorImageWidth,
+          height: authorImageHeight,
+          className: authorImageClass,
+          pictureClass: authorPictureClass,
+          loading: "lazy",
+          decoding: "async",
+          retina: authorImageRetina
+        }) }}
+        {%- elif authorInitials %}
+        <span class="card__avatar card__avatar--small card__avatar--initials" aria-hidden="true">{{ authorInitials }}</span>
+        {% endif -%}
+        <div>
+          {%- if authorName %}<p class="card__author-name">{{ authorName }}</p>{% endif %}
+          {%- if authorMeta %}<p class="card__meta">{{ authorMeta }}</p>{% endif %}
+        </div>
+      </footer>
+      {% endif %}
+    </div>
+  </article>
+
+{% endmacro %}
+
+
+{% macro pricingCard(
+  title       = '',
+  price       = '',
+  currency    = '₽',
+  description = '',
+  features    = [],
+  href        = '',
+  ctaText     = 'Выбрать план',
+  badge       = '',
+  highlighted = false,
+  titleTag    = 'h3',
+  extraClass  = ''
+) %}
+
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+  {%- set _classes = [
+    'card',
+    'card--pricing',
+    ('card--highlighted' if highlighted),
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <article class="{{ _classes }}">
+    <div class="card__body">
+      {%- if badge %}<span class="card__badge">{{ badge }}</span>{% endif %}
+      {%- if title %}<{{ _titleTag }} class="card__title">{{ title }}</{{ _titleTag }}>{% endif %}
+      {%- if price %}
+      <div class="card__price">
+        <span class="card__price-amount">{{ price }}</span>
+        <span class="card__price-currency">{{ currency }}</span>
+      </div>
+      {% endif -%}
+      {%- if description %}<p class="card__text">{{ description }}</p>{% endif %}
+      {%- if features and features | length %}
+      <ul class="card__features">
+        {%- for feature in features %}
+        <li>{{ feature }}</li>
+        {%- endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {%- if href and ctaText %}
+    <div class="card__footer">
+      <a class="button button--primary" href="{{ href }}">{{ ctaText }}</a>
+    </div>
+    {% endif %}
+  </article>
+
+{% endmacro %}
+
+
+{% macro contactCard(
+  title      = '',
+  items      = [],
+  href       = '',
+  ctaText    = 'Посмотреть на карте',
+  titleTag   = 'h3',
+  extraClass = ''
+) %}
+
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+  {%- set _classes = [
+    'card',
+    'card--contact',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <address class="{{ _classes }}">
+    <div class="card__body">
+      {%- if title %}<{{ _titleTag }} class="card__title">{{ title }}</{{ _titleTag }}>{% endif %}
+      {%- if items and items | length %}
+      <ul class="card__contact-list">
+        {%- for item in items %}
+        <li class="card__contact-item">
+          {%- if item.icon %}
+          <span aria-hidden="true">{{ item.icon | safe }}</span>
+          {% endif -%}
+          {%- if item.href %}
+          <a class="card__contact-link" href="{{ item.href }}">{{ item.text }}</a>
+          {%- else %}
+          <span class="card__contact-text">{{ item.text }}</span>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {%- if href and ctaText %}
+    <div class="card__footer">
+      <a class="card__cta" href="{{ href }}">{{ ctaText }} →</a>
+    </div>
+    {% endif %}
+  </address>
+
+{% endmacro %}

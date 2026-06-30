@@ -1,0 +1,117 @@
+@use '../helpers' as *;
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  min-inline-size: 0;
+}
+
+.accordion__item {
+  min-inline-size: 0;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-base);
+  box-shadow: var(--shadow-xs);
+
+  @include transition((border-color, box-shadow));
+
+  @include hover {
+    border-color: var(--border-strong);
+  }
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.accordion__item.is-open {
+  border-color: var(--color-coral-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.accordion__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: fluid(20, 16) fluid(24, 16);
+  border: 0;
+  border-radius: inherit;
+  background-color: transparent;
+  color: var(--text-primary);
+  text-align: start;
+  cursor: pointer;
+
+  @include transition-color;
+
+  @include hover {
+    color: var(--color-coral-600);
+  }
+
+  @include focus-visible;
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.accordion__title {
+  min-inline-size: 0;
+  font-size: var(--text-h4-size);
+  font-weight: var(--text-h4-weight);
+  line-height: var(--text-h4-line-height);
+  overflow-wrap: break-word;
+}
+
+.accordion__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-coral-100);
+  color: var(--color-coral-600);
+
+  @include transition-transform;
+
+  svg {
+    inline-size: 18px;
+    block-size: 18px;
+  }
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.accordion__item.is-open .accordion__icon {
+  transform: rotate(180deg);
+}
+
+.accordion__panel {
+  min-inline-size: 0;
+}
+
+.accordion__content {
+  min-inline-size: 0;
+  padding: 0 fluid(24, 16) fluid(20, 16);
+}
+
+.accordion__text {
+  max-inline-size: 70ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}

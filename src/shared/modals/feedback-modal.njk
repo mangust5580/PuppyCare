@@ -1,0 +1,37 @@
+{% from "shared/components/icon.njk" import icon %}
+{% from "shared/forms/feedback-form.njk" import feedbackForm %}
+
+<div class="feedback-modal" data-feedback-modal hidden>
+  <div class="feedback-modal__overlay" data-feedback-modal-close></div>
+
+  <section
+    class="feedback-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="feedback-modal-title"
+    aria-describedby="feedback-modal-description"
+    tabindex="-1"
+  >
+    <button class="feedback-modal__close" type="button" aria-label="Закрыть форму обратной связи" data-feedback-modal-close>
+      {{ icon("ui-close", decorative=true) }}
+    </button>
+
+    <div class="feedback-modal__header">
+      <p class="feedback-modal__eyebrow">Свяжитесь с нами</p>
+      <h2 class="feedback-modal__title" id="feedback-modal-title">Форма обратной связи</h2>
+      <p class="feedback-modal__description" id="feedback-modal-description">Оставьте сообщение — администратор PuppyCare свяжется с вами, ответит на вопросы и поможет подобрать услугу. Для записи на приём выберите удобное время на <a class="feedback-modal__note-link" href="appointment.html">странице записи</a>.</p>
+    </div>
+
+    <div class="feedback-modal__body">
+      {{ feedbackForm(
+        idPrefix="modal-feedback",
+        className="feedback-modal__form",
+        action="contacts.html",
+        submitClass="feedback-modal__submit",
+        noteClass="feedback-modal__note",
+        noteLinkClass="feedback-modal__note-link",
+        formAttrs="data-feedback-modal-form"
+      ) }}
+    </div>
+  </section>
+</div>

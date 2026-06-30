@@ -1,0 +1,68 @@
+{#
+  Appointment form component — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Renders the full appointment booking form card, built from the shared
+  form-field macros (field / select / textarea). Client behaviour (validation,
+  phone mask, inline success) is provided by the `form` JS module via the
+  `data-form="appointment"` hook — no markup changes needed for JS.
+
+  Usage:
+    {% from "shared/components/forms/appointment-form.njk" import appointmentForm %}
+    {{ appointmentForm(titleId="appointment-booking-title") }}
+
+  Parameters:
+    titleId — id applied to the form heading (string, default 'appointment-form-title');
+              pass the value referenced by the section's aria-labelledby.
+#}
+
+{% from "shared/components/form-field.njk" import field, textarea, select %}
+{% from "shared/components/button.njk" import button %}
+
+{% macro appointmentForm(titleId = 'appointment-form-title') %}
+
+  <div class="appointment-form-card">
+
+    <div class="appointment-form__head">
+      <p class="appointment-form__eyebrow">Выберите удобное время</p>
+      <h2 class="appointment-form__title" id="{{ titleId }}">Записаться на приём</h2>
+      <p class="appointment-form__text">Заполните форму, и мы свяжемся с вами для подтверждения приёма.</p>
+    </div>
+
+    <p class="appointment-form__success" data-form-success role="status" aria-live="polite" tabindex="-1" hidden>
+      Спасибо! Мы получили заявку и свяжемся с вами для подтверждения записи.
+    </p>
+
+    <form class="appointment-form" method="post" novalidate data-form="appointment">
+
+      <div class="appointment-form__grid">
+        {{ field(id="appt-name", name="name", label="Ваше имя", autocomplete="name", placeholder="Например, Анна", required=true) }}
+        {{ field(id="appt-phone", name="phone", label="Телефон", type="tel", autocomplete="tel", inputmode="tel", placeholder="+7 (___) ___-__-__", required=true) }}
+        {{ field(id="appt-email", name="email", label="E-mail", type="email", autocomplete="email", placeholder="you@example.com") }}
+        {{ field(id="appt-pet-name", name="petName", label="Кличка питомца", placeholder="Например, Лаки") }}
+        {{ select(id="appt-pet-type", name="petType", label="Вид питомца", placeholder="Выберите вид питомца", required=true, options=[
+          { value: "dog", label: "Собака" },
+          { value: "cat", label: "Кошка" },
+          { value: "other", label: "Другое" }
+        ]) }}
+        {{ select(id="appt-service", name="service", label="Услуга", placeholder="Выберите услугу", required=true, options=[
+          { value: "therapy", label: "Терапия" },
+          { value: "vaccination", label: "Вакцинация" },
+          { value: "dentistry", label: "Стоматология" },
+          { value: "diagnostics", label: "Диагностика" },
+          { value: "surgery", label: "Хирургия" },
+          { value: "grooming", label: "Груминг" }
+        ]) }}
+        {{ field(id="appt-date", name="date", label="Дата", type="date", required=true) }}
+        {{ field(id="appt-time", name="time", label="Время", type="time", required=true) }}
+        {{ textarea(id="appt-message", name="message", label="Комментарий", rows=4, placeholder="Расскажите о состоянии питомца или особых пожеланиях", extraClass="appointment-form__field--full") }}
+      </div>
+
+      {{ button("Записаться онлайн", type="submit", variant="primary", size="large", extraClass="appointment-form__submit") }}
+
+      <p class="appointment-form__note">Нажимая кнопку, вы соглашаетесь с <a class="appointment-form__link" href="privacy.html">политикой конфиденциальности</a>. Мы свяжемся с вами для подтверждения записи.</p>
+
+    </form>
+
+  </div>
+
+{% endmacro %}

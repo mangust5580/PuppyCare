@@ -1,0 +1,253 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Услуги — PuppyCare" -%}
+  {%- set pageDescription = "Услуги PuppyCare: ветеринарная помощь, диагностика, вакцинация, стоматология, хирургия, груминг и забота о здоровье питомцев." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "services.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="services">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+
+    {% set services = [
+      {
+        title: "Терапия",
+        text: "Диагностика и лечение заболеваний внутренних органов, профилактика и поддержание здоровья питомца.",
+        icon: "medical-stethoscope",
+        href: "service-detail.html",
+        image: "images/pages/services/therapy.jpg",
+        imageAlt: "Ветеринар PuppyCare осматривает собаку на приёме"
+      },
+      {
+        title: "Вакцинация",
+        text: "Надёжная защита от инфекций с помощью современных и безопасных вакцин для собак и кошек.",
+        icon: "medical-shield",
+        href: "service-detail.html",
+        image: "images/pages/services/vaccination.jpg",
+        imageAlt: "Подготовка собаки к вакцинации в клинике PuppyCare"
+      },
+      {
+        title: "Диагностика и анализы",
+        text: "Точная диагностика: лабораторные анализы и инструментальные методы для быстрого выявления причин.",
+        icon: "services-diagnostics",
+        href: "service-detail.html",
+        image: "images/pages/services/diagnostics.jpg",
+        imageAlt: "Современная диагностическая зона клиники PuppyCare"
+      },
+      {
+        title: "Стоматология",
+        text: "Профессиональная чистка зубов, лечение заболеваний полости рта и профилактика стоматологических проблем.",
+        icon: "medical-tooth",
+        href: "service-detail.html",
+        image: "images/pages/services/dentistry.jpg",
+        imageAlt: "Собака и кошка под заботой специалистов PuppyCare"
+      },
+      {
+        title: "Хирургия",
+        text: "Плановые и экстренные операции любой сложности с использованием современного оборудования.",
+        icon: "medical-first-aid",
+        href: "service-detail.html",
+        image: "images/pages/services/surgery.jpg",
+        imageAlt: "Операционная и оборудование клиники PuppyCare"
+      },
+      {
+        title: "Груминг и уход",
+        text: "Стрижка, мытьё, уход за шерстью и когтями, чтобы ваш питомец выглядел и чувствовал себя отлично.",
+        icon: "pets-grooming",
+        href: "service-detail.html",
+        image: "images/pages/services/grooming.jpg",
+        imageAlt: "Груминг и уход за шерстью собаки в PuppyCare"
+      }
+    ] %}
+
+    <main id="main" class="page__content page-services" tabindex="-1" data-page-content>
+
+      <section class="page-services__hero" aria-labelledby="services-title">
+
+        <span class="page-services__hero-decor" aria-hidden="true">
+          <svg class="page-services__decor page-services__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-services__decor page-services__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-services__decor page-services__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-services__hero-inner">
+
+          <div class="page-services__hero-content">
+
+            <p class="page-services__eyebrow">Наши услуги</p>
+
+            <h1 class="page-services__title" id="services-title">Услуги</h1>
+
+            <nav class="page-services__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-services__breadcrumbs-list" role="list">
+                <li class="page-services__breadcrumbs-item">
+                  <a class="page-services__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-services__breadcrumbs-item">
+                  <span class="page-services__breadcrumbs-current" aria-current="page">Услуги</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-services__lead">Подберём подходящее направление помощи: от профилактики и диагностики до лечения, хирургии и ухода за питомцем.</p>
+
+          </div>
+
+          <div class="page-services__hero-media">
+            <span class="page-services__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/services/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-services__hero-image",
+              pictureClass: "page-services__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-services__services" aria-labelledby="services-list-title">
+        <div class="container">
+
+          <div class="page-services__services-head">
+            <p class="page-services__eyebrow page-services__eyebrow--dark">Наши услуги</p>
+            <h2 class="page-services__services-title" id="services-list-title">Что мы предлагаем</h2>
+            <p class="page-services__services-intro">Современная ветеринария, внимательный подход и искренняя любовь к животным — всё это для здоровья и счастья ваших питомцев.</p>
+          </div>
+
+          <ul class="page-services__grid" role="list">
+            {%- for service in services %}
+            <li class="page-services__card-item">
+              <article class="page-services__card">
+                <div class="page-services__card-media">
+                  {{ picture({
+                    src: service.image,
+                    alt: service.imageAlt,
+                    width: "360",
+                    height: "240",
+                    className: "page-services__card-image",
+                    pictureClass: "page-services__card-picture",
+                    loading: "lazy",
+                    decoding: "async",
+                    retina: true
+                  }) }}
+                </div>
+                <div class="page-services__card-body">
+                  <div class="page-services__card-head">
+                    <span class="page-services__card-icon" aria-hidden="true">{{ icon(service.icon, decorative=true) }}</span>
+                    <h3 class="page-services__card-title">{{ service.title }}</h3>
+                  </div>
+                  <p class="page-services__card-text">{{ service.text }}</p>
+                  <a class="page-services__card-link" href="{{ service.href }}">Подробнее →</a>
+                </div>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "services-appointment",
+        title: "Забота тогда, когда она нужна",
+        text: "Запишитесь на приём в удобное время и получите профессиональную помощь с любовью.",
+        image: "images/pages/services/services-cta.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться на приём",
+        primaryHref: "appointment.html"
+      }) }}
+
+      <section class="page-services__reviews" aria-labelledby="services-reviews-title">
+        <div class="container">
+
+          <div class="page-services__reviews-head">
+            <p class="page-services__eyebrow page-services__eyebrow--dark">Отзывы</p>
+            <h2 class="page-services__reviews-title" id="services-reviews-title">Что говорят клиенты</h2>
+            <p class="page-services__reviews-intro">Мы ценим доверие наших клиентов и их тёплые слова о нашей работе и заботе о питомцах.</p>
+          </div>
+
+          <ul class="page-services__reviews-grid" role="list">
+            {%- set servicesReviews = [
+              {
+                name: "Анна Петрова",
+                role: "Хозяйка Лаки",
+                text: "В PuppyCare мы обратились с проблемой дерматита у нашей собаки. Врач очень внимательно осмотрел Лаки, всё подробно объяснил и назначил лечение. Уже через неделю стало гораздо лучше.",
+                avatar: "images/pages/reviews/avatars/anna-petrova.jpg"
+              },
+              {
+                name: "Игорь Соколов",
+                role: "Хозяин Бусинки",
+                text: "Отличная клиника с внимательным персоналом. Делали вакцинацию нашей кошке — всё прошло спокойно и без стресса. Теперь только к вам.",
+                avatar: "images/pages/reviews/avatars/igor-sokolov.jpg"
+              },
+              {
+                name: "Мария Кузнецова",
+                role: "Хозяйка Муси",
+                text: "Спасибо за оперативную помощь. Доктор быстро диагностировал проблему и назначил лечение. Муся снова активная и игривая.",
+                avatar: "images/pages/reviews/avatars/maria-kuznetsova.jpg"
+              },
+              {
+                name: "Иван Соколов",
+                role: "Хозяин Буси",
+                text: "Профессиональные врачи, внимательный персонал и современное оборудование. Всегда получаем помощь на высоком уровне.",
+                avatar: "images/pages/reviews/avatars/ivan-sokolov.jpg"
+              }
+            ] -%}
+            {%- for review in servicesReviews %}
+            <li class="page-services__reviews-item">
+              <article class="page-services__review">
+                <div class="page-services__review-head">
+                  <div class="page-services__review-author">
+                    {{ picture({
+                      src: review.avatar,
+                      alt: "",
+                      width: "48",
+                      height: "48",
+                      className: "page-services__review-avatar-image",
+                      pictureClass: "page-services__review-avatar",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                    <div class="page-services__review-id">
+                      <p class="page-services__review-name">{{ review.name }}</p>
+                      <p class="page-services__review-meta">{{ review.role }}</p>
+                    </div>
+                  </div>
+                  <div class="page-services__review-rating" role="img" aria-label="Оценка 5 из 5">
+                    <span aria-hidden="true">★★★★★</span>
+                  </div>
+                </div>
+                <blockquote class="page-services__review-quote">
+                  <p>{{ review.text }}</p>
+                </blockquote>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+
+          <div class="page-services__reviews-foot">
+            <a class="page-services__reviews-cta" href="reviews.html">Смотреть все отзывы →</a>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

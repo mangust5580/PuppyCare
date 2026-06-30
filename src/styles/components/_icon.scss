@@ -1,0 +1,41 @@
+// Sprite icon primitive — rendered by shared/components/icon.njk as
+// <svg class="icon icon--{size}"><use href="icons/sprite.svg#icon-{name}"></use></svg>.
+// Fill/stroke are intentionally NOT forced here: source icons mix
+// `fill="none" stroke="currentColor"` (outline) and `fill="currentColor"`
+// (solid). Forcing fill/stroke on .icon would override those per-symbol
+// presentation attributes and break one style, so only `color` is set and
+// each symbol drives its own fill/stroke via currentColor.
+
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  inline-size: 1em;
+  block-size: 1em;
+  color: currentcolor;
+  vertical-align: middle;
+}
+
+.icon--xs {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.icon--sm {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.icon--md {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.icon--lg {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.icon--xl {
+  inline-size: 32px;
+  block-size: 32px;
+}

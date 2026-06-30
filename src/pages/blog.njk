@@ -1,0 +1,373 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Статьи и советы — PuppyCare" -%}
+  {%- set pageDescription = "Полезные статьи от ветеринаров PuppyCare о здоровье, уходе, питании и воспитании питомцев." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "blog.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="blog">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+
+    {% set blogPosts = [
+      {
+        category: "Питание",
+        title: "Как выбрать корм для щенка",
+        excerpt: "На что обращать внимание при выборе корма, чтобы щенок рос здоровым и активным.",
+        date: "8 апреля 2024",
+        readingTime: "6 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-puppy-food.jpg",
+        alt: "Щенок рядом с миской корма в светлом помещении"
+      },
+      {
+        category: "Уход",
+        title: "Как ухаживать за шерстью кошки",
+        excerpt: "Регулярный уход за шерстью помогает поддерживать здоровье кожи и снижает линьку.",
+        date: "5 апреля 2024",
+        readingTime: "4 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-cat-coat-care.jpg",
+        alt: "Кошку аккуратно расчёсывают щёткой"
+      },
+      {
+        category: "Уход",
+        title: "Когда нужно показывать питомца стоматологу",
+        excerpt: "Признаки проблем с зубами и дыханием, которые важно заметить вовремя.",
+        date: "2 апреля 2024",
+        readingTime: "5 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-pet-dentist.jpg",
+        alt: "Ветеринар осматривает зубы собаки в клинике"
+      },
+      {
+        category: "Советы владельцам",
+        title: "Как снизить тревожность у питомца",
+        excerpt: "Практические советы и методы, которые помогут вашему питомцу чувствовать себя спокойнее.",
+        date: "30 марта 2024",
+        readingTime: "6 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-pet-anxiety.jpg",
+        alt: "Ветеринар консультирует владельца собаки о тревожности питомца"
+      },
+      {
+        category: "Уход",
+        title: "Подготовка к первому визиту в клинику",
+        excerpt: "Что взять с собой, как успокоить питомца и помочь ему легче перенести визит к врачу.",
+        date: "25 марта 2024",
+        readingTime: "5 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-first-clinic-visit.jpg",
+        alt: "Владелец с собакой слушает рекомендации ветеринара"
+      },
+      {
+        category: "Диагностика",
+        title: "Что важно знать о профилактических осмотрах",
+        excerpt: "Периодичность осмотров и список обследований для здоровых питомцев.",
+        date: "20 марта 2024",
+        readingTime: "4 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-preventive-checkups.jpg",
+        alt: "Ветеринарные инструменты и материалы для профилактического осмотра"
+      },
+      {
+        category: "Советы владельцам",
+        title: "Советы по уходу за пожилой собакой",
+        excerpt: "Питание, физическая активность и уход, которые помогут сохранить качество жизни возрастного питомца.",
+        date: "15 марта 2024",
+        readingTime: "6 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-senior-dog-care.jpg",
+        alt: "Пожилая собака отдыхает рядом с ветеринаром"
+      },
+      {
+        category: "Поведение",
+        title: "Как распознать стресс у кошки",
+        excerpt: "Основные признаки стресса и способы помочь питомцу справиться с тревогой.",
+        date: "12 марта 2024",
+        readingTime: "5 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-cat-stress.jpg",
+        alt: "Кошка в светлом кабинете ветеринарной клиники"
+      },
+      {
+        category: "Воспитание",
+        title: "Как правильно поощрять щенка",
+        excerpt: "Методы позитивного подкрепления для эффективного обучения и укрепления доверия.",
+        date: "8 марта 2024",
+        readingTime: "4 мин",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-puppy-rewards.jpg",
+        alt: "Щенок получает лакомство во время обучения"
+      }
+    ] %}
+
+    {% set blogCategories = [
+      { label: "Уход", href: "blog.html", icon: "pets-paw" },
+      { label: "Вакцинация", href: "blog.html", icon: "medical-shield", active: true },
+      { label: "Питание", href: "blog.html", icon: "common-leaf" },
+      { label: "Диагностика", href: "blog.html", icon: "services-diagnostics" },
+      { label: "Советы владельцам", href: "blog.html", icon: "common-info" }
+    ] %}
+
+    {% set blogPopular = [
+      {
+        title: "Как ухаживать за шерстью собаки весной",
+        date: "12 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-dog-coat.jpg",
+        alt: "Собаку аккуратно расчёсывают в светлом помещении"
+      },
+      {
+        title: "Признаки стресса у кошки: как распознать",
+        date: "5 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-cat-stress.jpg",
+        alt: "Кошка спокойно сидит в светлой консультационной комнате"
+      },
+      {
+        title: "Стерилизация и кастрация: в чём разница?",
+        date: "28 марта 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-sterilization.jpg",
+        alt: "Ветеринар консультирует владельца питомца в клинике"
+      }
+    ] %}
+
+    <main id="main" class="page__content page-blog" tabindex="-1" data-page-content>
+
+      <section class="page-blog__hero" aria-labelledby="blog-title">
+
+        <span class="page-blog__hero-decor" aria-hidden="true">
+          <svg class="page-blog__decor page-blog__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-blog__decor page-blog__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-blog__decor page-blog__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-blog__hero-inner">
+
+          <div class="page-blog__hero-content">
+
+            <p class="page-blog__eyebrow">Новости и советы</p>
+
+            <h1 class="page-blog__title" id="blog-title">Статьи и советы</h1>
+
+            <nav class="page-blog__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-blog__breadcrumbs-list" role="list">
+                <li class="page-blog__breadcrumbs-item">
+                  <a class="page-blog__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-blog__breadcrumbs-item">
+                  <span class="page-blog__breadcrumbs-current" aria-current="page">Блог</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-blog__lead">Полезные материалы от наших ветеринаров о здоровье, уходе и воспитании ваших питомцев.</p>
+
+          </div>
+
+          <div class="page-blog__hero-media">
+            <span class="page-blog__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/blog/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-blog__hero-image",
+              pictureClass: "page-blog__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-blog__main" aria-labelledby="blog-main-title">
+        <div class="container page-blog__layout">
+
+          <div class="page-blog__content">
+            <h2 class="visually-hidden" id="blog-main-title">Статьи PuppyCare</h2>
+
+            <article class="page-blog__featured">
+              <div class="page-blog__featured-image">
+                {{ picture({
+                  src: "images/pages/blog/featured-vaccination.jpg",
+                  alt: "Ветеринар PuppyCare готовит собаку к вакцинации в светлой клинике",
+                  width: "720",
+                  height: "420",
+                  className: "page-blog__featured-img",
+                  pictureClass: "page-blog__featured-picture",
+                  loading: "lazy",
+                  decoding: "async",
+                  retina: true
+                }) }}
+              </div>
+              <div class="page-blog__featured-content">
+                <p class="page-blog__category">Вакцинация</p>
+                <h3 class="page-blog__featured-title">
+                  <a class="page-blog__featured-link" href="blog-detail.html">Как подготовить питомца к вакцинации</a>
+                </h3>
+                <p class="page-blog__featured-excerpt">Правильная подготовка снижает уровень стресса у животного и позволяет ветеринару объективно оценить его состояние. Это помогает подобрать оптимальную вакцину и избежать осложнений.</p>
+                <ul class="page-blog__article-meta" role="list">
+                  <li>28 апреля 2024</li>
+                  <li>Анна Петрова</li>
+                  <li>5 мин чтения</li>
+                </ul>
+                <a class="page-blog__featured-more" href="blog-detail.html">Читать статью →</a>
+              </div>
+            </article>
+
+            <ul class="page-blog__articles" role="list">
+              {%- for post in blogPosts %}
+              <li class="page-blog__articles-item">
+                <article class="page-blog__card">
+                  <div class="page-blog__card-image">
+                    {{ picture({
+                      src: post.image,
+                      alt: post.alt | default(""),
+                      width: "360",
+                      height: "240",
+                      className: "page-blog__card-img",
+                      pictureClass: "page-blog__card-picture",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                  </div>
+                  <div class="page-blog__card-content">
+                    <p class="page-blog__category">{{ post.category }}</p>
+                    <h3 class="page-blog__card-title">
+                      <a class="page-blog__card-link" href="{{ post.href }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="page-blog__card-excerpt">{{ post.excerpt }}</p>
+                    <ul class="page-blog__article-meta" role="list">
+                      <li>{{ post.date }}</li>
+                      <li>{{ post.readingTime }}</li>
+                    </ul>
+                  </div>
+                </article>
+              </li>
+              {%- endfor %}
+            </ul>
+
+            <nav class="page-blog__pagination" aria-label="Навигация по страницам блога">
+              <a class="page-blog__pagination-arrow page-blog__pagination-arrow--prev" href="blog.html" aria-label="Предыдущая страница">
+                <span aria-hidden="true">{{ icon("ui-arrow-right", size="sm") }}</span>
+              </a>
+              <span class="page-blog__pagination-page page-blog__pagination-page--current" aria-current="page">1</span>
+              <a class="page-blog__pagination-page" href="blog.html">2</a>
+              <a class="page-blog__pagination-page" href="blog.html">3</a>
+              <span class="page-blog__pagination-ellipsis" aria-hidden="true">…</span>
+              <a class="page-blog__pagination-page" href="blog.html">9</a>
+              <a class="page-blog__pagination-arrow page-blog__pagination-arrow--next" href="blog.html" aria-label="Следующая страница">
+                <span aria-hidden="true">{{ icon("ui-arrow-right", size="sm") }}</span>
+              </a>
+            </nav>
+          </div>
+
+          <aside class="page-blog__sidebar" aria-label="Блог: поиск и категории">
+
+            <div class="page-blog__sidebar-card page-blog__search">
+              <form class="page-blog__search-form" action="blog.html" method="get" role="search">
+                <label class="visually-hidden" for="blog-search">Поиск по блогу</label>
+                <input class="page-blog__search-input" type="search" id="blog-search" name="search" placeholder="Поиск по блогу...">
+                <button class="page-blog__search-button" type="submit">
+                  <span class="visually-hidden">Найти статью</span>
+                  <span class="page-blog__search-icon" aria-hidden="true">{{ icon("ui-arrow-right", size="sm") }}</span>
+                </button>
+              </form>
+            </div>
+
+            <div class="page-blog__sidebar-card page-blog__categories">
+              <h2 class="page-blog__sidebar-title">Категории</h2>
+              <ul class="page-blog__categories-list" role="list">
+                {%- for cat in blogCategories %}
+                <li>
+                  <a class="page-blog__category-link{{ ' page-blog__category-link--active' if cat.active }}" href="{{ cat.href }}"{{ ' aria-current="page"' if cat.active }}>
+                    <span class="page-blog__category-icon" aria-hidden="true">{{ icon(cat.icon, size="sm") }}</span>
+                    <span>{{ cat.label }}</span>
+                  </a>
+                </li>
+                {%- endfor %}
+              </ul>
+            </div>
+
+            <div class="page-blog__sidebar-card page-blog__popular">
+              <h2 class="page-blog__sidebar-title">Популярные статьи</h2>
+              <ul class="page-blog__popular-list" role="list">
+                {%- for item in blogPopular %}
+                <li class="page-blog__popular-item">
+                  <div class="page-blog__popular-image">
+                    {{ picture({
+                      src: item.image,
+                      alt: item.alt | default(""),
+                      width: "120",
+                      height: "120",
+                      className: "page-blog__popular-img",
+                      pictureClass: "page-blog__popular-picture",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                  </div>
+                  <div class="page-blog__popular-body">
+                    <h3 class="page-blog__popular-title">
+                      <a class="page-blog__popular-link" href="{{ item.href }}">{{ item.title }}</a>
+                    </h3>
+                    <p class="page-blog__popular-date">{{ item.date }}</p>
+                  </div>
+                </li>
+                {%- endfor %}
+              </ul>
+            </div>
+
+            <div class="page-blog__sidebar-card page-blog__consultation">
+              <h2 class="page-blog__consultation-title">Нужна консультация?</h2>
+              <p class="page-blog__consultation-text">Наши ветеринары всегда готовы помочь вам и вашему питомцу.</p>
+              {{ button("Записаться на приём", tag="a", href="appointment.html", variant="primary", size="large", extraClass="page-blog__consultation-button") }}
+              <a class="page-blog__consultation-phone" href="tel:+74951204567">
+                {{ icon("contact-phone", className="page-blog__consultation-phone-icon", size="sm") }}
+                <span>+7 (495) 120-45-67</span>
+              </a>
+            </div>
+
+          </aside>
+
+        </div>
+      </section>
+
+      <section class="page-blog__subscribe" aria-labelledby="blog-subscribe-title">
+        <div class="container">
+          <div class="page-blog__subscribe-card">
+            <span class="page-blog__subscribe-decor" aria-hidden="true"></span>
+            <div class="page-blog__subscribe-content">
+              <p class="page-blog__subscribe-eyebrow">Подписка</p>
+              <h2 class="page-blog__subscribe-title" id="blog-subscribe-title">Получайте полезные советы по уходу за питомцем</h2>
+              <p class="page-blog__subscribe-text">Раз в неделю отправляем материалы от ветеринаров PuppyCare: уход, питание, профилактика и подготовка к визиту.</p>
+            </div>
+            <form class="page-blog__subscribe-form" method="post" action="blog.html">
+              <div class="page-blog__subscribe-field">
+                <label class="visually-hidden" for="blog-subscribe-email">Ваш email</label>
+                <input class="page-blog__subscribe-input" type="email" id="blog-subscribe-email" name="email" placeholder="Ваш email" required>
+                {{ button("Подписаться", type="submit", variant="primary", size="large", extraClass="page-blog__subscribe-button") }}
+              </div>
+              <p class="page-blog__subscribe-note">Нажимая кнопку, вы соглашаетесь с <a class="page-blog__subscribe-note-link" href="privacy.html">политикой конфиденциальности</a>.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

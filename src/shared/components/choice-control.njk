@@ -1,0 +1,301 @@
+{#
+  Choice controls — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/choice-control.njk" import
+       checkbox, radio, switchControl, checkboxGroup, radioGroup %}
+
+    Single controls:
+    {{ checkbox(id="newsletter", name="newsletter", label="Подписаться на рассылку") }}
+    {{ checkbox(id="vaccine", name="services", value="vaccine",
+                label="Вакцинация", checked=true) }}
+
+    {{ radio(id="time-morning", name="time", value="morning",
+             label="Утро (09:00–12:00)", checked=true) }}
+    {{ radio(id="time-day", name="time", value="day", label="День (12:00–16:00)") }}
+
+    {{ switchControl(id="notify", name="notifications",
+                     label="Уведомления о напоминаниях", checked=true) }}
+
+    Groups:
+    {{ checkboxGroup(
+         legend="Услуги",
+         name="services",
+         options=[
+           { value: "basic",   label: "Базовый осмотр",  checked: true },
+           { value: "vaccine", label: "Вакцинация",       checked: true },
+           { value: "tests",   label: "Сдача анализов" },
+           { value: "clean",   label: "Чистка зубов" }
+         ]
+       ) }}
+
+    {{ radioGroup(
+         legend="Время приёма",
+         name="time",
+         value="morning",
+         options=[
+           { value: "morning",   label: "Утро (09:00–12:00)" },
+           { value: "afternoon", label: "День (12:00–16:00)" },
+           { value: "evening",   label: "Вечер (16:00–20:00)" }
+         ]
+       ) }}
+
+  checkbox / radio / switchControl parameters:
+    id         — element id (string)
+    name       — form field name (string)
+    value      — field value submitted with form (string)
+    label      — visible label text (string)
+    hint       — help text shown below the control (string)
+    checked    — initial checked state (boolean, default false)
+    disabled   — disabled state (boolean, default false)
+    required   — required attribute (boolean, default false)
+    extraClass — extra CSS classes on the wrapper div (string)
+
+  checkboxGroup parameters:
+    legend     — group title rendered in <legend> (string)
+    name       — shared name attribute for all checkboxes (string)
+    options    — array of { value, label, hint?, checked?, disabled? }
+    hint       — group-level hint text (string)
+    error      — group-level error text (string)
+    required   — required attr on every checkbox (boolean, default false)
+    extraClass — extra CSS classes on <fieldset> (string)
+
+  radioGroup parameters:
+    legend     — group title rendered in <legend> (string)
+    name       — shared name attribute for all radios (string)
+    options    — array of { value, label, hint?, disabled? }
+    value      — currently selected option value (string)
+    hint       — group-level hint text (string)
+    error      — group-level error text (string)
+    required   — required attr on every radio (boolean, default false)
+    extraClass — extra CSS classes on <fieldset> (string)
+#}
+
+
+{# ── checkbox ─────────────────────────────────────────────────────────────── #}
+
+{% macro checkbox(
+  id        = '',
+  name      = '',
+  value     = '',
+  label     = '',
+  hint      = '',
+  checked   = false,
+  disabled  = false,
+  required  = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'choice-control',
+    'choice-control--checkbox',
+    ('choice-control--disabled' if disabled),
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    <label class="choice-control__label" for="{{ id }}">
+      <input
+        class="choice-control__input"
+        type="checkbox"
+        id="{{ id }}"
+        name="{{ name }}"
+        {%- if value %} value="{{ value }}"{% endif %}
+        {%- if hint %} aria-describedby="{{ id }}-hint"{% endif %}
+        {%- if checked %} checked{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        {%- if required %} required{% endif %}
+      >
+      <span class="choice-control__box" aria-hidden="true"></span>
+      {{- label }}
+    </label>
+    {%- if hint %}
+    <span class="choice-control__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {%- endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── radio ────────────────────────────────────────────────────────────────── #}
+
+{% macro radio(
+  id        = '',
+  name      = '',
+  value     = '',
+  label     = '',
+  hint      = '',
+  checked   = false,
+  disabled  = false,
+  required  = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'choice-control',
+    'choice-control--radio',
+    ('choice-control--disabled' if disabled),
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    <label class="choice-control__label" for="{{ id }}">
+      <input
+        class="choice-control__input"
+        type="radio"
+        id="{{ id }}"
+        name="{{ name }}"
+        {%- if value %} value="{{ value }}"{% endif %}
+        {%- if hint %} aria-describedby="{{ id }}-hint"{% endif %}
+        {%- if checked %} checked{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        {%- if required %} required{% endif %}
+      >
+      <span class="choice-control__box" aria-hidden="true"></span>
+      {{- label }}
+    </label>
+    {%- if hint %}
+    <span class="choice-control__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {%- endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── switchControl ────────────────────────────────────────────────────────── #}
+
+{% macro switchControl(
+  id        = '',
+  name      = '',
+  value     = '',
+  label     = '',
+  hint      = '',
+  checked   = false,
+  disabled  = false,
+  required  = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'choice-control',
+    'choice-control--switch',
+    ('choice-control--disabled' if disabled),
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    <label class="choice-control__label" for="{{ id }}">
+      <input
+        class="choice-control__input"
+        type="checkbox"
+        role="switch"
+        id="{{ id }}"
+        name="{{ name }}"
+        {%- if value %} value="{{ value }}"{% endif %}
+        {%- if hint %} aria-describedby="{{ id }}-hint"{% endif %}
+        {%- if checked %} checked{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        {%- if required %} required{% endif %}
+      >
+      <span class="choice-control__track" aria-hidden="true"><span class="choice-control__thumb"></span></span>
+      {{- label }}
+    </label>
+    {%- if hint %}
+    <span class="choice-control__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {%- endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── checkboxGroup ────────────────────────────────────────────────────────── #}
+
+{% macro checkboxGroup(
+  legend    = '',
+  name      = '',
+  options   = [],
+  hint      = '',
+  error     = '',
+  required  = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'choice-group',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <fieldset class="{{ _classes }}">
+    {%- if legend %}
+    <legend class="choice-group__legend">{{ legend }}</legend>
+    {%- endif %}
+    {%- if hint %}
+    <p class="choice-group__hint">{{ hint }}</p>
+    {%- endif %}
+    <ul class="choice-group__list">
+      {%- for option in options %}
+      <li>{{ checkbox(
+        id       = name + '-' + loop.index,
+        name     = name,
+        value    = option.value,
+        label    = option.label,
+        hint     = option.hint if option.hint else '',
+        checked  = option.checked if option.checked else false,
+        disabled = option.disabled if option.disabled else false,
+        required = required
+      ) }}</li>
+      {%- endfor %}
+    </ul>
+    {%- if error %}
+    <p class="choice-group__error">{{ error }}</p>
+    {%- endif %}
+  </fieldset>
+
+{% endmacro %}
+
+
+{# ── radioGroup ───────────────────────────────────────────────────────────── #}
+
+{% macro radioGroup(
+  legend    = '',
+  name      = '',
+  options   = [],
+  value     = '',
+  hint      = '',
+  error     = '',
+  required  = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'choice-group',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <fieldset class="{{ _classes }}">
+    {%- if legend %}
+    <legend class="choice-group__legend">{{ legend }}</legend>
+    {%- endif %}
+    {%- if hint %}
+    <p class="choice-group__hint">{{ hint }}</p>
+    {%- endif %}
+    <ul class="choice-group__list">
+      {%- for option in options %}
+      <li>{{ radio(
+        id       = name + '-' + loop.index,
+        name     = name,
+        value    = option.value,
+        label    = option.label,
+        hint     = option.hint if option.hint else '',
+        checked  = (option.value == value),
+        disabled = option.disabled if option.disabled else false,
+        required = required
+      ) }}</li>
+      {%- endfor %}
+    </ul>
+    {%- if error %}
+    <p class="choice-group__error">{{ error }}</p>
+    {%- endif %}
+  </fieldset>
+
+{% endmacro %}

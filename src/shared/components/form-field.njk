@@ -1,0 +1,242 @@
+{#
+  Form Field macros — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/form-field.njk" import field, textarea, select %}
+
+    {{ field(id="pet-name", label="Имя питомца", required=true) }}
+    {{ field(id="phone", label="Телефон", type="tel",
+             hint="Формат: +7 (999) 000-00-00", inputmode="tel") }}
+    {{ field(id="email", label="E-mail", type="email",
+             error="Введите корректный e-mail", autocomplete="email") }}
+    {{ field(id="dob", label="Дата", type="date") }}
+    {{ textarea(id="message", label="Сообщение", hint="Не более 500 символов", rows=4) }}
+    {{ select(id="service", label="Выбор услуги",
+              placeholder="Выберите услугу",
+              options=[
+                { value: "therapy",    label: "Терапия" },
+                { value: "vaccine",    label: "Вакцинация" },
+                { value: "diagnostic", label: "Диагностика" }
+              ]) }}
+
+  field() parameters:
+    id          — element id, also used as name fallback (string)
+    name        — form field name (string, default: same as id)
+    type        — input type: text|email|tel|date|number|password… (default 'text')
+    label       — visible label text (string)
+    value       — initial value (string, default '')
+    placeholder — placeholder text (string)
+    hint        — help text shown below the field (string)
+    error       — error message; also activates error state (string)
+    required    — adds required attr + visual asterisk (boolean, default false)
+    disabled    — adds disabled attr + modifier class (boolean, default false)
+    readonly    — adds readonly attr + modifier class (boolean, default false)
+    autocomplete — autocomplete attribute value (string)
+    inputmode   — inputmode attribute value (string)
+    extraClass  — additional CSS classes on wrapper (string)
+
+  textarea() parameters:
+    id / name / label / value / placeholder / hint / error
+    required / disabled / readonly / extraClass — same as field()
+    rows        — number of visible rows (number, default 4)
+
+  select() parameters:
+    id / name / label / hint / error / required / disabled / extraClass — same as field()
+    options     — array of { value, label } objects
+    value       — pre-selected option value (string)
+    placeholder — placeholder option text shown when nothing is selected (string)
+#}
+
+
+{# ── field ───────────────────────────────────────────────────────────────── #}
+
+{% macro field(
+  id          = '',
+  name        = '',
+  type        = 'text',
+  label       = '',
+  value       = '',
+  placeholder = '',
+  hint        = '',
+  error       = '',
+  required    = false,
+  disabled    = false,
+  readonly    = false,
+  autocomplete = '',
+  inputmode   = '',
+  extraClass  = ''
+) %}
+
+  {%- set _wrapperClasses = [
+    'form-field',
+    ('form-field--error'    if error),
+    ('form-field--disabled' if disabled),
+    ('form-field--readonly' if readonly),
+    (extraClass             if extraClass)
+  ] | select | join(' ') -%}
+
+  {%- set _describedBy = [
+    (id + '-hint'  if hint),
+    (id + '-error' if error)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _wrapperClasses }}">
+    {%- if label %}
+    <label class="form-field__label" for="{{ id }}">
+      {{- label -}}
+      {%- if required %}<span class="form-field__required" aria-hidden="true">*</span>{% endif %}
+    </label>
+    {% endif -%}
+    <div class="form-field__control">
+      <input
+        class="form-field__input"
+        id="{{ id }}"
+        name="{{ name if name else id }}"
+        type="{{ type }}"
+        value="{{ value }}"
+        {%- if placeholder %} placeholder="{{ placeholder }}"{% endif %}
+        {%- if _describedBy %} aria-describedby="{{ _describedBy }}"{% endif %}
+        {%- if error %} aria-invalid="true"{% endif %}
+        {%- if required %} required{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        {%- if readonly %} readonly{% endif %}
+        {%- if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}
+        {%- if inputmode %} inputmode="{{ inputmode }}"{% endif %}
+      >
+    </div>
+    {%- if hint %}
+    <span class="form-field__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {% endif -%}
+    {%- if error %}
+    <span class="form-field__error" id="{{ id }}-error">{{ error }}</span>
+    {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── textarea ─────────────────────────────────────────────────────────────── #}
+
+{% macro textarea(
+  id          = '',
+  name        = '',
+  label       = '',
+  value       = '',
+  placeholder = '',
+  hint        = '',
+  error       = '',
+  required    = false,
+  disabled    = false,
+  readonly    = false,
+  rows        = 4,
+  extraClass  = ''
+) %}
+
+  {%- set _wrapperClasses = [
+    'form-field',
+    ('form-field--error'    if error),
+    ('form-field--disabled' if disabled),
+    ('form-field--readonly' if readonly),
+    (extraClass             if extraClass)
+  ] | select | join(' ') -%}
+
+  {%- set _describedBy = [
+    (id + '-hint'  if hint),
+    (id + '-error' if error)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _wrapperClasses }}">
+    {%- if label %}
+    <label class="form-field__label" for="{{ id }}">
+      {{- label -}}
+      {%- if required %}<span class="form-field__required" aria-hidden="true">*</span>{% endif %}
+    </label>
+    {% endif -%}
+    <div class="form-field__control">
+      <textarea
+        class="form-field__textarea"
+        id="{{ id }}"
+        name="{{ name if name else id }}"
+        rows="{{ rows }}"
+        {%- if placeholder %} placeholder="{{ placeholder }}"{% endif %}
+        {%- if _describedBy %} aria-describedby="{{ _describedBy }}"{% endif %}
+        {%- if error %} aria-invalid="true"{% endif %}
+        {%- if required %} required{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        {%- if readonly %} readonly{% endif %}
+      >{{ value }}</textarea>
+    </div>
+    {%- if hint %}
+    <span class="form-field__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {% endif -%}
+    {%- if error %}
+    <span class="form-field__error" id="{{ id }}-error">{{ error }}</span>
+    {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── select ───────────────────────────────────────────────────────────────── #}
+
+{% macro select(
+  id          = '',
+  name        = '',
+  label       = '',
+  options     = [],
+  value       = '',
+  placeholder = '',
+  hint        = '',
+  error       = '',
+  required    = false,
+  disabled    = false,
+  extraClass  = ''
+) %}
+
+  {%- set _wrapperClasses = [
+    'form-field',
+    'form-field--select',
+    ('form-field--error'    if error),
+    ('form-field--disabled' if disabled),
+    (extraClass             if extraClass)
+  ] | select | join(' ') -%}
+
+  {%- set _describedBy = [
+    (id + '-hint'  if hint),
+    (id + '-error' if error)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _wrapperClasses }}">
+    {%- if label %}
+    <label class="form-field__label" for="{{ id }}">
+      {{- label -}}
+      {%- if required %}<span class="form-field__required" aria-hidden="true">*</span>{% endif %}
+    </label>
+    {% endif -%}
+    <div class="form-field__control">
+      <select
+        class="form-field__select"
+        id="{{ id }}"
+        name="{{ name if name else id }}"
+        {%- if _describedBy %} aria-describedby="{{ _describedBy }}"{% endif %}
+        {%- if error %} aria-invalid="true"{% endif %}
+        {%- if required %} required{% endif %}
+        {%- if disabled %} disabled{% endif %}
+      >
+        {%- if placeholder %}
+        <option value="" disabled {{ 'selected' if not value }}>{{ placeholder }}</option>
+        {% endif -%}
+        {%- for option in options %}
+        <option value="{{ option.value }}"{{ ' selected' if option.value == value }}>{{ option.label }}</option>
+        {%- endfor %}
+      </select>
+    </div>
+    {%- if hint %}
+    <span class="form-field__hint" id="{{ id }}-hint">{{ hint }}</span>
+    {% endif -%}
+    {%- if error %}
+    <span class="form-field__error" id="{{ id }}-error">{{ error }}</span>
+    {% endif %}
+  </div>
+
+{% endmacro %}

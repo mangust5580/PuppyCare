@@ -1,0 +1,75 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/picture.njk" import picture %}
+{% from "shared/components/icon.njk" import icon %}
+
+<section class="home-about" aria-labelledby="home-about-title">
+  <div class="container">
+    <div class="home-about__inner">
+
+      <div class="home-about__media">
+        {{ picture({
+          src: "images/home/about-care.jpg",
+          alt: "Ветеринар осматривает маленькую собаку в клинике PuppyCare",
+          width: "480",
+          height: "360",
+          className: "home-about__image",
+          pictureClass: "home-about__picture",
+          loading: "lazy",
+          decoding: "async",
+          retina: true
+        }) }}
+        <div class="home-about__stat">
+          <span class="home-about__stat-value">10+</span>
+          <span class="home-about__stat-label">лет заботы о животных</span>
+        </div>
+      </div>
+
+      <div class="home-about__content">
+
+        <p class="home-about__eyebrow">О нас</p>
+
+        <h2 class="home-about__title" id="home-about-title">Мы делаем заботу особенной</h2>
+
+        <p class="home-about__text">Наша миссия — обеспечивать качественный уход и поддержку питомцев и их владельцев. Мы верим, что каждый питомец заслуживает любви, внимания и профессиональной помощи.</p>
+
+        <ul class="home-about__list" role="list">
+
+          <li class="home-about__item">
+            <span class="home-about__item-icon" aria-hidden="true">
+              {{ icon("common-calendar", decorative=true) }}
+            </span>
+            <span class="home-about__item-text">Удобный график</span>
+          </li>
+
+          <li class="home-about__item">
+            <span class="home-about__item-icon" aria-hidden="true">
+              {{ icon("common-chat", decorative=true) }}
+            </span>
+            <span class="home-about__item-text">Онлайн-консультации</span>
+          </li>
+
+          <li class="home-about__item">
+            <span class="home-about__item-icon" aria-hidden="true">
+              {{ icon("common-heart", decorative=true) }}
+            </span>
+            <span class="home-about__item-text">Сострадательные специалисты</span>
+          </li>
+
+          <li class="home-about__item">
+            <span class="home-about__item-icon" aria-hidden="true">
+              {{ icon("common-home", decorative=true) }}
+            </span>
+            <span class="home-about__item-text">Выезд на дом</span>
+          </li>
+
+        </ul>
+
+        <div class="home-about__actions">
+          {{ button("Подробнее о нас", tag="a", href="about.html", variant="outline", size="medium") }}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>

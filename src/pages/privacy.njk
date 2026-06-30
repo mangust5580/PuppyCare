@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Политика конфиденциальности — PuppyCare" -%}
+  {%- set pageDescription = "Политика конфиденциальности PuppyCare: какие данные мы собираем, как используем информацию и как пользователь может связаться с нами." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "privacy.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="privacy">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+
+    {% set tocItems = [
+      { id: "general", text: "Общие положения" },
+      { id: "data", text: "Какие данные мы собираем" },
+      { id: "purposes", text: "Цели обработки данных" },
+      { id: "storage", text: "Хранение и защита данных" },
+      { id: "third-parties", text: "Передача третьим лицам" },
+      { id: "rights", text: "Права пользователя" },
+      { id: "cookies", text: "Файлы cookie" },
+      { id: "contacts", text: "Контакты" }
+    ] %}
+
+    <main id="main" class="page__content legal-page" tabindex="-1" data-page-content>
+
+      <section class="legal-page__hero" aria-labelledby="privacy-title">
+
+        <span class="legal-page__hero-decor" aria-hidden="true">
+          <svg class="legal-page__decor legal-page__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="legal-page__decor legal-page__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="legal-page__decor legal-page__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container legal-page__hero-inner">
+
+          <div class="legal-page__hero-content">
+
+            <p class="legal-page__eyebrow">Документы PuppyCare</p>
+
+            <h1 class="legal-page__title" id="privacy-title">Политика конфиденциальности</h1>
+
+            <nav class="legal-page__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="legal-page__breadcrumbs-list" role="list">
+                <li class="legal-page__breadcrumbs-item">
+                  <a class="legal-page__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="legal-page__breadcrumbs-item">
+                  <span class="legal-page__breadcrumbs-current" aria-current="page">Политика конфиденциальности</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="legal-page__meta">Последнее обновление: 26 июня 2026 г.</p>
+
+            <p class="legal-page__intro">Настоящая Политика конфиденциальности объясняет, какие данные может собирать PuppyCare, зачем они используются, как защищаются и какие права есть у пользователей сайта.</p>
+
+          </div>
+
+          <div class="legal-page__hero-media">
+            <span class="legal-page__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/shared/hero-pets.png",
+              alt: "Собака и кошка для страницы политики PuppyCare",
+              width: "450",
+              height: "350",
+              className: "legal-page__hero-image",
+              pictureClass: "legal-page__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="legal-page__body" aria-labelledby="privacy-content-title">
+        <div class="container legal-page__layout">
+
+          <h2 id="privacy-content-title" class="visually-hidden">Содержание и текст политики конфиденциальности</h2>
+
+          <aside class="legal-page__toc">
+            <nav class="legal-page__toc-inner" aria-label="Содержание политики">
+              <p class="legal-page__toc-title">Содержание</p>
+              <ol class="legal-page__toc-list" role="list">
+                {%- for item in tocItems %}
+                <li class="legal-page__toc-item">
+                  <a class="legal-page__toc-link" href="#{{ item.id }}">{{ item.text }}</a>
+                </li>
+                {%- endfor %}
+              </ol>
+            </nav>
+          </aside>
+
+          <article class="legal-page__article">
+
+            <section class="legal-page__section" id="general" aria-labelledby="general-title">
+              <h2 class="legal-page__section-title" id="general-title">Общие положения</h2>
+              <p class="legal-page__text">Настоящая Политика описывает, как PuppyCare обрабатывает данные пользователей сайта, клиентов и посетителей клиники. Используя сайт, отправляя заявку или связываясь с нами через формы, вы соглашаетесь с условиями обработки данных, описанными в этом документе.</p>
+            </section>
+
+            <section class="legal-page__section" id="data" aria-labelledby="data-title">
+              <h2 class="legal-page__section-title" id="data-title">Какие данные мы собираем</h2>
+              <p class="legal-page__text">В зависимости от того, как вы взаимодействуете с PuppyCare, мы можем обрабатывать следующие данные:</p>
+              <ul class="legal-page__list" role="list">
+                <li>имя и контактные данные, указанные в формах;</li>
+                <li>телефон и email для обратной связи;</li>
+                <li>сведения о питомце, если пользователь передаёт их при записи;</li>
+                <li>содержание обращений и комментариев;</li>
+                <li>технические данные сайта: IP-адрес, тип устройства, браузер, cookie.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="purposes" aria-labelledby="purposes-title">
+              <h2 class="legal-page__section-title" id="purposes-title">Цели обработки данных</h2>
+              <p class="legal-page__text">Данные обрабатываются для понятных и ограниченных целей:</p>
+              <ul class="legal-page__list" role="list">
+                <li>обработка заявок и запись на приём;</li>
+                <li>связь с пользователем по вопросам услуг;</li>
+                <li>консультации по уходу и посещению клиники;</li>
+                <li>улучшение сайта и качества сервиса;</li>
+                <li>выполнение требований законодательства, если применимо.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="storage" aria-labelledby="storage-title">
+              <h2 class="legal-page__section-title" id="storage-title">Хранение и защита данных</h2>
+              <p class="legal-page__text">Мы храним данные только столько, сколько необходимо для целей обработки или в сроки, предусмотренные применимыми требованиями. PuppyCare применяет организационные и технические меры для защиты данных от несанкционированного доступа, изменения, раскрытия или удаления.</p>
+            </section>
+
+            <section class="legal-page__section" id="third-parties" aria-labelledby="third-parties-title">
+              <h2 class="legal-page__section-title" id="third-parties-title">Передача третьим лицам</h2>
+              <p class="legal-page__text">PuppyCare не продаёт персональные данные. Передача возможна только в ограниченных случаях:</p>
+              <ul class="legal-page__list" role="list">
+                <li>поставщикам сервисов, которые помогают работе сайта, записи и коммуникациям;</li>
+                <li>по требованию уполномоченных органов в случаях, предусмотренных законом.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="rights" aria-labelledby="rights-title">
+              <h2 class="legal-page__section-title" id="rights-title">Права пользователя</h2>
+              <p class="legal-page__text">В отношении своих данных пользователь может:</p>
+              <ul class="legal-page__list" role="list">
+                <li>запросить информацию об обработке данных;</li>
+                <li>попросить уточнить или удалить данные;</li>
+                <li>отозвать согласие на обработку;</li>
+                <li>ограничить обработку в случаях, предусмотренных законом;</li>
+                <li>обратиться по контактам PuppyCare для решения вопросов.</li>
+              </ul>
+            </section>
+
+            <section class="legal-page__section" id="cookies" aria-labelledby="cookies-title">
+              <h2 class="legal-page__section-title" id="cookies-title">Файлы cookie</h2>
+              <p class="legal-page__text">Сайт может использовать cookie и похожие технологии для корректной работы, запоминания настроек и анализа посещаемости. Пользователь может изменить настройки cookie в браузере, но отключение части файлов может повлиять на работу сайта.</p>
+            </section>
+
+            <section class="legal-page__section" id="contacts" aria-labelledby="contacts-title">
+              <h2 class="legal-page__section-title" id="contacts-title">Контакты</h2>
+              <p class="legal-page__text">По вопросам обработки данных можно связаться с PuppyCare:</p>
+              <ul class="legal-page__contacts" role="list">
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-mail", decorative=true) }}</span>
+                  <a class="legal-page__contact-link" href="mailto:info@puppycare.ru">info@puppycare.ru</a>
+                </li>
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-phone", decorative=true) }}</span>
+                  <a class="legal-page__contact-link" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                </li>
+                <li class="legal-page__contact-item">
+                  <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-location", decorative=true) }}</span>
+                  <span class="legal-page__contact-text">Москва, ул. Лесная, 12</span>
+                </li>
+              </ul>
+            </section>
+
+            <aside class="legal-page__cta" aria-labelledby="privacy-cta-title">
+              <div class="legal-page__cta-content">
+                <h2 class="legal-page__cta-title" id="privacy-cta-title">Остались вопросы?</h2>
+                <p class="legal-page__cta-text">Свяжитесь с нами, если хотите уточнить, как PuppyCare обрабатывает данные и обращения пользователей.</p>
+              </div>
+              <div class="legal-page__cta-actions">
+                <a class="button button--primary button--large" href="contacts.html" data-feedback-modal-open>
+                  <span class="button__text">Связаться с нами</span>
+                </a>
+                <a class="legal-page__cta-phone" href="tel:+74951204567">
+                  {{ icon("contact-phone", className="legal-page__cta-phone-icon", size="sm") }}
+                  <span>+7 (495) 120-45-67</span>
+                </a>
+              </div>
+            </aside>
+
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

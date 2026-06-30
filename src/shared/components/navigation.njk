@@ -1,0 +1,275 @@
+{#
+  Navigation macros — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/navigation.njk" import
+       breadcrumbs, pagination, tabs, steps %}
+
+    {{ breadcrumbs(items=[
+         { label: "Главная",       href: "/" },
+         { label: "Услуги",        href: "/services.html" },
+         { label: "Терапия",       href: "/service-detail.html" },
+         { label: "Запись на приём" }
+       ]) }}
+
+    {{ pagination(
+         pages=[
+           { label: "1",   href: "/page/1" },
+           { label: "2",   href: "/page/2", current: true },
+           { label: "3",   href: "/page/3" },
+           { label: "4",   href: "/page/4" },
+           { label: "5",   href: "/page/5" },
+           { label: "...", ellipsis: true },
+           { label: "12",  href: "/page/12" }
+         ],
+         current=2,
+         prevHref="/page/1",
+         nextHref="/page/3"
+       ) }}
+
+    {{ tabs(items=[
+         { id: "description", label: "Описание", href: "#description", active: true },
+         { id: "doctors",     label: "Врачи",    href: "#doctors" },
+         { id: "reviews",     label: "Отзывы",   href: "#reviews" },
+         { id: "prices",      label: "Цены",     href: "#prices" },
+         { id: "faq",         label: "FAQ",      href: "#faq" }
+       ]) }}
+
+    {{ steps(items=[
+         { label: "Выбор услуги",   state: "current" },
+         { label: "Данные",         state: "upcoming" },
+         { label: "Время",          state: "upcoming" },
+         { label: "Подтверждение",  state: "upcoming" }
+       ]) }}
+
+    Using current= parameter instead of state on items:
+    {{ steps(current=2, items=[
+         { label: "Выбор услуги" },
+         { label: "Данные" },
+         { label: "Время" },
+         { label: "Подтверждение" }
+       ]) }}
+
+  breadcrumbs parameters:
+    items      — array of { label, href? }
+                 last item is always treated as the current page (no href rendered)
+    extraClass — extra CSS classes on <nav> (string)
+
+  pagination parameters:
+    pages        — array of { label, href?, current?, ellipsis? }
+    current      — current page number for context (number, default 1)
+    prevHref     — href for previous link (string)
+    nextHref     — href for next link (string)
+    prevDisabled — disable previous link (boolean, default false)
+    nextDisabled — disable next link (boolean, default false)
+    extraClass   — extra CSS classes on <nav> (string)
+
+  tabs parameters:
+    items      — array of { id?, label, href?, active?, disabled? }
+    active     — id of the active tab; overridden by item.active=true (string)
+    ariaLabel  — accessible label for the <nav> wrapper; recommended for navigation landmarks (string)
+    extraClass — extra CSS classes on wrapper (string)
+
+  steps parameters:
+    items      — array of { label, text?, state? }
+                 state: completed | current | upcoming
+    current    — 1-based index of the current step; used only when item.state is absent
+    extraClass — extra CSS classes on <ol> (string)
+#}
+
+
+{# ── breadcrumbs ─────────────────────────────────────────────────────────── #}
+
+{% macro breadcrumbs(items=[], extraClass='') %}
+
+  {%- set _classes = [
+    'breadcrumbs',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <nav class="{{ _classes }}" aria-label="Хлебные крошки">
+    <ol class="breadcrumbs__list">
+      {%- for item in items %}
+      <li class="breadcrumbs__item">
+        {%- if loop.last %}
+        <span class="breadcrumbs__current" aria-current="page">{{ item.label }}</span>
+        {%- else %}
+        <a class="breadcrumbs__link" href="{{ item.href }}">{{ item.label }}</a>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ol>
+  </nav>
+
+{% endmacro %}
+
+
+{# ── pagination ──────────────────────────────────────────────────────────── #}
+
+{% macro pagination(
+  pages        = [],
+  current      = 1,
+  prevHref     = '',
+  nextHref     = '',
+  prevDisabled = false,
+  nextDisabled = false,
+  extraClass   = ''
+) %}
+
+  {%- set _classes = [
+    'pagination',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <nav class="{{ _classes }}" aria-label="Пагинация">
+    <ul class="pagination__list">
+
+      {# Prev arrow #}
+      <li class="pagination__item">
+        {%- if prevDisabled %}
+        <a class="pagination__link pagination__link--prev pagination__link--disabled"
+           aria-disabled="true"
+           tabindex="-1"
+           aria-label="Предыдущая страница">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        {%- else %}
+        <a class="pagination__link pagination__link--prev"
+           href="{{ prevHref }}"
+           aria-label="Предыдущая страница">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        {%- endif %}
+      </li>
+
+      {# Page items #}
+      {%- for page in pages %}
+      {%- if page.ellipsis %}
+      <li class="pagination__item" aria-hidden="true">
+        <span class="pagination__ellipsis">…</span>
+      </li>
+      {%- elif page.current %}
+      <li class="pagination__item">
+        <a class="pagination__link pagination__link--current"
+           href="{{ page.href }}"
+           aria-current="page">{{ page.label }}</a>
+      </li>
+      {%- else %}
+      <li class="pagination__item">
+        <a class="pagination__link" href="{{ page.href }}">{{ page.label }}</a>
+      </li>
+      {%- endif %}
+      {%- endfor %}
+
+      {# Next arrow #}
+      <li class="pagination__item">
+        {%- if nextDisabled %}
+        <a class="pagination__link pagination__link--next pagination__link--disabled"
+           aria-disabled="true"
+           tabindex="-1"
+           aria-label="Следующая страница">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        {%- else %}
+        <a class="pagination__link pagination__link--next"
+           href="{{ nextHref }}"
+           aria-label="Следующая страница">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        {%- endif %}
+      </li>
+
+    </ul>
+  </nav>
+
+{% endmacro %}
+
+
+{# ── tabs ────────────────────────────────────────────────────────────────── #}
+
+{% macro tabs(items=[], active='', ariaLabel='', extraClass='') %}
+
+  {%- set _classes = [
+    'tabs',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <nav class="{{ _classes }}"
+       {%- if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}>
+    <ul class="tabs__list">
+      {%- for item in items %}
+      {%- set _isActive = item.active or (active and item.id and item.id == active) -%}
+      {%- if item.disabled %}
+      <li class="tabs__item tabs__item--disabled">
+        <span class="tabs__link"
+              aria-disabled="true"
+              tabindex="-1">{{ item.label }}</span>
+      </li>
+      {%- else %}
+      <li class="tabs__item{{ ' tabs__item--active' if _isActive }}">
+        {%- if item.href %}
+        <a class="tabs__link"
+           href="{{ item.href }}"
+           {%- if _isActive %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {%- else %}
+        <span class="tabs__link"
+              {%- if _isActive %} aria-current="page"{% endif %}>{{ item.label }}</span>
+        {%- endif %}
+      </li>
+      {%- endif %}
+      {%- endfor %}
+    </ul>
+  </nav>
+
+{% endmacro %}
+
+
+{# ── steps ───────────────────────────────────────────────────────────────── #}
+
+{% macro steps(items=[], current=0, extraClass='') %}
+
+  {%- set _classes = [
+    'steps',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <ol class="{{ _classes }}">
+    {%- for item in items %}
+
+    {# Derive state from item.state; fall back to current parameter #}
+    {%- set _state = item.state -%}
+    {%- if not _state and current > 0 -%}
+      {%- if loop.index < current -%}{%- set _state = 'completed' -%}{%- endif -%}
+      {%- if loop.index == current -%}{%- set _state = 'current' -%}{%- endif -%}
+      {%- if loop.index > current -%}{%- set _state = 'upcoming' -%}{%- endif -%}
+    {%- endif -%}
+    {%- if not _state -%}{%- set _state = 'upcoming' -%}{%- endif -%}
+
+    {%- set _itemClasses = [
+      'steps__item',
+      'steps__item--' ~ _state
+    ] | select | join(' ') -%}
+
+    <li class="{{ _itemClasses }}"
+        {%- if _state == 'current' %} aria-current="step"{% endif %}>
+      <span class="steps__marker" aria-hidden="true">
+        {%- if _state == 'completed' %}✓{%- else %}{{ loop.index }}{%- endif %}
+      </span>
+      <span class="steps__label">{{ item.label }}</span>
+      {%- if item.text %}
+      <span class="steps__text">{{ item.text }}</span>
+      {%- endif %}
+    </li>
+
+    {%- endfor %}
+  </ol>
+
+{% endmacro %}

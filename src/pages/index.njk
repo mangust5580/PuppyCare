@@ -1,0 +1,26 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "PuppyCare — забота о питомцах рядом с домом" -%}
+  {%- set pageDescription = "PuppyCare помогает владельцам питомцев найти ветеринарную помощь, уход, груминг и поддержку в удобной клинике рядом с домом." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="home">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    <main id="main" class="page__content" tabindex="-1" data-page-content>
+      {% include "shared/sections/home/hero.njk" %}
+      {% include "shared/sections/home/about.njk" %}
+      {% include "shared/sections/home/services.njk" %}
+      {% include "shared/sections/home/process.njk" %}
+      {% include "shared/sections/home/locations.njk" %}
+      {% include "shared/sections/home/reviews.njk" %}
+      {% include "shared/sections/home/banner.njk" %}
+      {% include "shared/sections/home/news.njk" %}
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

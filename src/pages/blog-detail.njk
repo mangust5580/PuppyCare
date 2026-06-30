@@ -1,0 +1,337 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Как подготовить питомца к вакцинации — PuppyCare" -%}
+  {%- set pageDescription = "Разбираем, как подготовить питомца к вакцинации: что взять с собой, когда перенести приём и как ухаживать за животным после прививки." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "blog-detail.html" -%}
+  {%- set pageType = "article" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="blog-article">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+
+    {% set articleMeta = [
+      { icon: "common-calendar", label: "28 апреля 2024" },
+      { icon: "common-user", label: "Анна Петрова" },
+      { icon: "medical-shield", label: "Вакцинация" },
+      { icon: "common-clock", label: "5 мин чтения" }
+    ] %}
+
+    {% set articleTags = [
+      { label: "Вакцинация", href: "blog.html" },
+      { label: "Уход", href: "blog.html" },
+      { label: "Здоровье", href: "blog.html" },
+      { label: "Кошки", href: "blog.html" },
+      { label: "Собаки", href: "blog.html" }
+    ] %}
+
+    {% set articleCategories = [
+      { label: "Уход", href: "blog.html", icon: "pets-paw" },
+      { label: "Вакцинация", href: "blog.html", icon: "medical-shield", active: true },
+      { label: "Питание", href: "blog.html", icon: "common-leaf" },
+      { label: "Диагностика", href: "blog.html", icon: "services-diagnostics" },
+      { label: "Советы владельцам", href: "blog.html", icon: "common-info" }
+    ] %}
+
+    {% set articlePopular = [
+      {
+        title: "Как ухаживать за шерстью собаки весной",
+        date: "12 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-dog-coat.jpg",
+        alt: "Собаку аккуратно расчёсывают в светлом помещении"
+      },
+      {
+        title: "Признаки стресса у кошки: как распознать",
+        date: "5 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-cat-stress.jpg",
+        alt: "Кошка спокойно сидит в светлой консультационной комнате"
+      },
+      {
+        title: "Стерилизация и кастрация: в чём разница?",
+        date: "28 марта 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/popular-sterilization.jpg",
+        alt: "Ветеринар консультирует владельца питомца в клинике"
+      }
+    ] %}
+
+    {% set articleRelated = [
+      {
+        category: "Уход",
+        title: "Как ухаживать за шерстью кошки",
+        date: "15 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-cat-coat-care.jpg",
+        alt: "Кошку аккуратно расчёсывают щёткой"
+      },
+      {
+        category: "Питание",
+        title: "Как выбрать корм для щенка",
+        date: "8 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-puppy-food.jpg",
+        alt: "Щенок рядом с миской корма в светлом помещении"
+      },
+      {
+        category: "Советы владельцам",
+        title: "Как снизить тревожность у питомца",
+        date: "2 апреля 2024",
+        href: "blog-detail.html",
+        image: "images/pages/blog/article-pet-anxiety.jpg",
+        alt: "Ветеринар консультирует владельца собаки о тревожности питомца"
+      }
+    ] %}
+
+    <main id="main" class="page__content page-blog-article" tabindex="-1" data-page-content>
+
+      <section class="page-blog-article__hero" aria-labelledby="blog-article-hero-title">
+
+        <span class="page-blog-article__hero-decor" aria-hidden="true">
+          <svg class="page-blog-article__decor page-blog-article__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-blog-article__decor page-blog-article__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-blog-article__decor page-blog-article__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-blog-article__hero-inner">
+
+          <div class="page-blog-article__hero-content">
+
+            <p class="page-blog-article__eyebrow">Новости и советы</p>
+
+            <h1 class="page-blog-article__title" id="blog-article-hero-title">Как подготовить питомца к вакцинации</h1>
+
+            <nav class="page-blog-article__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-blog-article__breadcrumbs-list" role="list">
+                <li class="page-blog-article__breadcrumbs-item">
+                  <a class="page-blog-article__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-blog-article__breadcrumbs-item">
+                  <a class="page-blog-article__breadcrumbs-link" href="blog.html">Блог</a>
+                </li>
+                <li class="page-blog-article__breadcrumbs-item">
+                  <span class="page-blog-article__breadcrumbs-current" aria-current="page">Как подготовить питомца к вакцинации</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-blog-article__lead">Рассказываем, как снизить стресс перед визитом, что взять с собой и на что обратить внимание после прививки.</p>
+
+          </div>
+
+          <div class="page-blog-article__hero-media">
+            <span class="page-blog-article__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/blog-detail/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-blog-article__hero-image",
+              pictureClass: "page-blog-article__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-blog-article__main" aria-labelledby="blog-article-title">
+        <div class="container page-blog-article__layout">
+
+          <article class="page-blog-article__content">
+            <h2 class="visually-hidden" id="blog-article-title">Содержание статьи</h2>
+
+            <header class="page-blog-article__article-head">
+              <p class="page-blog-article__category">Вакцинация</p>
+              <ul class="page-blog-article__meta" role="list">
+                {%- for m in articleMeta %}
+                <li>
+                  <span class="page-blog-article__meta-icon" aria-hidden="true">{{ icon(m.icon, size="sm") }}</span>
+                  <span>{{ m.label }}</span>
+                </li>
+                {%- endfor %}
+              </ul>
+            </header>
+
+            <div class="page-blog-article__image">
+              {{ picture({
+                src: "images/pages/blog/featured-vaccination.jpg",
+                alt: "Ветеринар PuppyCare готовит собаку к вакцинации в светлой клинике",
+                width: "760",
+                height: "428",
+                className: "page-blog-article__image-img",
+                pictureClass: "page-blog-article__image-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+
+            <div class="page-blog-article__body">
+              <p>Вакцинация — один из самых эффективных способов защитить питомца от опасных инфекций. Чтобы процедура прошла безопасно и спокойно, важно заранее подготовиться к визиту в клинику.</p>
+
+              <h2>Зачем нужна подготовка</h2>
+              <p>Правильная подготовка снижает уровень стресса у животного и позволяет ветеринару объективно оценить его состояние. Это помогает подобрать оптимальную вакцину и избежать возможных осложнений.</p>
+
+              <h2>Что взять с собой</h2>
+              <ul class="page-blog-article__list" role="list">
+                <li>Ветеринарный паспорт с отметками о предыдущих прививках</li>
+                <li>Любимые лакомства или игрушку для снижения стресса</li>
+                <li>Пелёнку или плед для переноски питомца</li>
+                <li>Средство от блох и клещей, если применимо</li>
+              </ul>
+
+              <h2>Когда перенести приём</h2>
+              <p>Если питомец вялый, отказывается от еды, у него повышена температура, диарея или насморк — лучше отложить вакцинацию. Также не рекомендуется прививать животное в период течки или восстановления после болезни.</p>
+
+              <aside class="page-blog-article__advice">
+                <span class="page-blog-article__advice-icon" aria-hidden="true">
+                  {{ icon("medical-veterinarian", className="page-blog-article__advice-icon-svg", size="lg") }}
+                </span>
+                <div class="page-blog-article__advice-body">
+                  <p class="page-blog-article__advice-title">Совет ветеринара</p>
+                  <p class="page-blog-article__advice-text">Не купайте питомца за 2–3 дня до прививки и не меняйте рацион. Стабильные условия помогут организму лучше сформировать иммунный ответ.</p>
+                </div>
+              </aside>
+
+              <h2>Советы после вакцинации</h2>
+              <p>В течение 1–2 дней после прививки возможна небольшая сонливость или снижение аппетита — это нормальная реакция.</p>
+              <ul class="page-blog-article__list" role="list">
+                <li>Обеспечьте питомцу спокойный режим</li>
+                <li>Избегайте переохлаждения и активных прогулок</li>
+                <li>Следите за состоянием и аппетитом</li>
+                <li>При появлении тревожных симптомов обратитесь к врачу</li>
+              </ul>
+            </div>
+
+            <footer class="page-blog-article__footer">
+              <div class="page-blog-article__tags">
+                <span class="page-blog-article__tags-label">Теги:</span>
+                <ul class="page-blog-article__tags-list" role="list">
+                  {%- for t in articleTags %}
+                  <li><a class="page-blog-article__tag" href="{{ t.href }}">{{ t.label }}</a></li>
+                  {%- endfor %}
+                </ul>
+              </div>
+            </footer>
+          </article>
+
+          <aside class="page-blog-article__sidebar" aria-label="Блог: поиск и категории">
+
+            <div class="page-blog-article__sidebar-card page-blog-article__search">
+              <form class="page-blog-article__search-form" action="blog.html" method="get" role="search">
+                <label class="visually-hidden" for="blog-article-search">Поиск по блогу</label>
+                <input class="page-blog-article__search-input" type="search" id="blog-article-search" name="search" placeholder="Поиск по блогу...">
+                <button class="page-blog-article__search-button" type="submit">
+                  <span class="visually-hidden">Найти статью</span>
+                  <span class="page-blog-article__search-icon" aria-hidden="true">{{ icon("ui-arrow-right", size="sm") }}</span>
+                </button>
+              </form>
+            </div>
+
+            <div class="page-blog-article__sidebar-card page-blog-article__categories">
+              <h2 class="page-blog-article__sidebar-title">Категории</h2>
+              <ul class="page-blog-article__categories-list" role="list">
+                {%- for cat in articleCategories %}
+                <li>
+                  <a class="page-blog-article__category-link{{ ' page-blog-article__category-link--active' if cat.active }}" href="{{ cat.href }}"{{ ' aria-current="page"' if cat.active }}>
+                    <span class="page-blog-article__category-icon" aria-hidden="true">{{ icon(cat.icon, size="sm") }}</span>
+                    <span>{{ cat.label }}</span>
+                  </a>
+                </li>
+                {%- endfor %}
+              </ul>
+            </div>
+
+            <div class="page-blog-article__sidebar-card page-blog-article__popular">
+              <h2 class="page-blog-article__sidebar-title">Популярные статьи</h2>
+              <ul class="page-blog-article__popular-list" role="list">
+                {%- for item in articlePopular %}
+                <li class="page-blog-article__popular-item">
+                  <div class="page-blog-article__popular-image">
+                    {{ picture({
+                      src: item.image,
+                      alt: item.alt,
+                      width: "120",
+                      height: "120",
+                      className: "page-blog-article__popular-img",
+                      pictureClass: "page-blog-article__popular-picture",
+                      loading: "lazy",
+                      decoding: "async",
+                      retina: true
+                    }) }}
+                  </div>
+                  <div class="page-blog-article__popular-body">
+                    <h3 class="page-blog-article__popular-title">
+                      <a class="page-blog-article__popular-link" href="{{ item.href }}">{{ item.title }}</a>
+                    </h3>
+                    <p class="page-blog-article__popular-date">{{ item.date }}</p>
+                  </div>
+                </li>
+                {%- endfor %}
+              </ul>
+            </div>
+
+            <div class="page-blog-article__sidebar-card page-blog-article__consultation">
+              <h2 class="page-blog-article__consultation-title">Нужна консультация?</h2>
+              <p class="page-blog-article__consultation-text">Наши ветеринары всегда готовы помочь вам и вашему питомцу.</p>
+              {{ button("Записаться на приём", tag="a", href="appointment.html", variant="primary", size="large", extraClass="page-blog-article__consultation-button") }}
+              <a class="page-blog-article__consultation-phone" href="tel:+74951204567">
+                {{ icon("contact-phone", className="page-blog-article__consultation-phone-icon", size="sm") }}
+                <span>+7 (495) 120-45-67</span>
+              </a>
+            </div>
+
+          </aside>
+
+        </div>
+      </section>
+
+      <section class="page-blog-article__related" aria-labelledby="blog-related-title">
+        <div class="container">
+          <h2 class="page-blog-article__related-title" id="blog-related-title">Похожие статьи</h2>
+          <ul class="page-blog-article__related-grid" role="list">
+            {%- for post in articleRelated %}
+            <li class="page-blog-article__related-item">
+              <article class="page-blog-article__related-card">
+                <div class="page-blog-article__related-image">
+                  {{ picture({
+                    src: post.image,
+                    alt: post.alt,
+                    width: "360",
+                    height: "225",
+                    className: "page-blog-article__related-img",
+                    pictureClass: "page-blog-article__related-picture",
+                    loading: "lazy",
+                    decoding: "async",
+                    retina: true
+                  }) }}
+                </div>
+                <div class="page-blog-article__related-content">
+                  <p class="page-blog-article__category">{{ post.category }}</p>
+                  <h3 class="page-blog-article__related-card-title">
+                    <a class="page-blog-article__related-link" href="{{ post.href }}">{{ post.title }}</a>
+                  </h3>
+                  <p class="page-blog-article__related-date">{{ post.date }}</p>
+                </div>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

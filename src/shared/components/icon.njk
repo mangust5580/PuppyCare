@@ -1,0 +1,9 @@
+{% macro icon(name, className='', size='md', label='', decorative=true) %}
+{%- set _sizes = { 'xs': 14, 'sm': 16, 'md': 20, 'lg': 24, 'xl': 32 } -%}
+{%- set _size = size if _sizes[size] else 'md' -%}
+{%- set _px = _sizes[_size] -%}
+{%- set _classes = ['icon', 'icon--' ~ _size, className] | select | join(' ') -%}
+<svg class="{{ _classes }}" width="{{ _px }}" height="{{ _px }}"
+  {%- if decorative %} aria-hidden="true" focusable="false"
+  {%- else %} role="img" focusable="false" aria-label="{{ label }}"{% endif %}><use href="icons/sprite.svg#icon-{{ name }}"></use></svg>
+{%- endmacro %}

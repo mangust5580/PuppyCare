@@ -1,0 +1,58 @@
+{#
+  Feedback form — PuppyCare (shared)
+  ─────────────────────────────────────────────────────────────────────────────
+  Reusable contact / feedback form, used both on the Contacts page and inside
+  the global feedback modal. `idPrefix` keeps field IDs unique when more than one
+  instance of the form is present in the same document (e.g. Contacts + modal).
+
+  Usage:
+    {% from "shared/forms/feedback-form.njk" import feedbackForm %}
+    {{ feedbackForm(idPrefix="contacts-feedback", className="page-contacts__form", ...) }}
+
+  Parameters:
+    idPrefix      — prefix for every field id/name (string, default 'feedback')
+    className     — class on the <form> element (string)
+    action        — form action URL (string, default 'contacts.html')
+    method        — form method (string, default 'post')
+    buttonText    — submit button label (string)
+    submitClass   — extra class on the submit button (string)
+    noteText      — privacy note text before the link (string)
+    privacyText   — privacy link label (string)
+    privacyHref   — privacy link href (string, default 'privacy.html')
+    noteClass     — class on the note paragraph (string)
+    noteLinkClass — class on the privacy link (string)
+    formAttrs     — extra raw attributes for the <form> (string, e.g. data hooks)
+#}
+
+{% from "shared/components/form-field.njk" import field, textarea, select %}
+{% from "shared/components/button.njk" import button %}
+
+{% macro feedbackForm(
+  idPrefix      = 'feedback',
+  className     = 'feedback-form',
+  action        = 'contacts.html',
+  method        = 'post',
+  buttonText    = 'Отправить сообщение',
+  submitClass   = '',
+  noteText      = 'Нажимая кнопку, вы соглашаетесь с',
+  privacyText   = 'политикой конфиденциальности',
+  privacyHref   = 'privacy.html',
+  noteClass     = 'feedback-form__note',
+  noteLinkClass = 'feedback-form__note-link',
+  formAttrs     = ''
+) %}
+<form class="{{ className }}" method="{{ method }}" action="{{ action }}"{% if formAttrs %} {{ formAttrs | safe }}{% endif %}>
+  {{ field(id=idPrefix ~ "-name", label="Ваше имя", required=true, placeholder="Ваше имя", autocomplete="name") }}
+  {{ field(id=idPrefix ~ "-phone", label="Телефон", type="tel", required=true, placeholder="Телефон", autocomplete="tel", inputmode="tel") }}
+  {{ field(id=idPrefix ~ "-email", label="E-mail", type="email", required=true, placeholder="E-mail", autocomplete="email") }}
+  {{ select(id=idPrefix ~ "-subject", label="Тема обращения", required=true, placeholder="Тема обращения", options=[
+    { value: "appointment", label: "Запись на приём" },
+    { value: "service", label: "Вопрос по услуге" },
+    { value: "urgent", label: "Срочная помощь" },
+    { value: "other", label: "Другое" }
+  ]) }}
+  {{ textarea(id=idPrefix ~ "-message", label="Сообщение", required=true, placeholder="Сообщение", rows=5) }}
+  {{ button(buttonText, type="submit", variant="primary", size="large", extraClass=submitClass) }}
+  <p class="{{ noteClass }}">{{ noteText }} <a class="{{ noteLinkClass }}" href="{{ privacyHref }}">{{ privacyText }}</a>.</p>
+</form>
+{% endmacro %}

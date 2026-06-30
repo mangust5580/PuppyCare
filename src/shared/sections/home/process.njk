@@ -1,0 +1,31 @@
+{% from "shared/components/icon.njk" import icon %}
+
+{% set steps = [
+  { title: "Оставьте заявку", text: "Заполните форму или позвоните нам.", icon: "common-calendar" },
+  { title: "Мы свяжемся с вами", text: "Согласуем удобное время и услугу.", icon: "common-clock" },
+  { title: "Осмотр и помощь", text: "Наш специалист поможет вашему питомцу.", icon: "common-user" },
+  { title: "Забота продолжается", text: "Мы всегда на связи и готовы помочь.", icon: "common-heart" }
+] %}
+
+<section class="home-process" aria-labelledby="home-process-title">
+  <div class="container">
+    <div class="home-process__inner">
+
+      <header class="home-process__header">
+        <h2 class="home-process__title" id="home-process-title">Как это работает</h2>
+      </header>
+
+      <ol class="home-process__list">
+        {%- for step in steps %}
+        <li class="home-process__item">
+          <span class="home-process__icon" aria-hidden="true">{{ icon(step.icon, decorative=true) }}</span>
+          <span class="home-process__number">{{ loop.index }}</span>
+          <h3 class="home-process__item-title">{{ step.title }}</h3>
+          <p class="home-process__item-text">{{ step.text }}</p>
+        </li>
+        {%- endfor %}
+      </ol>
+
+    </div>
+  </div>
+</section>

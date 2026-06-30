@@ -1,0 +1,186 @@
+@use '../helpers' as *;
+
+// ── Feedback / contact modal ─────────────────────────────────────────────────
+// Global modal included once per page (shared/modals). Trigger-driven via
+// `[data-feedback-modal-open]`. Hidden via the `hidden` attribute; `is-open`
+// drives the fade/scale transition. Reuses the shared form-field styles.
+
+.feedback-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+}
+
+.feedback-modal[hidden] {
+  display: none;
+}
+
+.feedback-modal__overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0%;
+  background-color: rgb(15 27 58 / 64%);
+  cursor: pointer; // click anywhere on the backdrop closes the modal (data-feedback-modal-close)
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 200ms ease;
+  }
+}
+
+.feedback-modal.is-open .feedback-modal__overlay {
+  opacity: 100%;
+}
+
+.feedback-modal__dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  opacity: 0%;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: var(--space-24);
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 620px;
+  max-block-size: calc(100dvh - var(--space-32));
+  padding: fluid(40, 24);
+  border-radius: var(--radius-xl);
+  background-color: var(--surface-base);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(8px) scale(0.98);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+}
+
+.feedback-modal.is-open .feedback-modal__dialog {
+  opacity: 100%;
+  transform: none;
+}
+
+.feedback-modal__close {
+  position: absolute;
+  inset-block-start: var(--space-16);
+  inset-inline-end: var(--space-16);
+  z-index: 2;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+
+  @include transition((background-color, color));
+
+  @include hover {
+    background-color: var(--color-coral-100);
+    color: var(--color-coral-600);
+  }
+
+  @include focus-visible;
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+
+.feedback-modal__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-inline-size: 0;
+  padding-inline-end: var(--space-48);
+}
+
+.feedback-modal__eyebrow {
+  margin: 0;
+  color: var(--color-coral-600);
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  line-height: var(--text-overline-line-height);
+  letter-spacing: var(--text-overline-tracking);
+  text-transform: uppercase;
+}
+
+.feedback-modal__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(28, 22);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.feedback-modal__description {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+// ── Body / form ──────────────────────────────────────────────────────────────
+
+.feedback-modal__body {
+  min-inline-size: 0;
+}
+
+.feedback-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-inline-size: 0;
+}
+
+.feedback-modal__form textarea {
+  min-block-size: clamp(120px, 12vw, 160px);
+  resize: none;
+}
+
+.feedback-modal__submit {
+  justify-content: center;
+  inline-size: 100%;
+}
+
+.feedback-modal__note {
+  margin: 0;
+  color: var(--text-tertiary);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+}
+
+.feedback-modal__note-link {
+  color: var(--color-coral-600);
+  font-weight: 600;
+  text-decoration: underline;
+
+  @include transition-color;
+
+  @include hover {
+    color: var(--color-coral-500);
+  }
+
+  @include focus-visible;
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+@include media-down('sm') {
+  .feedback-modal {
+    padding: var(--space-8);
+  }
+}

@@ -1,0 +1,242 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Цены — PuppyCare" -%}
+  {%- set pageDescription = "Цены и планы PuppyCare: выберите подходящий формат заботы о питомце — от профилактического ухода до расширенного сопровождения." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "pricing.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="pricing">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+    {% from "shared/components/accordion.njk" import accordion %}
+
+    {% set pricingPlans = [
+      {
+        title: "Базовый уход",
+        description: "Идеальный выбор для регулярного наблюдения и профилактики.",
+        price: "1 900",
+        features: [
+          "Осмотр и консультация врача",
+          "Базовая вакцинация",
+          "Обработка от паразитов",
+          "Рекомендации по питанию",
+          "Поддержка 1 месяц"
+        ]
+      },
+      {
+        title: "Комплексный осмотр",
+        featured: true,
+        description: "Полная проверка здоровья и необходимые прививки.",
+        price: "4 900",
+        features: [
+          "Полный клинический осмотр",
+          "Лабораторные анализы",
+          "Вакцинация по возрасту",
+          "УЗИ брюшной полости",
+          "Обработка от паразитов",
+          "Поддержка 3 месяца"
+        ]
+      },
+      {
+        title: "Премиум забота",
+        description: "Расширенный уход, диагностика и персональное сопровождение.",
+        price: "9 900",
+        features: [
+          "Расширенный осмотр и диагностика",
+          "Все необходимые анализы",
+          "Вакцинация и чипирование",
+          "УЗИ и консультации специалистов",
+          "Обработка от паразитов",
+          "Поддержка 6 месяцев"
+        ]
+      }
+    ] %}
+
+    {% set pricingFaq = [
+      {
+        question: "Есть ли бесплатная первичная консультация?",
+        answer: "Да, у нас действует бесплатная первичная консультация для новых пациентов. Мы оценим состояние вашего питомца и предложим оптимальный план лечения или профилактики.",
+        open: true
+      },
+      {
+        question: "Можно ли изменить план лечения позже?",
+        answer: "Да, план можно скорректировать после осмотра, диагностики или изменения состояния питомца. Врач объяснит, какие услуги действительно нужны."
+      },
+      {
+        question: "Что входит в стоимость приёма?",
+        answer: "В стоимость входит осмотр, консультация врача и базовые рекомендации. Дополнительные анализы, процедуры и препараты согласуются отдельно."
+      },
+      {
+        question: "Как работает оплата?",
+        answer: "Вы оплачиваете услуги после консультации или процедуры. Администратор заранее уточнит стоимость и возможные дополнительные расходы."
+      },
+      {
+        question: "Можно ли получить чек и документы?",
+        answer: "Да, после оплаты вы получите чек. При необходимости мы подготовим выписку, рекомендации врача и документы по оказанным услугам."
+      },
+      {
+        question: "Есть ли скидки на повторный визит?",
+        answer: "Да, для повторных визитов и комплексного наблюдения могут действовать специальные условия. Администратор подскажет актуальные варианты при записи."
+      }
+    ] %}
+
+    <main id="main" class="page__content page-pricing" tabindex="-1" data-page-content>
+
+      <section class="page-pricing__hero" aria-labelledby="pricing-title">
+
+        <span class="page-pricing__hero-decor" aria-hidden="true">
+          <svg class="page-pricing__decor page-pricing__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-pricing__decor page-pricing__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-pricing__decor page-pricing__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-pricing__hero-inner">
+
+          <div class="page-pricing__hero-content">
+
+            <p class="page-pricing__eyebrow">Планы и цены</p>
+
+            <h1 class="page-pricing__title" id="pricing-title">Цены</h1>
+
+            <nav class="page-pricing__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-pricing__breadcrumbs-list" role="list">
+                <li class="page-pricing__breadcrumbs-item">
+                  <a class="page-pricing__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-pricing__breadcrumbs-item">
+                  <span class="page-pricing__breadcrumbs-current" aria-current="page">Цены</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-pricing__lead">Выберите подходящий формат заботы о питомце — от профилактического ухода до расширенного сопровождения.</p>
+
+          </div>
+
+          <div class="page-pricing__hero-media">
+            <span class="page-pricing__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/pricing/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-pricing__hero-image",
+              pictureClass: "page-pricing__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-pricing__plans" aria-labelledby="pricing-plans-title">
+        <div class="container">
+
+          <div class="page-pricing__plans-head">
+            <p class="page-pricing__eyebrow page-pricing__eyebrow--dark">Планы</p>
+            <h2 class="page-pricing__plans-title" id="pricing-plans-title">Гибкие цены и планы</h2>
+            <p class="page-pricing__plans-text">Выберите оптимальный план заботы о вашем питомце. Все планы включают осмотр и рекомендации наших ветеринаров.</p>
+          </div>
+
+          <ul class="page-pricing__plans-list" role="list">
+            {%- for plan in pricingPlans %}
+            <li class="page-pricing__plan{{ ' page-pricing__plan--featured' if plan.featured }}">
+
+              <h3 class="page-pricing__plan-title">{{ plan.title }}</h3>
+              <p class="page-pricing__plan-text">{{ plan.description }}</p>
+
+              <p class="page-pricing__plan-price">
+                <span class="page-pricing__plan-price-from">от</span>
+                <span class="page-pricing__plan-price-value">{{ plan.price }}</span>
+                <span class="page-pricing__plan-price-currency">₽</span>
+              </p>
+
+              {{ button("Выбрать план", tag="a", href="appointment.html", variant=("primary" if plan.featured else "outline"), size="large", extraClass="page-pricing__plan-button") }}
+
+              <div class="page-pricing__plan-features">
+                <p class="page-pricing__plan-features-title">Включено в план:</p>
+                <ul class="page-pricing__feature-list" role="list">
+                  {%- for feature in plan.features %}
+                  <li class="page-pricing__feature">
+                    {{ icon("common-check", className="page-pricing__feature-icon", size="sm") }}
+                    <span class="page-pricing__feature-text">{{ feature }}</span>
+                  </li>
+                  {%- endfor %}
+                </ul>
+              </div>
+
+            </li>
+            {%- endfor %}
+          </ul>
+
+          <p class="page-pricing__plans-note">
+            {{ icon("medical-shield", className="page-pricing__plans-note-icon", size="sm") }}
+            <span class="page-pricing__plans-note-text">Все цены указаны в рублях и могут варьироваться в зависимости от состояния питомца и потребностей.</span>
+          </p>
+
+        </div>
+      </section>
+
+      <section class="page-pricing__faq" aria-labelledby="pricing-faq-title">
+        <div class="container">
+
+          <div class="page-pricing__faq-head">
+            <p class="page-pricing__eyebrow page-pricing__eyebrow--dark">FAQ</p>
+            <h2 class="page-pricing__faq-title" id="pricing-faq-title">Частые вопросы</h2>
+            <p class="page-pricing__faq-text">Ответы на популярные вопросы о наших услугах, планах и оплате.</p>
+          </div>
+
+          <div class="page-pricing__faq-layout">
+
+            <div class="page-pricing__faq-media">
+              {{ picture({
+                src: "images/pages/pricing/faq.jpg",
+                alt: "Ветеринар PuppyCare консультирует владельца питомца в клинике",
+                width: "480",
+                height: "360",
+                className: "page-pricing__faq-image",
+                pictureClass: "page-pricing__faq-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+
+            <div class="page-pricing__faq-body">
+              {{ accordion({
+                id: "pricing-faq",
+                mode: "single",
+                items: pricingFaq
+              }) }}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "pricing-cta",
+        eyebrow: "Запись на приём",
+        title: "Забота тогда, когда она нужна",
+        text: "Выберите удобное время, а мы поможем подобрать подходящий план заботы о вашем питомце.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться онлайн",
+        primaryHref: "appointment.html"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

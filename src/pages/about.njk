@@ -1,0 +1,226 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "О нас — PuppyCare" -%}
+  {%- set pageDescription = "Узнайте больше о PuppyCare: нашей команде, подходе к заботе о питомцах, ветеринарных услугах и принципах работы с владельцами животных." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "about.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="about">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+
+    {% set advantages = [
+      { title: "Удобная запись", text: "Онлайн-запись в пару кликов в удобное для вас время.", icon: "common-calendar" },
+      { title: "Удобные часы", text: "Работаем ежедневно, включая вечернее время и выходные.", icon: "common-clock" },
+      { title: "Онлайн-консультации", text: "Получайте советы ветеринара, не выходя из дома.", icon: "common-chat" },
+      { title: "Заботливые ветеринары", text: "Опытная команда с искренней любовью к животным.", icon: "common-heart" }
+    ] %}
+
+    {% set stats = [
+      { value: "10+", label: "лет заботы о питомцах" },
+      { value: "25 000+", label: "счастливых питомцев" },
+      { value: "30+", label: "специалистов в команде" }
+    ] %}
+
+    {% set steps = [
+      { title: "Оставьте заявку", text: "Запишитесь онлайн или позвоните нам. Выберите удобное время приёма." },
+      { title: "Мы уточним детали", text: "Наш администратор свяжется с вами, чтобы подтвердить запись и ответить на вопросы." },
+      { title: "Приём и рекомендации", text: "Ветеринар проведёт осмотр, назначит лечение и даст рекомендации по уходу." }
+    ] %}
+
+    <main id="main" class="page__content page-about" tabindex="-1" data-page-content>
+
+      <section class="page-about__hero" aria-labelledby="about-title">
+
+        <span class="page-about__hero-decor" aria-hidden="true">
+          <svg class="page-about__decor page-about__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-about__decor page-about__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-about__decor page-about__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-about__hero-inner">
+
+          <div class="page-about__hero-content">
+
+            <p class="page-about__eyebrow">О компании</p>
+
+            <h1 class="page-about__title" id="about-title">О нас</h1>
+
+            <nav class="page-about__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-about__breadcrumbs-list" role="list">
+                <li class="page-about__breadcrumbs-item">
+                  <a class="page-about__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-about__breadcrumbs-item">
+                  <span class="page-about__breadcrumbs-current" aria-current="page">О нас</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-about__lead">PuppyCare — это сеть клиник и сервисов заботы о питомцах, где внимательные специалисты помогают вашим любимцам быть здоровыми и счастливыми.</p>
+
+          </div>
+
+          <div class="page-about__hero-media">
+            <span class="page-about__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/about/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-about__hero-image",
+              pictureClass: "page-about__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-about__intro" aria-labelledby="about-intro-title">
+        <div class="container page-about__intro-inner">
+
+          <div class="page-about__intro-media">
+            {{ picture({
+              src: "images/home/about-care.jpg",
+              alt: "Ветеринар PuppyCare бережно осматривает собаку",
+              width: "480",
+              height: "360",
+              className: "page-about__intro-image",
+              pictureClass: "page-about__intro-picture",
+              loading: "lazy",
+              decoding: "async",
+              retina: true
+            }) }}
+          </div>
+
+          <div class="page-about__intro-content">
+            <p class="page-about__eyebrow page-about__eyebrow--dark">Кто мы</p>
+            <h2 class="page-about__section-title" id="about-intro-title">Мы заботимся о питомцах с вниманием и любовью</h2>
+            <p class="page-about__text">Мы создали PuppyCare, чтобы забота о питомцах была понятной, доступной и бережной. Для нас важно, чтобы каждый владелец чувствовал поддержку, а каждый питомец получал внимание, которого заслуживает.</p>
+            <p class="page-about__text">Наша команда объединяет ветеринаров, специалистов по уходу и заботливых администраторов. Мы сопровождаем питомца на каждом этапе — от первой консультации до рекомендаций после приёма.</p>
+
+            <ul class="page-about__stats" role="list">
+              {%- for stat in stats %}
+              <li class="page-about__stat">
+                <span class="page-about__stat-value">{{ stat.value }}</span>
+                <span class="page-about__stat-label">{{ stat.label }}</span>
+              </li>
+              {%- endfor %}
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-about__trust" aria-labelledby="about-trust-title">
+        <div class="container">
+          <div class="page-about__trust-shell">
+
+            <div class="page-about__trust-top">
+
+              <div class="page-about__trust-content">
+                <p class="page-about__eyebrow page-about__eyebrow--dark">Почему нам доверяют</p>
+                <h2 class="page-about__section-title" id="about-trust-title">Профессионализм, которому можно доверять</h2>
+                <p class="page-about__text">Мы объединяем заботу, опыт и современные технологии, чтобы каждый питомец получал лучшее лечение и внимание.</p>
+                <div class="page-about__trust-actions">
+                  {{ button("Посмотреть услуги", tag="a", href="services.html", variant="outline", size="large") }}
+                </div>
+              </div>
+
+              <div class="page-about__trust-media" data-js-video>
+                <video
+                  class="page-about__trust-video"
+                  preload="metadata"
+                  poster="images/home/news/vaccination-preparation.jpg"
+                  width="560"
+                  height="360"
+                  aria-label="Видео о работе специалистов PuppyCare"
+                  data-js-video-player>
+                  <source src="video/video-1.webm" type="video/webm">
+                  <source src="video/video-1.mp4" type="video/mp4">
+                  Ваш браузер не поддерживает воспроизведение видео.
+                </video>
+                <button class="page-about__trust-play" type="button" aria-label="Воспроизвести видео о PuppyCare" data-js-video-play>
+                  <span class="page-about__trust-play-icon" aria-hidden="true">
+                    {{ icon("ui-play", decorative=true) }}
+                  </span>
+                </button>
+              </div>
+
+            </div>
+
+            <ul class="page-about__trust-grid" role="list">
+              {%- for item in advantages %}
+              <li class="page-about__advantage">
+                <span class="page-about__advantage-icon" aria-hidden="true">{{ icon(item.icon, decorative=true) }}</span>
+                <h3 class="page-about__advantage-title">{{ item.title }}</h3>
+                <p class="page-about__advantage-text">{{ item.text }}</p>
+              </li>
+              {%- endfor %}
+            </ul>
+
+          </div>
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "about-appointment",
+        eyebrow: "Запишитесь на приём",
+        title: "Забота тогда, когда она нужна",
+        text: "Запишитесь на приём в удобное время и получите профессиональную помощь с любовью.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться на приём",
+        primaryHref: "appointment.html"
+      }) }}
+
+      <section class="page-about__process" aria-labelledby="about-process-title">
+        <div class="container">
+
+          <div class="page-about__process-head">
+            <p class="page-about__eyebrow page-about__eyebrow--dark">Как это работает</p>
+            <h2 class="page-about__section-title" id="about-process-title">Как это работает</h2>
+          </div>
+
+          <ol class="page-about__process-list" role="list">
+            {%- for step in steps %}
+            <li class="page-about__step">
+              <span class="page-about__step-number" aria-hidden="true">{{ loop.index }}</span>
+              <h3 class="page-about__step-title">{{ step.title }}</h3>
+              <p class="page-about__step-text">{{ step.text }}</p>
+            </li>
+            {%- endfor %}
+          </ol>
+
+          <div class="page-about__process-media">
+            {{ picture({
+              src: "images/pages/about/clinic-process.jpg",
+              alt: "Современная клиника PuppyCare: зона приёма и ухода за питомцами",
+              width: "1200",
+              height: "480",
+              className: "page-about__process-image",
+              pictureClass: "page-about__process-picture",
+              loading: "lazy",
+              decoding: "async",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

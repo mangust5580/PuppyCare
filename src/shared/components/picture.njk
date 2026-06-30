@@ -1,0 +1,33 @@
+{% macro picture(opts) %}
+{%- set src = opts.src -%}
+{%- set alt = opts.alt | default('') -%}
+{%- set width = opts.width -%}
+{%- set height = opts.height -%}
+{%- set className = opts.className | default('') -%}
+{%- set pictureClass = opts.pictureClass | default('') -%}
+{%- set loading = opts.loading -%}
+{%- set decoding = opts.decoding -%}
+{%- set fetchpriority = opts.fetchpriority -%}
+{%- set retina = opts.retina | default(false) -%}
+{%- set ext = src.split('.') | last -%}
+{%- set base = src | replace('.' ~ ext, '') -%}
+{%- set avif = base ~ '.avif' -%}
+{%- set webp = base ~ '.webp' -%}
+{%- set avifSet = (avif ~ ' 1x, ' ~ base ~ '@2x.avif 2x') if retina else avif -%}
+{%- set webpSet = (webp ~ ' 1x, ' ~ base ~ '@2x.webp 2x') if retina else webp -%}
+{%- set imgSet = (src ~ ' 1x, ' ~ base ~ '@2x.' ~ ext ~ ' 2x') if retina else '' -%}
+<picture{% if pictureClass %} class="{{ pictureClass }}"{% endif %}>
+  <source type="image/avif" srcset="{{ avifSet }}">
+  <source type="image/webp" srcset="{{ webpSet }}">
+  <img
+    src="{{ src }}"
+    alt="{{ alt }}"
+    {%- if className %} class="{{ className }}"{% endif %}
+    {%- if width %} width="{{ width }}"{% endif %}
+    {%- if height %} height="{{ height }}"{% endif %}
+    {%- if imgSet %} srcset="{{ imgSet }}"{% endif %}
+    {%- if loading %} loading="{{ loading }}"{% endif %}
+    {%- if decoding %} decoding="{{ decoding }}"{% endif %}
+    {%- if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}>
+</picture>
+{% endmacro %}

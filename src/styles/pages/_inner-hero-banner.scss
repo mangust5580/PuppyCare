@@ -1,0 +1,305 @@
+@use '../helpers' as *;
+
+// ── Inner-page photographic hero → CTA-like rounded banner card ──────────────
+// Applies to the 12 inner pages that use a full photographic hero (about,
+// services, service-detail, team, pricing, reviews, appointment, faq, blog,
+// blog-detail/contacts/locations). The section becomes a light wrapper; the
+// `.container` hero-inner becomes a rounded navy card whose photo fills it as a
+// cover layer behind a left-anchored gradient. Forwarded last from _index.scss
+// so it overrides the per-page hero rules. Home hero / final CTA / legal+404
+// heroes are intentionally untouched.
+
+// Section → transparent light wrapper with rhythm + the container gutter.
+:is(
+  .page-about__hero,
+  .page-services__hero,
+  .page-service-detail__hero,
+  .page-team__hero,
+  .page-pricing__hero,
+  .page-reviews__hero,
+  .page-appointment__hero,
+  .page-faq__hero,
+  .page-blog__hero,
+  .page-blog-article__hero,
+  .page-contacts__hero,
+  .page-locations__hero
+) {
+  overflow: visible;
+  min-block-size: 0;
+  padding-block: fluid(64, 40);
+  padding-inline: var(--layout-container-inline);
+  background-color: transparent;
+  background-image: none;
+}
+
+// Hero-inner (.container) → the rounded navy banner card.
+:is(
+  .page-about__hero-inner,
+  .page-services__hero-inner,
+  .page-service-detail__hero-inner,
+  .page-team__hero-inner,
+  .page-pricing__hero-inner,
+  .page-reviews__hero-inner,
+  .page-appointment__hero-inner,
+  .page-faq__hero-inner,
+  .page-blog__hero-inner,
+  .page-blog-article__hero-inner,
+  .page-contacts__hero-inner,
+  .page-locations__hero-inner
+) {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  overflow: clip;
+  grid-template-columns: minmax(0, min(58ch, 52%)) minmax(0, 1fr);
+  align-items: center;
+  min-block-size: fluid(520, 360);
+  padding-block: fluid(64, 40);
+  padding-inline: fluid(56, 24);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-navy-900);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-inverse);
+  isolation: isolate;
+}
+
+// Left-anchored navy overlay for white-text contrast over the photo.
+:is(
+  .page-about__hero-inner,
+  .page-services__hero-inner,
+  .page-service-detail__hero-inner,
+  .page-team__hero-inner,
+  .page-pricing__hero-inner,
+  .page-reviews__hero-inner,
+  .page-appointment__hero-inner,
+  .page-faq__hero-inner,
+  .page-blog__hero-inner,
+  .page-blog-article__hero-inner,
+  .page-contacts__hero-inner,
+  .page-locations__hero-inner
+)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(8 16 38 / 92%) 0%,
+      rgb(8 16 38 / 84%) 38%,
+      rgb(8 16 38 / 52%) 60%,
+      rgb(8 16 38 / 14%) 100%
+    );
+  pointer-events: none;
+}
+
+// Content sits above the media + overlay.
+:is(
+  .page-about__hero-content,
+  .page-services__hero-content,
+  .page-service-detail__hero-content,
+  .page-team__hero-content,
+  .page-pricing__hero-content,
+  .page-reviews__hero-content,
+  .page-appointment__hero-content,
+  .page-faq__hero-content,
+  .page-blog__hero-content,
+  .page-blog-article__hero-content,
+  .page-contacts__hero-content,
+  .page-locations__hero-content
+) {
+  position: relative;
+  z-index: 2;
+  min-inline-size: 0;
+}
+
+// Media → full-card cover layer.
+:is(
+  .page-about__hero-media,
+  .page-services__hero-media,
+  .page-service-detail__hero-media,
+  .page-team__hero-media,
+  .page-pricing__hero-media,
+  .page-reviews__hero-media,
+  .page-appointment__hero-media,
+  .page-faq__hero-media,
+  .page-blog__hero-media,
+  .page-blog-article__hero-media,
+  .page-contacts__hero-media,
+  .page-locations__hero-media
+) {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  max-inline-size: none;
+  pointer-events: none;
+}
+
+:is(
+  .page-about__hero-picture,
+  .page-services__hero-picture,
+  .page-service-detail__hero-picture,
+  .page-team__hero-picture,
+  .page-pricing__hero-picture,
+  .page-reviews__hero-picture,
+  .page-appointment__hero-picture,
+  .page-faq__hero-picture,
+  .page-blog__hero-picture,
+  .page-blog-article__hero-picture,
+  .page-contacts__hero-picture,
+  .page-locations__hero-picture
+) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+:is(
+  .page-about__hero-image,
+  .page-services__hero-image,
+  .page-service-detail__hero-image,
+  .page-team__hero-image,
+  .page-pricing__hero-image,
+  .page-reviews__hero-image,
+  .page-appointment__hero-image,
+  .page-faq__hero-image,
+  .page-blog__hero-image,
+  .page-blog-article__hero-image,
+  .page-contacts__hero-image,
+  .page-locations__hero-image
+) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  filter: none;
+  object-position: center right;
+}
+
+// Hide the old decorative paw/dots/line + glow for photographic heroes.
+:is(
+  .page-about__hero-decor,
+  .page-services__hero-decor,
+  .page-service-detail__hero-decor,
+  .page-team__hero-decor,
+  .page-pricing__hero-decor,
+  .page-reviews__hero-decor,
+  .page-appointment__hero-decor,
+  .page-faq__hero-decor,
+  .page-blog__hero-decor,
+  .page-blog-article__hero-decor,
+  .page-contacts__hero-decor,
+  .page-locations__hero-decor,
+  .page-about__hero-glow,
+  .page-services__hero-glow,
+  .page-service-detail__hero-glow,
+  .page-team__hero-glow,
+  .page-pricing__hero-glow,
+  .page-reviews__hero-glow,
+  .page-appointment__hero-glow,
+  .page-faq__hero-glow,
+  .page-blog__hero-glow,
+  .page-blog-article__hero-glow,
+  .page-contacts__hero-glow,
+  .page-locations__hero-glow
+) {
+  display: none;
+}
+
+// Tablet/down: single column; content spans the card over a stronger overlay.
+@include media-down('lg') {
+  :is(
+    .page-about__hero-inner,
+    .page-services__hero-inner,
+    .page-service-detail__hero-inner,
+    .page-team__hero-inner,
+    .page-pricing__hero-inner,
+    .page-reviews__hero-inner,
+    .page-appointment__hero-inner,
+    .page-faq__hero-inner,
+    .page-blog__hero-inner,
+    .page-blog-article__hero-inner,
+    .page-contacts__hero-inner,
+    .page-locations__hero-inner
+  ) {
+    grid-template-columns: 1fr;
+    min-block-size: fluid(420, 320);
+  }
+
+  :is(
+    .page-about__hero-content,
+    .page-services__hero-content,
+    .page-service-detail__hero-content,
+    .page-team__hero-content,
+    .page-pricing__hero-content,
+    .page-reviews__hero-content,
+    .page-appointment__hero-content,
+    .page-faq__hero-content,
+    .page-blog__hero-content,
+    .page-blog-article__hero-content,
+    .page-contacts__hero-content,
+    .page-locations__hero-content
+  ) {
+    max-inline-size: 56ch;
+  }
+
+  :is(
+    .page-about__hero-image,
+    .page-services__hero-image,
+    .page-service-detail__hero-image,
+    .page-team__hero-image,
+    .page-pricing__hero-image,
+    .page-reviews__hero-image,
+    .page-appointment__hero-image,
+    .page-faq__hero-image,
+    .page-blog__hero-image,
+    .page-blog-article__hero-image,
+    .page-contacts__hero-image,
+    .page-locations__hero-image
+  ) {
+    object-position: 72% center;
+  }
+}
+
+@include media-down('sm') {
+  :is(
+    .page-about__hero-inner,
+    .page-services__hero-inner,
+    .page-service-detail__hero-inner,
+    .page-team__hero-inner,
+    .page-pricing__hero-inner,
+    .page-reviews__hero-inner,
+    .page-appointment__hero-inner,
+    .page-faq__hero-inner,
+    .page-blog__hero-inner,
+    .page-blog-article__hero-inner,
+    .page-contacts__hero-inner,
+    .page-locations__hero-inner
+  ) {
+    border-radius: var(--radius-lg);
+  }
+
+  :is(
+    .page-about__hero-inner,
+    .page-services__hero-inner,
+    .page-service-detail__hero-inner,
+    .page-team__hero-inner,
+    .page-pricing__hero-inner,
+    .page-reviews__hero-inner,
+    .page-appointment__hero-inner,
+    .page-faq__hero-inner,
+    .page-blog__hero-inner,
+    .page-blog-article__hero-inner,
+    .page-contacts__hero-inner,
+    .page-locations__hero-inner
+  )::before {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(8 16 38 / 95%) 0%,
+        rgb(8 16 38 / 88%) 60%,
+        rgb(8 16 38 / 58%) 100%
+      );
+  }
+}

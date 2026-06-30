@@ -1,0 +1,84 @@
+{#
+  Final CTA section — PuppyCare (shared)
+  ─────────────────────────────────────────────────────────────────────────────
+  The canonical site-wide final CTA: a dark navy card with a right-side media
+  image behind a left-anchored gradient, a headline + supporting text, a coral
+  primary button and an inline phone action. One reusable component family used
+  on every page that has a final help/promo CTA.
+
+  Usage:
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+    {{ finalCta({
+      id: "team-cta",
+      eyebrow: "Запись на приём",
+      title: "Запишитесь на приём к специалистам PuppyCare",
+      text: "Поможем подобрать врача и удобное время визита.",
+      image: "images/shared/hero-pets.png",
+      imageAlt: "Собака и кошка PuppyCare рядом друг с другом",
+      primaryText: "Записаться онлайн",
+      primaryHref: "appointment.html"
+    }) }}
+
+  Options:
+    id          — base id; the heading becomes `{id}-title` (required, unique per page)
+    eyebrow     — optional overline text
+    title       — headline (required)
+    text        — supporting text (required)
+    image       — media src (template path, no @2x) (required)
+    imageAlt    — media alt (default '')
+    imageWidth  — intrinsic width hint (default '1200')
+    imageHeight — intrinsic height hint (default '420')
+    primaryText — primary button label (default 'Записаться на приём')
+    primaryHref — primary button href (default 'appointment.html')
+    phone       — phone label (default '+7 (495) 120-45-67')
+    phoneHref   — phone href (default 'tel:+74951204567')
+#}
+
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/picture.njk" import picture %}
+{% from "shared/components/icon.njk" import icon %}
+
+{% macro finalCta(opts) %}
+{%- set id = opts.id -%}
+{%- set primaryText = opts.primaryText | default("Записаться на приём") -%}
+{%- set primaryHref = opts.primaryHref | default("appointment.html") -%}
+{%- set phone = opts.phone | default("+7 (495) 120-45-67") -%}
+{%- set phoneHref = opts.phoneHref | default("tel:+74951204567") -%}
+<section class="final-cta" aria-labelledby="{{ id }}-title">
+  <div class="container">
+    <div class="final-cta__card">
+
+      <div class="final-cta__media">
+        {{ picture({
+          src: opts.image,
+          alt: opts.imageAlt | default(''),
+          width: opts.imageWidth | default("1200"),
+          height: opts.imageHeight | default("420"),
+          className: "final-cta__image",
+          pictureClass: "final-cta__picture",
+          loading: "lazy",
+          decoding: "async",
+          retina: true
+        }) }}
+      </div>
+
+      <div class="final-cta__content">
+        {%- if opts.eyebrow %}
+        <p class="final-cta__eyebrow">{{ opts.eyebrow }}</p>
+        {%- endif %}
+        <h2 class="final-cta__title" id="{{ id }}-title">{{ opts.title }}</h2>
+        <p class="final-cta__text">{{ opts.text }}</p>
+
+        <div class="final-cta__actions">
+          {{ button(primaryText, tag="a", href=primaryHref, variant="primary", size="large") }}
+          <a class="final-cta__phone" href="{{ phoneHref }}">
+            {{ icon("contact-phone", className="final-cta__phone-icon", size="sm") }}
+            <span>{{ phone }}</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endmacro %}

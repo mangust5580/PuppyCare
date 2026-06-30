@@ -1,0 +1,185 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Страница не найдена — PuppyCare" -%}
+  {%- set pageDescription = "Запрошенная страница PuppyCare не найдена. Перейдите на главную, выберите услугу или свяжитесь с нами." -%}
+  {%- set pageRobots = "noindex, follow" -%}
+  {%- set pagePath = "404.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="404">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/icon.njk" import icon %}
+
+    {% set usefulLinks = [
+      {
+        title: "Наши услуги",
+        text: "Профилактика, лечение и уход для здоровья вашего питомца.",
+        ctaText: "Перейти к услугам",
+        href: "services.html",
+        icon: "medical-stethoscope"
+      },
+      {
+        title: "Наши клиники",
+        text: "Найдите ближайшую клинику PuppyCare рядом с вами.",
+        ctaText: "Смотреть локации",
+        href: "locations.html",
+        icon: "contact-location"
+      },
+      {
+        title: "Частые вопросы",
+        text: "Ответы на популярные вопросы о здоровье и уходе за питомцами.",
+        ctaText: "Читать ответы",
+        href: "faq.html",
+        icon: "common-help"
+      },
+      {
+        title: "Связаться с нами",
+        text: "Мы на связи и готовы помочь вам и вашему питомцу.",
+        ctaText: "Наши контакты",
+        href: "contacts.html",
+        icon: "contact-phone"
+      }
+    ] %}
+
+    {% set helpBenefits = [
+      { text: "Забота и внимание к каждому питомцу", icon: "common-heart" },
+      { text: "Опытные ветеринары и современные методы", icon: "medical-shield" },
+      { text: "Работаем ежедневно с 08:00 до 21:00", icon: "common-clock" }
+    ] %}
+
+    <main id="main" class="page__content page-404" tabindex="-1" data-page-content>
+
+      <section class="page-404__hero" aria-labelledby="page-404-hero-title">
+
+        <span class="page-404__hero-decor" aria-hidden="true">
+          <svg class="page-404__decor page-404__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-404__decor page-404__decor--heart" viewBox="0 0 32 32" fill="currentColor"><path d="M16 28S3 19.6 3 11.5A6.5 6.5 0 0 1 16 8a6.5 6.5 0 0 1 13 3.5C29 19.6 16 28 16 28z"/></svg>
+          <svg class="page-404__decor page-404__decor--wave" viewBox="0 0 220 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20c12-16 28-16 40 0s28 16 40 0 28-16 40 0 28 16 40 0 28-16 40 0"/></svg>
+        </span>
+
+        <div class="container page-404__hero-inner">
+
+          <div class="page-404__content">
+
+            <p class="page-404__eyebrow">Ошибка 404</p>
+
+            <h1 class="page-404__title" id="page-404-hero-title">Страница не найдена</h1>
+
+            <p class="page-404__text">Похоже, такой страницы не существует или она была перемещена.</p>
+
+            <nav class="page-404__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-404__breadcrumbs-list" role="list">
+                <li class="page-404__breadcrumbs-item">
+                  <a class="page-404__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-404__breadcrumbs-item">
+                  <span class="page-404__breadcrumbs-current" aria-current="page">404</span>
+                </li>
+              </ol>
+            </nav>
+
+            <div class="page-404__actions">
+              {{ button("Вернуться на главную", tag="a", href="index.html", variant="primary", size="large") }}
+              {{ button("Перейти в блог", tag="a", href="blog.html", variant="outline", size="large") }}
+            </div>
+
+          </div>
+
+          <div class="page-404__media">
+            <span class="page-404__media-glow" aria-hidden="true"></span>
+            <span class="page-404__media-number" aria-hidden="true">404</span>
+            {{ picture({
+              src: "images/shared/hero-pets.png",
+              alt: "Собака и кошка для страницы 404 PuppyCare",
+              width: "450",
+              height: "350",
+              className: "page-404__image",
+              pictureClass: "page-404__picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-404__links" aria-labelledby="page-404-links-title">
+        <div class="container">
+
+          <h2 class="page-404__links-title" id="page-404-links-title">Возможно, вам пригодится</h2>
+
+          <ul class="page-404__links-grid" role="list">
+            {%- for link in usefulLinks %}
+            <li class="page-404__links-item">
+              <article class="page-404__card">
+                <span class="page-404__card-icon" aria-hidden="true">{{ icon(link.icon, decorative=true) }}</span>
+                <h3 class="page-404__card-title">{{ link.title }}</h3>
+                <p class="page-404__card-text">{{ link.text }}</p>
+                <a class="page-404__card-link" href="{{ link.href }}">{{ link.ctaText }} →</a>
+              </article>
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      <section class="page-404__cta" aria-labelledby="page-404-cta-title">
+        <div class="container">
+          <div class="page-404__cta-inner">
+
+            <div class="page-404__cta-content">
+
+              <h2 class="page-404__cta-title" id="page-404-cta-title">Нужна помощь прямо сейчас?</h2>
+
+              <p class="page-404__cta-text">Свяжитесь с нашей клиникой или запишитесь на приём. Мы рядом, когда это важно.</p>
+
+              <div class="page-404__cta-actions">
+                {{ button("Записаться на приём", tag="a", href="appointment.html", variant="primary", size="large") }}
+                <a class="page-404__phone" href="tel:+74951204567">
+                  {{ icon("contact-phone", className="page-404__phone-icon", size="sm") }}
+                  <span>+7 (495) 120-45-67</span>
+                </a>
+              </div>
+
+            </div>
+
+            <div class="page-404__cta-media">
+              <span class="page-404__cta-glow" aria-hidden="true"></span>
+              {{ picture({
+                src: "images/pages/404/help-pets.png",
+                alt: "Собака и кошка рядом с заботливой помощью PuppyCare",
+                width: "350",
+                height: "260",
+                className: "page-404__cta-image",
+                pictureClass: "page-404__cta-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+
+            <ul class="page-404__benefits" role="list">
+              {%- for benefit in helpBenefits %}
+              <li class="page-404__benefit">
+                <span class="page-404__benefit-icon" aria-hidden="true">{{ icon(benefit.icon, decorative=true) }}</span>
+                <span class="page-404__benefit-text">{{ benefit.text }}</span>
+              </li>
+              {%- endfor %}
+            </ul>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

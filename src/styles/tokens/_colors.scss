@@ -1,0 +1,65 @@
+:root {
+  // Base
+  --color-white: #fff;
+  --color-navy: #0f1b3a;
+
+  // Navy scale
+  --color-navy-900: #0f1b3a;
+  --color-navy-800: #15254a;
+  --color-navy-700: #1e2e5e;
+  --color-navy-600: #2a3d6f;
+  --color-navy-400: #687aa6;
+  --color-navy-200: #d7dce8;
+  --color-navy-100: #eef1f7;
+
+  // Coral scale
+  --color-coral-600: #ff405a;
+  --color-coral-500: #ff6077;
+  --color-coral-400: #ff8a93;
+  --color-coral-300: #ffc1c6;
+  --color-coral-200: #ffe1e3;
+  --color-coral-100: #fff0f1;
+
+  // Gray scale
+  --color-gray-900: #1f232d;
+  --color-gray-700: #4b5563;
+  --color-gray-500: #8a93a4;
+  --color-gray-300: #d7dce6;
+  --color-gray-200: #eceff4;
+  --color-gray-100: #f6f7fa;
+
+  // Status
+  --color-success: #22c55e;
+  --color-info: #3b82f6;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-premium: #8b5cf6;
+  --color-accent: #14b8a6;
+
+  // State light
+  --color-success-light: #dcfce7;
+  --color-info-light: #dbeafe;
+  --color-warning-light: #fef3c7;
+  --color-error-light: #fee2e2;
+  --color-premium-light: #ede9fe;
+
+  // Semantic — text
+  --text-primary: #0f1b3a;
+  --text-secondary: #4b5563;
+  --text-tertiary: #8a93a4;
+  --text-inverse: #fff;
+  --text-disabled: #a0aec0;
+
+  // Semantic — surface
+  --surface-base: #fff;
+  --surface-subtle: #f6f7fa;
+  --surface-soft: #fafafc;
+  --surface-soft-pink: #fff7f7;
+  --surface-inverse: #0f1b3a;
+
+  // Semantic — border
+  --border-default: #e6ecf1;
+  --border-subtle: #eef1f7;
+  --border-strong: #cbd5e3;
+  --border-focus: #3b82f6;
+}

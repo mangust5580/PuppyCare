@@ -1,0 +1,99 @@
+{#
+  Button macro — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/button.njk" import button %}
+
+    {{ button("Записаться онлайн", variant="primary", size="large") }}
+    {{ button("Подробнее", variant="secondary", tag="a", href="/about") }}
+    {{ button("", variant="primary", iconOnly=true, ariaLabel="Добавить") }}
+    {{ button("Отправить", loading=true, loadingText="Загрузка...") }}
+
+  Parameters:
+    text        — visible button label (string, default '')
+    tag         — 'button' | 'a'  (default 'button')
+    type        — button type attr (default 'button')
+    href        — link href when tag='a'
+    variant     — 'primary' | 'secondary' | 'outline' | 'ghost'  (default 'primary')
+    size        — 'small' | 'medium' | 'large'  (default 'medium')
+    disabled    — boolean (default false)
+    loading     — boolean (default false)
+    loadingText — text shown during loading (default 'Загрузка...')
+    iconOnly    — boolean, renders paw icon instead of text (default false)
+    extraClass  — additional CSS classes (string, default '')
+    ariaLabel   — required for iconOnly buttons
+#}
+
+{% macro button(
+  text = '',
+  tag = 'button',
+  type = 'button',
+  href = '',
+  variant = 'primary',
+  size = 'medium',
+  disabled = false,
+  loading = false,
+  loadingText = 'Загрузка...',
+  iconOnly = false,
+  extraClass = '',
+  ariaLabel = ''
+) %}
+
+  {%- set _classes = [
+    'button',
+    'button--' + variant,
+    'button--' + size,
+    ('button--icon'    if iconOnly),
+    ('button--loading' if loading),
+    (extraClass        if extraClass)
+  ] | select | join(' ') -%}
+
+  {%- if tag === 'a' -%}
+
+    <a
+      class="{{ _classes }}"
+      {%- if href and not disabled %} href="{{ href }}"{% endif %}
+      {%- if disabled %} aria-disabled="true" tabindex="-1"{% endif %}
+      {%- if loading %} aria-busy="true"{% endif %}
+      {%- if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}
+    >
+      {%- if loading %}
+        <span class="button__spinner" aria-hidden="true"></span>
+        {%- if not iconOnly %}<span class="button__text">{{ loadingText }}</span>{% endif %}
+      {%- elif iconOnly %}
+        <span class="button__icon">
+          {{- _pawIcon() -}}
+        </span>
+      {%- else %}
+        <span class="button__text">{{ text }}</span>
+      {%- endif %}
+    </a>
+
+  {%- else -%}
+
+    <button
+      class="{{ _classes }}"
+      type="{{ type }}"
+      {%- if disabled %} disabled aria-disabled="true"{% endif %}
+      {%- if loading %} aria-busy="true"{% endif %}
+      {%- if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}
+    >
+      {%- if loading %}
+        <span class="button__spinner" aria-hidden="true"></span>
+        {%- if not iconOnly %}<span class="button__text">{{ loadingText }}</span>{% endif %}
+      {%- elif iconOnly %}
+        <span class="button__icon">
+          {{- _pawIcon() -}}
+        </span>
+      {%- else %}
+        <span class="button__text">{{ text }}</span>
+      {%- endif %}
+    </button>
+
+  {%- endif %}
+
+{% endmacro %}
+
+
+{# Internal helper — paw sprite icon #}
+{% macro _pawIcon() %}{% from "shared/components/icon.njk" import icon %}{{ icon("pets-paw", decorative=true) }}{% endmacro %}

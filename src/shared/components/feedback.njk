@@ -1,0 +1,293 @@
+{#
+  Feedback macros — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/feedback.njk" import
+       alert, toast, badge, progressBar, rating, emptyState %}
+
+    {{ alert(
+         variant="success",
+         title="Запись успешно подтверждена!",
+         closable=true
+       ) }}
+
+    {{ toast(
+         variant="error",
+         text="Произошла ошибка. Попробуйте снова.",
+         closable=true
+       ) }}
+
+    {{ badge(text="Новинка", variant="new") }}
+    {{ badge(text="Популярное", variant="popular", size="small") }}
+
+    {{ progressBar(value=70, label="Шаги записи", showValue=true) }}
+
+    {{ rating(value=4.6, label="4.6 (128 отзывов)") }}
+
+    {{ emptyState(
+         title="У вас пока нет записей",
+         text="Запишитесь на приём и мы подберём лучшего специалиста для вашего питомца.",
+         actionText="Записаться онлайн",
+         actionHref="/book"
+       ) }}
+
+  alert parameters:
+    variant    — success | info | warning | error (string, default "info")
+    title      — heading text (string)
+    text       — body text (string)
+    icon       — optional raw SVG/HTML, output with | safe (string)
+    closable   — show close button visual (boolean, default false)
+    actionText — optional inline link text (string)
+    actionHref — inline link href; the link renders only when both actionText and actionHref are set (string, default "")
+    extraClass — extra CSS classes on wrapper (string)
+
+  toast parameters:
+    variant    — success | info | warning | error (string, default "info")
+    title      — heading text (string)
+    text       — body text (string)
+    icon       — optional raw SVG/HTML, output with | safe (string)
+    closable   — show close button visual (boolean, default false)
+    extraClass — extra CSS classes on wrapper (string)
+
+  badge parameters:
+    text       — badge label text (string)
+    variant    — neutral | new | popular | promo | urgent |
+                 success | info | warning | error (string, default "neutral")
+    size       — small | medium (string, default "medium")
+    extraClass — extra CSS classes (string)
+
+  progressBar parameters:
+    value      — numeric 0–100 (number, default 0)
+    label      — visible label text (string)
+    showValue  — show numeric % on the right (boolean, default false)
+    variant    — default | success | warning | error (string, default "default")
+    extraClass — extra CSS classes on wrapper (string)
+
+  rating parameters:
+    value      — numeric rating, e.g. 4.6 (number, default 0)
+    max        — max number of stars (number, default 5)
+    label      — visible label text, e.g. "4.6 (128 отзывов)" (string)
+    extraClass — extra CSS classes (string)
+
+  emptyState parameters:
+    title      — heading text (string)
+    text       — description text (string)
+    icon       — optional raw SVG/HTML, output with | safe (string)
+    actionText — optional CTA text (string)
+    actionHref — CTA href; the CTA renders only when both actionText and actionHref are set (string, default "")
+    titleTag   — h2 | h3 | h4, fallback h3 (string, default "h3")
+    extraClass — extra CSS classes on wrapper (string)
+#}
+
+
+{% from "shared/components/icon.njk" import icon %}
+
+
+{# ── alert ───────────────────────────────────────────────────────────────── #}
+
+{% macro alert(
+  variant    = 'info',
+  title      = '',
+  text       = '',
+  icon       = '',
+  closable   = false,
+  actionText = '',
+  actionHref = '',
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'alert',
+    'alert--' ~ variant,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    {%- if icon %}
+    {# icon must be trusted SVG/HTML — caller is responsible for sanitization #}
+    <span class="alert__icon" aria-hidden="true">{{ icon | safe }}</span>
+    {% endif -%}
+    <div class="alert__body">
+      {%- if title %}<p class="alert__title">{{ title }}</p>{% endif %}
+      {%- if text %}<p class="alert__text">{{ text }}</p>{% endif %}
+      {%- if actionText and actionHref %}
+      <a class="alert__action" href="{{ actionHref }}">{{ actionText }}</a>
+      {% endif %}
+    </div>
+    {%- if closable %}
+    {# close button is a JS hook; no dismiss behavior without a handler on [data-feedback-close] #}
+    <button class="alert__close" type="button"
+            aria-label="Закрыть уведомление"
+            data-feedback-close>
+      {{ icon("ui-close", size="sm", decorative=true) }}
+    </button>
+    {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── toast ───────────────────────────────────────────────────────────────── #}
+
+{% macro toast(
+  variant    = 'info',
+  title      = '',
+  text       = '',
+  icon       = '',
+  closable   = false,
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'toast',
+    'toast--' ~ variant,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    {%- if icon %}
+    {# icon must be trusted SVG/HTML — caller is responsible for sanitization #}
+    <span class="toast__icon" aria-hidden="true">{{ icon | safe }}</span>
+    {% endif -%}
+    <div class="toast__body">
+      {%- if title %}<p class="toast__title">{{ title }}</p>{% endif %}
+      {%- if text %}<p class="toast__text">{{ text }}</p>{% endif %}
+    </div>
+    {%- if closable %}
+    {# close button is a JS hook; no dismiss behavior without a handler on [data-feedback-close] #}
+    <button class="toast__close" type="button"
+            aria-label="Закрыть уведомление"
+            data-feedback-close>
+      {{ icon("ui-close", size="sm", decorative=true) }}
+    </button>
+    {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── badge ───────────────────────────────────────────────────────────────── #}
+
+{% macro badge(
+  text       = '',
+  variant    = 'neutral',
+  size       = 'medium',
+  extraClass = ''
+) %}
+
+  {%- set _classes = [
+    'badge',
+    'badge--' ~ variant,
+    'badge--' ~ size,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <span class="{{ _classes }}">{{ text }}</span>
+
+{% endmacro %}
+
+
+{# ── progressBar ─────────────────────────────────────────────────────────── #}
+
+{% macro progressBar(
+  value      = 0,
+  label      = '',
+  showValue  = false,
+  variant    = 'default',
+  extraClass = ''
+) %}
+
+  {%- set _val = value -%}
+  {%- if _val > 100 %}{%- set _val = 100 %}{%- endif -%}
+  {%- if _val < 0 %}{%- set _val = 0 %}{%- endif -%}
+
+  {%- set _classes = [
+    'progress',
+    'progress--' ~ variant,
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    {%- if label or showValue %}
+    <div class="progress__header">
+      {%- if label %}<span class="progress__label">{{ label }}</span>{% endif %}
+      {%- if showValue %}<span class="progress__value" aria-hidden="true">{{ _val }}%</span>{% endif %}
+    </div>
+    {% endif -%}
+    <div class="progress__track"
+         role="progressbar"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-valuenow="{{ _val }}"
+         aria-label="{{ label if label else (_val ~ '%') }}"
+         style="--progress-value: {{ _val }}%">
+      <div class="progress__bar"></div>
+    </div>
+  </div>
+
+{% endmacro %}
+
+
+{# ── rating ──────────────────────────────────────────────────────────────── #}
+
+{% macro rating(
+  value      = 0,
+  max        = 5,
+  label      = '',
+  extraClass = ''
+) %}
+
+  {%- set _v = value -%}
+  {%- if _v > max %}{%- set _v = max %}{%- endif -%}
+  {%- if _v < 0 %}{%- set _v = 0 %}{%- endif -%}
+
+  {%- set _classes = [
+    'rating',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}" role="img" aria-label="Рейтинг: {{ _v }} из {{ max }}">
+    <span class="rating__stars" aria-hidden="true">
+      {%- for i in range(1, max + 1) %}{{ '★' if i <= _v else '☆' }}{% endfor %}
+    </span>
+    {%- if label %}
+    <span class="rating__label">{{ label }}</span>
+    {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{# ── emptyState ──────────────────────────────────────────────────────────── #}
+
+{% macro emptyState(
+  title      = '',
+  text       = '',
+  icon       = '',
+  actionText = '',
+  actionHref = '',
+  titleTag   = 'h3',
+  extraClass = ''
+) %}
+
+  {%- set _titleTag = titleTag if titleTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+
+  {%- set _classes = [
+    'empty-state',
+    (extraClass if extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}">
+    {%- if icon %}
+    {# icon must be trusted SVG/HTML — caller is responsible for sanitization #}
+    <span class="empty-state__icon" aria-hidden="true">{{ icon | safe }}</span>
+    {% endif -%}
+    {%- if title %}<{{ _titleTag }} class="empty-state__title">{{ title }}</{{ _titleTag }}>{% endif %}
+    {%- if text %}<p class="empty-state__text">{{ text }}</p>{% endif %}
+    {%- if actionText and actionHref %}
+    <a class="empty-state__action button button--primary button--medium"
+       href="{{ actionHref }}">{{ actionText }}</a>
+    {% endif %}
+  </div>
+
+{% endmacro %}

@@ -1,0 +1,166 @@
+{% from "shared/components/button.njk" import button %}
+{% from "shared/components/icon.njk" import icon %}
+
+<header class="site-header" data-js-header>
+  <div class="container site-header__inner">
+
+    <a class="site-header__logo" href="index.html" aria-label="PuppyCare — на главную">
+      <img class="site-header__logo-image"
+           src="images/logo.svg"
+           alt="PuppyCare"
+           width="158"
+           height="40">
+    </a>
+
+    <nav class="site-header__nav" aria-label="Основная навигация">
+      <ul class="site-header__nav-list" role="list">
+
+        <li class="site-header__nav-item">
+          <a class="site-header__nav-link" href="index.html" data-js-header-link>Главная</a>
+        </li>
+
+        <li class="site-header__nav-item site-header__nav-item--has-dropdown">
+          <button class="site-header__nav-link site-header__dropdown-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="dropdown-about"
+                  data-js-header-dropdown-toggle>
+            О клинике
+            {{ icon("ui-chevron-down", className="site-header__chevron", size="sm") }}
+          </button>
+          <ul class="site-header__dropdown" id="dropdown-about" role="list" data-js-header-dropdown>
+            <li><a class="site-header__dropdown-link" href="about.html" data-js-header-link>О нас</a></li>
+            <li><a class="site-header__dropdown-link" href="team.html" data-js-header-link>Команда</a></li>
+            <li><a class="site-header__dropdown-link" href="reviews.html" data-js-header-link>Отзывы</a></li>
+          </ul>
+        </li>
+
+        <li class="site-header__nav-item site-header__nav-item--has-dropdown">
+          <button class="site-header__nav-link site-header__dropdown-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="dropdown-services"
+                  data-js-header-dropdown-toggle>
+            Услуги
+            {{ icon("ui-chevron-down", className="site-header__chevron", size="sm") }}
+          </button>
+          <ul class="site-header__dropdown" id="dropdown-services" role="list" data-js-header-dropdown>
+            <li><a class="site-header__dropdown-link" href="services.html" data-js-header-link>Все услуги</a></li>
+            <li><a class="site-header__dropdown-link" href="pricing.html" data-js-header-link>Цены</a></li>
+            <li><a class="site-header__dropdown-link" href="appointment.html" data-js-header-link>Запись на приём</a></li>
+          </ul>
+        </li>
+
+        <li class="site-header__nav-item site-header__nav-item--has-dropdown">
+          <button class="site-header__nav-link site-header__dropdown-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="dropdown-patients"
+                  data-js-header-dropdown-toggle>
+            Пациентам
+            {{ icon("ui-chevron-down", className="site-header__chevron", size="sm") }}
+          </button>
+          <ul class="site-header__dropdown" id="dropdown-patients" role="list" data-js-header-dropdown>
+            <li><a class="site-header__dropdown-link" href="faq.html" data-js-header-link>FAQ</a></li>
+            <li><a class="site-header__dropdown-link" href="blog.html" data-js-header-link>Блог</a></li>
+          </ul>
+        </li>
+
+        <li class="site-header__nav-item site-header__nav-item--has-dropdown">
+          <button class="site-header__nav-link site-header__dropdown-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="dropdown-contacts"
+                  data-js-header-dropdown-toggle>
+            Контакты
+            {{ icon("ui-chevron-down", className="site-header__chevron", size="sm") }}
+          </button>
+          <ul class="site-header__dropdown" id="dropdown-contacts" role="list" data-js-header-dropdown>
+            <li><a class="site-header__dropdown-link" href="contacts.html" data-js-header-link>Контакты</a></li>
+            <li><a class="site-header__dropdown-link" href="locations.html" data-js-header-link>Локации</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:+74951204567">
+        {{ icon("contact-phone", className="site-header__phone-icon", size="sm") }}
+        <span>+7 (495) 120-45-67</span>
+      </a>
+      {{ button("Записаться онлайн", tag="a", href="appointment.html", variant="primary", size="medium", extraClass="site-header__cta") }}
+    </div>
+
+    <button class="site-header__toggle"
+            type="button"
+            aria-label="Открыть меню"
+            aria-controls="site-header-menu"
+            aria-expanded="false"
+            data-js-header-toggle>
+      <span class="site-header__toggle-line"></span>
+      <span class="site-header__toggle-line"></span>
+      <span class="site-header__toggle-line"></span>
+    </button>
+
+  </div>
+
+  <div class="site-header__mobile" id="site-header-menu" data-js-header-menu hidden>
+    <div class="site-header__mobile-inner">
+
+      <nav class="site-header__mobile-nav" aria-label="Мобильная навигация">
+        <ul class="site-header__mobile-list" role="list">
+
+          <li class="site-header__mobile-item">
+            <a class="site-header__mobile-link" href="index.html" data-js-header-link>Главная</a>
+          </li>
+
+          <li class="site-header__mobile-item">
+            <span class="site-header__mobile-label">О клинике</span>
+            <ul class="site-header__mobile-sub" role="list">
+              <li><a class="site-header__mobile-sub-link" href="about.html" data-js-header-link>О нас</a></li>
+              <li><a class="site-header__mobile-sub-link" href="team.html" data-js-header-link>Команда</a></li>
+              <li><a class="site-header__mobile-sub-link" href="reviews.html" data-js-header-link>Отзывы</a></li>
+            </ul>
+          </li>
+
+          <li class="site-header__mobile-item">
+            <span class="site-header__mobile-label">Услуги</span>
+            <ul class="site-header__mobile-sub" role="list">
+              <li><a class="site-header__mobile-sub-link" href="services.html" data-js-header-link>Все услуги</a></li>
+              <li><a class="site-header__mobile-sub-link" href="pricing.html" data-js-header-link>Цены</a></li>
+              <li><a class="site-header__mobile-sub-link" href="appointment.html" data-js-header-link>Запись на приём</a></li>
+            </ul>
+          </li>
+
+          <li class="site-header__mobile-item">
+            <span class="site-header__mobile-label">Пациентам</span>
+            <ul class="site-header__mobile-sub" role="list">
+              <li><a class="site-header__mobile-sub-link" href="faq.html" data-js-header-link>FAQ</a></li>
+              <li><a class="site-header__mobile-sub-link" href="blog.html" data-js-header-link>Блог</a></li>
+            </ul>
+          </li>
+
+          <li class="site-header__mobile-item">
+            <span class="site-header__mobile-label">Контакты</span>
+            <ul class="site-header__mobile-sub" role="list">
+              <li><a class="site-header__mobile-sub-link" href="contacts.html" data-js-header-link>Контакты</a></li>
+              <li><a class="site-header__mobile-sub-link" href="locations.html" data-js-header-link>Локации</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+
+      <div class="site-header__mobile-actions">
+        <a class="site-header__mobile-phone" href="tel:+74951204567">
+          {{ icon("contact-phone", className="site-header__mobile-phone-icon", size="sm") }}
+          <span>+7 (495) 120-45-67</span>
+        </a>
+        {{ button("Записаться онлайн", tag="a", href="appointment.html", variant="primary", size="medium", extraClass="site-header__mobile-cta") }}
+      </div>
+
+    </div>
+  </div>
+
+</header>

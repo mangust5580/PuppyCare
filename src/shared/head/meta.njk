@@ -1,0 +1,54 @@
+<meta charset="utf-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
+<meta
+  name="format-detection"
+  content="telephone=no"
+>
+<meta
+  name="referrer"
+  content="strict-origin-when-cross-origin"
+>
+<meta
+  name="robots"
+  content="{{ pageRobots | default('index, follow') }}"
+>
+<title>{{ pageTitle | default('PuppyCare — забота о питомцах рядом с домом') }}</title>
+<meta
+  name="description"
+  content="{{ pageDescription | default('PuppyCare помогает владельцам питомцев найти ветеринарную помощь, уход, груминг и поддержку в удобной клинике рядом с домом.') }}"
+>
+
+{# ── SEO / social metadata (canonical, Open Graph, Twitter) ───────────────── #}
+{%- set siteName = site.name | default("PuppyCare") -%}
+{%- set siteOrigin = site.siteUrl | default("https://mangust5580.github.io") -%}
+{%- set siteBasePath = site.basePath | default("/PuppyCare") -%}
+{%- set siteUrl = siteOrigin ~ siteBasePath -%}
+{%- set metaTitle = pageTitle | default('PuppyCare — забота о питомцах рядом с домом') -%}
+{%- set metaDescription = pageDescription | default('PuppyCare помогает владельцам питомцев найти ветеринарную помощь, уход, груминг и поддержку в удобной клинике рядом с домом.') -%}
+{%- set metaPath = pagePath | default('') -%}
+{%- set ogType = pageType | default('website') -%}
+{%- set ogImagePath = pageImage | default('images/pages/about/clinic-process.jpg') -%}
+{%- set ogImageAlt = pageImageAlt | default('Современная клиника PuppyCare') -%}
+{%- set canonicalUrl = (siteUrl ~ '/') if (metaPath == '' or metaPath == 'index.html') else (siteUrl ~ '/' ~ metaPath) -%}
+{%- set ogImageUrl = siteUrl ~ '/' ~ ogImagePath -%}
+{%- if 'noindex' not in (pageRobots | default('index, follow')) %}
+<link rel="canonical" href="{{ canonicalUrl }}">
+<meta property="og:site_name" content="{{ siteName }}">
+<meta property="og:type" content="{{ ogType }}">
+<meta property="og:title" content="{{ metaTitle }}">
+<meta property="og:description" content="{{ metaDescription }}">
+<meta property="og:url" content="{{ canonicalUrl }}">
+<meta property="og:image" content="{{ ogImageUrl }}">
+<meta property="og:image:alt" content="{{ ogImageAlt }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="480">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ metaTitle }}">
+<meta name="twitter:description" content="{{ metaDescription }}">
+<meta name="twitter:image" content="{{ ogImageUrl }}">
+<meta name="twitter:image:alt" content="{{ ogImageAlt }}">
+{%- endif %}

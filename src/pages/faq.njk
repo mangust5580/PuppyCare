@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "FAQ — PuppyCare" -%}
+  {%- set pageDescription = "Ответы на частые вопросы о записи, услугах, ценах и посещении ветеринарной клиники PuppyCare." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "faq.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="faq">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/accordion.njk" import accordion %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+
+    {% set faqItems = [
+      {
+        question: "Что входит в первичную консультацию?",
+        answer: "Первичная консультация включает осмотр питомца, сбор анамнеза, оценку состояния, рекомендации по лечению или дополнительной диагностике. Врач отвечает на вопросы и помогает составить план дальнейшего ухода.",
+        open: true
+      },
+      {
+        question: "Можно ли перенести запись на приём?",
+        answer: "Да, вы можете перенести запись заранее по телефону или через сообщение в клинику. Мы подберём другое удобное время и обновим данные записи."
+      },
+      {
+        question: "Сколько стоит приём ветеринара?",
+        answer: "Стоимость зависит от услуги, состояния питомца и необходимости дополнительных процедур. Базовые цены указаны на странице цен, а точную сумму администратор или врач уточнит перед приёмом."
+      },
+      {
+        question: "Выдаёте ли вы документы и чек?",
+        answer: "Да, после оплаты мы выдаём чек и необходимые документы. По запросу можем подготовить выписку с рекомендациями и назначениями врача."
+      },
+      {
+        question: "Есть ли у вас онлайн-консультации?",
+        answer: "Да, мы проводим онлайн-консультации для первичных вопросов, повторных рекомендаций и уточнения ухода. Если питомцу нужен очный осмотр, врач предложит записаться в клинику."
+      },
+      {
+        question: "Нужно ли записываться повторно?",
+        answer: "Повторная запись нужна, если врач назначил контрольный осмотр, вакцинацию, анализы или продолжение лечения. Мы заранее подскажем оптимальный срок повторного визита."
+      }
+    ] %}
+
+    {% set faqSupportItems = [
+      {
+        question: "Какие вакцины вы делаете?",
+        answer: "Мы проводим плановую вакцинацию собак и кошек с учётом возраста, состояния здоровья и предыдущих прививок. Перед процедурой врач осматривает питомца и подбирает подходящую схему."
+      },
+      {
+        question: "Как подготовить питомца к визиту?",
+        answer: "Возьмите с собой ветеринарный паспорт, результаты прошлых анализов и список препаратов, если питомец принимает лекарства. Перед приёмом лучше не кормить животное слишком плотно, особенно если возможна диагностика."
+      },
+      {
+        question: "Когда будут готовы результаты анализов?",
+        answer: "Срок зависит от типа исследования. Часть результатов доступна в день обращения, более сложные анализы могут занять больше времени. Администратор заранее подскажет ориентировочный срок."
+      },
+      {
+        question: "Оказываете ли вы срочную помощь?",
+        answer: "Мы стараемся принимать срочные обращения в ближайшее доступное время. Если состояние питомца критическое, позвоните нам заранее, чтобы команда подготовилась к приёму."
+      },
+      {
+        question: "Каков режим работы клиники?",
+        answer: "Клиника работает ежедневно с 08:00 до 21:00. Актуальное время приёма и доступные окна для записи можно уточнить по телефону или через форму записи."
+      },
+      {
+        question: "Какие способы связи с клиникой?",
+        answer: "Вы можете позвонить нам, написать на e-mail или оставить заявку через сайт. Мы свяжемся с вами и поможем выбрать удобный формат обращения."
+      }
+    ] %}
+
+    <main id="main" class="page__content page-faq" tabindex="-1" data-page-content>
+
+      <section class="page-faq__hero" aria-labelledby="faq-title">
+
+        <span class="page-faq__hero-decor" aria-hidden="true">
+          <svg class="page-faq__decor page-faq__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-faq__decor page-faq__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-faq__decor page-faq__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-faq__hero-inner">
+
+          <div class="page-faq__hero-content">
+
+            <p class="page-faq__eyebrow">Помощь и ответы</p>
+
+            <h1 class="page-faq__title" id="faq-title">FAQ</h1>
+
+            <nav class="page-faq__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-faq__breadcrumbs-list" role="list">
+                <li class="page-faq__breadcrumbs-item">
+                  <a class="page-faq__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-faq__breadcrumbs-item">
+                  <span class="page-faq__breadcrumbs-current" aria-current="page">FAQ</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-faq__lead">Собрали ответы на самые частые вопросы о записи, услугах, ценах и посещении нашей клиники.</p>
+
+          </div>
+
+          <div class="page-faq__hero-media">
+            <span class="page-faq__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/faq/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-faq__hero-image",
+              pictureClass: "page-faq__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-faq__main" aria-labelledby="faq-main-title">
+        <div class="container page-faq__main-grid">
+
+          <div class="page-faq__intro">
+            <p class="page-faq__eyebrow page-faq__eyebrow--dark">FAQ</p>
+            <h2 class="page-faq__main-title" id="faq-main-title">Часто задаваемые вопросы</h2>
+            <p class="page-faq__text">Мы собрали ответы на самые популярные вопросы о записи, услугах, ценах и посещении нашей клиники.</p>
+
+            <div class="page-faq__media">
+              {{ picture({
+                src: "images/pages/pricing/faq.jpg",
+                alt: "Ветеринар PuppyCare консультирует владельца питомца в клинике",
+                width: "480",
+                height: "360",
+                className: "page-faq__media-image",
+                pictureClass: "page-faq__media-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+          </div>
+
+          <div class="page-faq__accordion-card">
+            {{ accordion({
+              id: "faq-main",
+              mode: "single",
+              items: faqItems
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-faq__support" aria-labelledby="faq-support-title">
+        <div class="container page-faq__support-grid">
+
+          <h2 class="visually-hidden" id="faq-support-title">Дополнительные вопросы</h2>
+
+          <div class="page-faq__support-accordion">
+            {{ accordion({
+              id: "faq-support",
+              mode: "single",
+              items: faqSupportItems
+            }) }}
+          </div>
+
+          <aside class="page-faq__support-aside">
+            <div class="page-faq__support-media">
+              {{ picture({
+                src: "images/pages/services/therapy/process.jpg",
+                alt: "Ветеринар PuppyCare осматривает питомца в клинике",
+                width: "560",
+                height: "420",
+                className: "page-faq__support-image",
+                pictureClass: "page-faq__support-picture",
+                loading: "lazy",
+                decoding: "async",
+                retina: true
+              }) }}
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "faq-cta",
+        eyebrow: "Остались вопросы?",
+        title: "Мы поможем разобраться",
+        text: "Запишитесь на консультацию — подскажем, какая услуга подойдёт вашему питомцу и как подготовиться к визиту.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться онлайн",
+        primaryHref: "appointment.html"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

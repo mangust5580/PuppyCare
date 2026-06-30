@@ -1,0 +1,241 @@
+<!doctype html>
+<html class="page" lang="ru">
+  {%- set pageTitle = "Наша команда — PuppyCare" -%}
+  {%- set pageDescription = "Команда PuppyCare: опытные ветеринары, специалисты по уходу и заботливые администраторы, которые каждый день заботятся о здоровье и спокойствии ваших питомцев." -%}
+  {%- set pageRobots = "index, follow" -%}
+  {%- set pagePath = "team.html" -%}
+  {% include "shared/head/index.njk" %}
+
+  <body data-page="team">
+    {% include "shared/layout/skip-link.njk" %}
+    {% include "shared/layout/header.njk" %}
+
+    {% from "shared/components/picture.njk" import picture %}
+    {% from "shared/components/button.njk" import button %}
+    {% from "shared/components/icon.njk" import icon %}
+    {% from "shared/sections/final-cta.njk" import finalCta %}
+
+    {% set teamBenefits = [
+      { title: "Опытные специалисты", text: "Высокая квалификация и многолетний опыт", icon: "medical-badge" },
+      { title: "Заботливый подход", text: "Индивидуальное внимание к каждому питомцу", icon: "common-heart" },
+      { title: "Современная диагностика", text: "Новейшее оборудование и точные методы лечения", icon: "medical-microscope" },
+      { title: "Работаем каждый день", text: "Мы рядом с вами 7 дней в неделю", icon: "common-calendar" }
+    ] %}
+
+    {% set doctors = [
+      {
+        name: "Анна Петрова",
+        role: "Главный ветеринарный врач",
+        text: "Эксперт в терапии и внутренней медицине. Более 12 лет заботится о здоровье ваших питомцев.",
+        image: "images/pages/team/anna-petrova.jpg",
+        alt: "Анна Петрова, главный ветеринарный врач PuppyCare",
+        initials: "АП"
+      },
+      {
+        name: "Иван Соколов",
+        role: "Хирург",
+        text: "Специалист по мягкотканной хирургии и ортопедии. Провёл более 1000 успешных операций.",
+        image: "images/pages/team/ivan-sokolov.jpg",
+        alt: "Иван Соколов, хирург PuppyCare",
+        initials: "ИС"
+      },
+      {
+        name: "Мария Кузнецова",
+        role: "Терапевт",
+        text: "Ведёт приём, диагностику и лечение заболеваний у собак и кошек любой сложности.",
+        image: "images/pages/team/maria-kuznetsova.jpg",
+        alt: "Мария Кузнецова, терапевт PuppyCare",
+        initials: "МК"
+      },
+      {
+        name: "Елена Смирнова",
+        role: "Стоматолог",
+        text: "Профессиональная стоматология: лечение зубов, чистка и уход за полостью рта.",
+        image: "images/pages/team/elena-smirnova.jpg",
+        alt: "Елена Смирнова, стоматолог PuppyCare",
+        initials: "ЕС"
+      },
+      {
+        name: "Дмитрий Волков",
+        role: "Диагност",
+        text: "УЗИ, рентген и лабораторная диагностика. Точные результаты для правильного лечения.",
+        image: "images/pages/team/dmitry-volkov.jpg",
+        alt: "Дмитрий Волков, диагност PuppyCare",
+        initials: "ДВ"
+      },
+      {
+        name: "Ольга Морозова",
+        role: "Грумер",
+        text: "Профессиональный уход, стрижка и SPA-процедуры для ваших питомцев.",
+        image: "images/pages/team/olga-morozova.jpg",
+        alt: "Ольга Морозова, грумер PuppyCare",
+        initials: "ОМ"
+      },
+      {
+        name: "Сергей Никитин",
+        role: "Анестезиолог",
+        text: "Безопасный наркоз и мониторинг пациента на всех этапах лечения.",
+        image: "images/pages/team/sergey-nikitin.jpg",
+        alt: "Сергей Никитин, анестезиолог PuppyCare",
+        initials: "СН"
+      },
+      {
+        name: "Наталья Орлова",
+        role: "Ассистент ветеринара",
+        text: "Помогает в приёме, уходе и комфортной адаптации питомцев в клинике.",
+        image: "images/pages/team/natalia-orlova.jpg",
+        alt: "Наталья Орлова, ассистент ветеринара PuppyCare",
+        initials: "НО"
+      }
+    ] %}
+
+    <main id="main" class="page__content page-team" tabindex="-1" data-page-content>
+
+      <section class="page-team__hero" aria-labelledby="team-title">
+
+        <span class="page-team__hero-decor" aria-hidden="true">
+          <svg class="page-team__decor page-team__decor--paw" viewBox="0 0 64 64" fill="currentColor"><circle cx="18" cy="26" r="6"/><circle cx="30" cy="18" r="6"/><circle cx="44" cy="18" r="6"/><circle cx="50" cy="30" r="6"/><path d="M34 32c8 0 14 6 14 12 0 5-4 8-9 8-2 0-4-1-5-1s-3 1-5 1c-5 0-9-3-9-8 0-6 6-12 14-12z"/></svg>
+          <svg class="page-team__decor page-team__decor--heart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M16 27S4 19.4 4 11.8A6.2 6.2 0 0 1 16 8.6 6.2 6.2 0 0 1 28 11.8C28 19.4 16 27 16 27z"/></svg>
+          <svg class="page-team__decor page-team__decor--line" viewBox="0 0 200 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"><path d="M2 8h196"/></svg>
+        </span>
+
+        <div class="container page-team__hero-inner">
+
+          <div class="page-team__hero-content">
+
+            <p class="page-team__eyebrow">Команда PuppyCare</p>
+
+            <h1 class="page-team__title" id="team-title">Наша команда</h1>
+
+            <nav class="page-team__breadcrumbs" aria-label="Хлебные крошки">
+              <ol class="page-team__breadcrumbs-list" role="list">
+                <li class="page-team__breadcrumbs-item">
+                  <a class="page-team__breadcrumbs-link" href="index.html">Главная</a>
+                </li>
+                <li class="page-team__breadcrumbs-item">
+                  <span class="page-team__breadcrumbs-current" aria-current="page">Команда</span>
+                </li>
+              </ol>
+            </nav>
+
+            <p class="page-team__lead">Познакомьтесь со специалистами PuppyCare, которые каждый день заботятся о здоровье, спокойствии и комфорте ваших питомцев.</p>
+
+          </div>
+
+          <div class="page-team__hero-media">
+            <span class="page-team__hero-glow" aria-hidden="true"></span>
+            {{ picture({
+              src: "images/pages/team/hero.jpg",
+              alt: "",
+              width: "2400",
+              height: "900",
+              className: "page-team__hero-image",
+              pictureClass: "page-team__hero-picture",
+              loading: "eager",
+              decoding: "async",
+              fetchpriority: "high",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-team__intro" aria-labelledby="team-intro-title">
+        <div class="container page-team__intro-inner">
+
+          <div class="page-team__intro-content">
+            <p class="page-team__eyebrow page-team__eyebrow--dark">О нас</p>
+            <h2 class="page-team__section-title" id="team-intro-title">Познакомьтесь с нашей ветеринарной командой</h2>
+            <p class="page-team__text">Мы — команда опытных ветеринарных врачей, для которых здоровье и благополучие ваших питомцев на первом месте.</p>
+            <p class="page-team__text">Каждый из нас сочетает профессионализм, любовь к животным и искреннее желание помогать. Мы регулярно повышаем квалификацию, используем современные технологии и подбираем индивидуальный подход к каждому пациенту.</p>
+          </div>
+
+          <div class="page-team__intro-media">
+            {{ picture({
+              src: "images/pages/team/team-intro.jpg",
+              alt: "Ветеринарная команда PuppyCare с собакой и кошкой в клинике",
+              width: "480",
+              height: "360",
+              className: "page-team__intro-image",
+              pictureClass: "page-team__intro-picture",
+              loading: "lazy",
+              decoding: "async",
+              retina: true
+            }) }}
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page-team__benefits" aria-labelledby="team-benefits-title">
+        <div class="container">
+          <h2 class="visually-hidden" id="team-benefits-title">Преимущества нашей команды</h2>
+          <ul class="page-team__benefits-shell" role="list">
+            {%- for item in teamBenefits %}
+            <li class="page-team__benefit">
+              <span class="page-team__benefit-icon" aria-hidden="true">{{ icon(item.icon, decorative=true) }}</span>
+              <h3 class="page-team__benefit-title">{{ item.title }}</h3>
+              <p class="page-team__benefit-text">{{ item.text }}</p>
+            </li>
+            {%- endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section class="page-team__doctors" aria-labelledby="team-doctors-title">
+        <div class="container">
+
+          <div class="page-team__doctors-head">
+            <p class="page-team__eyebrow page-team__eyebrow--dark">Наша команда</p>
+            <h2 class="page-team__section-title page-team__section-title--center" id="team-doctors-title">Наши специалисты</h2>
+          </div>
+
+          <ul class="page-team__doctors-list" role="list">
+            {%- for doc in doctors %}
+            <li class="page-team__doctor">
+              <div class="page-team__doctor-media">
+                {%- if doc.image %}
+                {{ picture({
+                  src: doc.image,
+                  alt: doc.alt,
+                  width: "320",
+                  height: "240",
+                  className: "page-team__doctor-image",
+                  pictureClass: "page-team__doctor-picture",
+                  loading: "lazy",
+                  decoding: "async",
+                  retina: true
+                }) }}
+                {%- else %}
+                <span class="page-team__doctor-fallback" aria-hidden="true">{{ doc.initials }}</span>
+                {%- endif %}
+              </div>
+              <div class="page-team__doctor-body">
+                <h3 class="page-team__doctor-name">{{ doc.name }}</h3>
+                <p class="page-team__doctor-role">{{ doc.role }}</p>
+                <p class="page-team__doctor-text">{{ doc.text }}</p>
+              </div>
+            </li>
+            {%- endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+      {{ finalCta({
+        id: "team-cta",
+        eyebrow: "Запишитесь на приём",
+        title: "Забота тогда, когда она нужна",
+        text: "Запишитесь на приём в удобное время и получите профессиональную помощь с любовью.",
+        image: "images/pages/services/therapy/cta-banner.jpg",
+        imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
+        primaryText: "Записаться на приём",
+        primaryHref: "appointment.html"
+      }) }}
+
+    </main>
+
+    {% include "shared/layout/footer.njk" %}
+  </body>
+</html>

@@ -1,0 +1,393 @@
+@use '../helpers' as *;
+
+// ── Subscribe / newsletter modal ────────────────────────────────────────────
+// Global modal included once per page (shared/modals). Opened by JS (timer +
+// near-page-end scroll, once per session). Hidden via the `hidden` attribute;
+// `is-open` drives the fade/scale transition.
+
+.subscribe-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+}
+
+.subscribe-modal[hidden] {
+  display: none;
+}
+
+.subscribe-modal__overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0%;
+  background-color: rgb(15 27 58 / 64%);
+  cursor: pointer; // click anywhere on the backdrop closes the modal (data-subscribe-modal-close)
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 200ms ease;
+  }
+}
+
+.subscribe-modal.is-open .subscribe-modal__overlay {
+  opacity: 100%;
+}
+
+.subscribe-modal__dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  opacity: 0%;
+  overflow: clip;
+  flex-direction: column;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 900px;
+  max-block-size: calc(100dvh - var(--space-32));
+  border-radius: var(--radius-xl);
+  background-color: var(--surface-base);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(8px) scale(0.98);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+}
+
+.subscribe-modal.is-open .subscribe-modal__dialog {
+  opacity: 100%;
+  transform: none;
+}
+
+.subscribe-modal__close {
+  position: absolute;
+  inset-block-start: var(--space-16);
+  inset-inline-end: var(--space-16);
+  z-index: 2;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+
+  @include transition((background-color, color));
+
+  @include hover {
+    background-color: var(--color-coral-100);
+    color: var(--color-coral-600);
+  }
+
+  @include focus-visible;
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+// ── Body: form column + media column ─────────────────────────────────────────
+
+.subscribe-modal__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  min-inline-size: 0;
+}
+
+.subscribe-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-inline-size: 0;
+  padding: fluid(48, 28) fluid(48, 24);
+}
+
+.subscribe-modal__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  color: var(--color-coral-600);
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  line-height: var(--text-overline-line-height);
+  letter-spacing: var(--text-overline-tracking);
+  text-transform: uppercase;
+}
+
+.subscribe-modal__eyebrow::before {
+  content: '';
+  inline-size: 24px;
+  block-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-coral-600);
+}
+
+.subscribe-modal__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: fluid(36, 26);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.subscribe-modal__text {
+  max-inline-size: 40ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-body-large-size);
+  line-height: var(--text-body-large-line-height);
+}
+
+.subscribe-modal__highlight {
+  color: var(--color-coral-600);
+  font-weight: 700;
+}
+
+.subscribe-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  min-inline-size: 0;
+  margin-block-start: var(--space-8);
+}
+
+.subscribe-modal__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.subscribe-modal__field-icon {
+  position: absolute;
+  inset-inline-start: var(--space-16);
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.subscribe-modal__input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 52px;
+  padding-block: var(--space-12);
+  padding-inline: calc(var(--space-16) * 2 + 16px) var(--space-16);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+
+  @include transition((border-color, box-shadow));
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  &:hover {
+    border-color: var(--border-strong);
+  }
+
+  &:focus {
+    border-color: var(--border-focus);
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.subscribe-modal__submit {
+  justify-content: center;
+  inline-size: 100%;
+}
+
+.subscribe-modal__success {
+  margin: 0;
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-md);
+  color: var(--color-success);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  line-height: var(--text-body-line-height);
+}
+
+.subscribe-modal__note {
+  margin: 0;
+  color: var(--text-tertiary);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+}
+
+// ── Media column ─────────────────────────────────────────────────────────────
+
+.subscribe-modal__media {
+  position: relative;
+  display: flex;
+  overflow: clip;
+  align-items: flex-end;
+  justify-content: center;
+  min-inline-size: 0;
+  background:
+    radial-gradient(120% 90% at 80% 10%, var(--color-coral-100), transparent 70%),
+    var(--surface-soft-pink);
+}
+
+.subscribe-modal__decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--color-coral-300);
+  pointer-events: none;
+}
+
+.subscribe-modal__decor-shape {
+  position: absolute;
+  display: block;
+}
+
+.subscribe-modal__decor-shape--heart-a {
+  inset-block-start: 12%;
+  inset-inline-start: 14%;
+  inline-size: 30px;
+  color: var(--color-coral-400);
+}
+
+.subscribe-modal__decor-shape--heart-b {
+  inset-block-start: 30%;
+  inset-inline-end: 10%;
+  inline-size: 22px;
+  color: var(--color-coral-300);
+}
+
+.subscribe-modal__decor-shape--paw {
+  inset-block-start: 24%;
+  inset-inline-start: 26%;
+  opacity: 40%;
+  inline-size: 34px;
+  color: var(--color-navy-400);
+  transform: rotate(-12deg);
+}
+
+.subscribe-modal__picture {
+  position: relative;
+  z-index: 1;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 420px;
+}
+
+.subscribe-modal__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  object-fit: contain;
+}
+
+// ── Benefits row ─────────────────────────────────────────────────────────────
+
+.subscribe-modal__benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: fluid(24, 16);
+  margin: 0;
+  padding: fluid(28, 20) fluid(48, 24);
+  background-color: var(--surface-soft-pink);
+  list-style: none;
+}
+
+.subscribe-modal__benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-inline-size: 0;
+}
+
+.subscribe-modal__benefit-icon {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-coral-100);
+  color: var(--color-coral-600);
+}
+
+.subscribe-modal__benefit-icon--tips {
+  background-color: var(--color-info-light);
+  color: var(--color-info);
+}
+
+.subscribe-modal__benefit-icon--news {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.subscribe-modal__benefit-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.subscribe-modal__benefit-title {
+  color: var(--text-primary);
+  font-size: var(--text-body-size);
+  font-weight: 700;
+  line-height: var(--text-body-line-height);
+}
+
+.subscribe-modal__benefit-text {
+  color: var(--text-secondary);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+
+@include media-down('md') {
+  .subscribe-modal__body {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe-modal__media {
+    order: -1;
+    min-block-size: clamp(160px, 36vw, 220px);
+  }
+
+  .subscribe-modal__picture {
+    max-inline-size: 320px;
+  }
+
+  .subscribe-modal__benefits {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+}
+
+@include media-down('sm') {
+  .subscribe-modal {
+    padding: var(--space-8);
+  }
+
+  .subscribe-modal__media {
+    display: none;
+  }
+}

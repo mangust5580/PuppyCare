@@ -1,0 +1,172 @@
+@use '../helpers' as *;
+
+// ── Final CTA (shared component) ─────────────────────────────────────────────
+// Canonical site-wide final CTA: navy card, right-side media behind a
+// left-anchored gradient, headline + text, coral primary button + phone action.
+// Rendered by shared/sections/final-cta.njk on every page that has a final CTA.
+
+.final-cta {
+  padding-block: fluid(80, 48);
+}
+
+.final-cta__card {
+  position: relative;
+  display: flex;
+  overflow: clip;
+  align-items: center;
+  min-inline-size: 0;
+  min-block-size: clamp(280px, 30vw, 380px);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-navy-900);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-inverse);
+  isolation: isolate;
+}
+
+.final-cta__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  min-inline-size: 0;
+}
+
+.final-cta__media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    var(--color-navy-900) 0%,
+    rgb(15 27 58 / 96%) 24%,
+    rgb(15 27 58 / 78%) 40%,
+    rgb(15 27 58 / 45%) 58%,
+    rgb(15 27 58 / 15%) 76%,
+    transparent 92%
+  );
+  pointer-events: none;
+}
+
+.final-cta__picture {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.final-cta__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center right;
+}
+
+.final-cta__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-inline-size: 0;
+  max-inline-size: 56%;
+  padding: fluid(56, 28) fluid(56, 24);
+}
+
+.final-cta__eyebrow {
+  margin: 0;
+  color: var(--color-coral-300);
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  line-height: var(--text-overline-line-height);
+  letter-spacing: var(--text-overline-tracking);
+  text-transform: uppercase;
+}
+
+.final-cta__title {
+  max-inline-size: 22ch;
+  margin: 0;
+  color: var(--text-inverse);
+  font-size: fluid(34, 24);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.final-cta__text {
+  max-inline-size: 52ch;
+  margin: 0;
+  color: var(--color-navy-200);
+  font-size: var(--text-body-large-size);
+  line-height: var(--text-body-large-line-height);
+}
+
+.final-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-16);
+  min-inline-size: 0;
+  margin-block-start: var(--space-8);
+}
+
+.final-cta__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  border-radius: var(--radius-sm);
+  color: var(--text-inverse);
+  font-weight: 700;
+  text-decoration: none;
+
+  @include transition-color;
+
+  @include hover {
+    color: var(--color-coral-300);
+  }
+
+  @include focus-visible($outline-color: var(--color-coral-400), $shadow: none);
+
+  @include reduce-motion {
+    transition: none;
+  }
+}
+
+.final-cta__phone-icon {
+  flex-shrink: 0;
+  inline-size: 18px;
+  block-size: 18px;
+  color: var(--color-coral-400);
+}
+
+@include media-down('md') {
+  .final-cta__card {
+    flex-direction: column;
+    align-items: stretch;
+    min-block-size: 0;
+  }
+
+  .final-cta__media {
+    position: static;
+    inline-size: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .final-cta__media::before {
+    display: none;
+  }
+
+  .final-cta__content {
+    max-inline-size: none;
+  }
+}
+
+@include media-down('sm') {
+  .final-cta__actions {
+    inline-size: 100%;
+  }
+
+  .final-cta__actions .button {
+    justify-content: center;
+    inline-size: 100%;
+  }
+}

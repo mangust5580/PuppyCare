@@ -1,0 +1,70 @@
+html {
+  scrollbar-color: var(--border-strong) var(--surface-subtle);
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  inline-size: 10px;
+  block-size: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--surface-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--surface-subtle);
+  border-radius: var(--radius-full);
+  background-color: var(--border-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-navy-400);
+}
+
+body {
+  min-inline-size: min(320px, 100%);
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+body::selection {
+  background-color: var(--color-coral-500);
+  color: var(--text-inverse);
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+// Interaction affordances — a pointer cursor for genuinely actionable controls,
+// and `not-allowed` for disabled ones. Wrapped in `:where()` so its specificity
+// is 0: every component rule still wins, this only fills gaps and documents
+// intent. Text inputs and `textarea` are deliberately excluded (text caret), as
+// are static cards/labels (handled per-component where they're truly clickable).
+:where(
+  a[href],
+  area[href],
+  button,
+  summary,
+  select,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  [role="button"]
+):not(:disabled, [aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+:where(button, input, select, textarea):disabled,
+:where([aria-disabled="true"]) {
+  cursor: not-allowed;
+}

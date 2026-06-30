@@ -1,0 +1,82 @@
+{#
+  Accordion macro — PuppyCare
+  ─────────────────────────────────────────────────────────────────────────────
+  Usage:
+    {% from "shared/components/accordion.njk" import accordion %}
+
+    {% set faqItems = [
+      { question: "Вопрос 1", answer: "Ответ 1", open: true },
+      { question: "Вопрос 2", answer: "Ответ 2" }
+    ] %}
+
+    {{ accordion({
+      id: "therapy-faq",
+      mode: "single",
+      items: faqItems
+    }) }}
+
+  options:
+    id          — unique base id, used to build trigger/panel ids (string, default "accordion")
+    mode        — "single" | "multiple" (string, default "single")
+    items       — array of { question, answer, open } (array, default [])
+    headingTag  — h2 | h3 | h4 wrapping each trigger (string, default "h3")
+    extraClass  — extra CSS classes on the root (string)
+
+  Behaviour is driven by the Accordion JS module via the data-js-accordion* hooks.
+  Closed panels carry the `hidden` attribute; the open state is mirrored on
+  `.accordion__item.is-open` and the trigger's aria-expanded.
+#}
+
+{% from "shared/components/icon.njk" import icon %}
+
+{% macro accordion(options = {}) %}
+
+  {%- set _id = options.id if options.id else 'accordion' -%}
+  {%- set _mode = options.mode if options.mode in ['single', 'multiple'] else 'single' -%}
+  {%- set _items = options.items if options.items else [] -%}
+  {%- set _headingTag = options.headingTag if options.headingTag in ['h2', 'h3', 'h4'] else 'h3' -%}
+
+  {%- set _classes = [
+    'accordion',
+    (options.extraClass if options.extraClass)
+  ] | select | join(' ') -%}
+
+  <div class="{{ _classes }}" data-js-accordion data-js-accordion-mode="{{ _mode }}">
+    {%- for item in _items %}
+    {%- set _i = loop.index -%}
+    {%- set _triggerId = _id ~ '-trigger-' ~ _i -%}
+    {%- set _panelId = _id ~ '-panel-' ~ _i -%}
+    {%- set _isOpen = true if item.open else false -%}
+    <div class="accordion__item{{ ' is-open' if _isOpen }}" data-js-accordion-item>
+      <{{ _headingTag }} class="accordion__heading">
+        <button
+          class="accordion__trigger"
+          type="button"
+          id="{{ _triggerId }}"
+          aria-expanded="{{ 'true' if _isOpen else 'false' }}"
+          aria-controls="{{ _panelId }}"
+          data-js-accordion-trigger
+        >
+          <span class="accordion__title">{{ item.question }}</span>
+          <span class="accordion__icon" aria-hidden="true">
+            {{ icon("ui-chevron-down", decorative=true) }}
+          </span>
+        </button>
+      </{{ _headingTag }}>
+      <div
+        class="accordion__panel"
+        id="{{ _panelId }}"
+        role="region"
+        aria-labelledby="{{ _triggerId }}"
+        data-js-accordion-panel
+        {{- ' hidden' if not _isOpen }}
+      >
+        <div class="accordion__content">
+          {%- if item.answer %}<p class="accordion__text">{{ item.answer }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+
+{% endmacro %}
