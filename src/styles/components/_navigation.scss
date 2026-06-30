@@ -90,12 +90,12 @@
 
 .pagination__link--current {
   border-radius: var(--radius-full);
-  background-color: var(--color-coral-600);
+  background-color: var(--color-action-coral);
   color: var(--text-inverse);
   font-weight: 600;
 
   &:hover {
-    background-color: var(--color-coral-500);
+    background-color: var(--color-action-coral-hover);
   }
 }
 

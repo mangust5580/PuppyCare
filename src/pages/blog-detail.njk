@@ -285,9 +285,9 @@
               <h2 class="page-blog-article__consultation-title">Нужна консультация?</h2>
               <p class="page-blog-article__consultation-text">Наши ветеринары всегда готовы помочь вам и вашему питомцу.</p>
               {{ button("Записаться на приём", tag="a", href="appointment.html", variant="primary", size="large", extraClass="page-blog-article__consultation-button") }}
-              <a class="page-blog-article__consultation-phone" href="tel:+74951204567">
+              <a class="page-blog-article__consultation-phone" href="{{ contact.phone.href }}">
                 {{ icon("contact-phone", className="page-blog-article__consultation-phone-icon", size="sm") }}
-                <span>+7 (495) 120-45-67</span>
+                <span>{{ contact.phone.label }}</span>
               </a>
             </div>
 

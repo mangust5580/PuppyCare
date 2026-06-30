@@ -147,7 +147,7 @@
               <dl class="page-locations__card-meta">
                 <dt class="visually-hidden">Телефон</dt>
                 <dd class="page-locations__card-meta-item">
-                  <a class="page-locations__card-phone" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                  <a class="page-locations__card-phone" href="{{ contact.phone.href }}">{{ contact.phone.label }}</a>
                 </dd>
                 <dt class="visually-hidden">Часы работы</dt>
                 <dd class="page-locations__card-meta-item page-locations__card-hours">{{ clinic.hours }}</dd>
@@ -168,7 +168,9 @@
         image: "images/pages/services/therapy/cta-banner.jpg",
         imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
         primaryText: "Записаться онлайн",
-        primaryHref: "appointment.html"
+        primaryHref: "appointment.html",
+        phone: contact.phone.label,
+        phoneHref: contact.phone.href
       }) }}
 
     </main>

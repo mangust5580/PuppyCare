@@ -76,13 +76,22 @@
 
   &:hover {
     background-color: var(--color-coral-100);
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-focus);
     box-shadow: var(--shadow-focus);
   }
+}
+
+.site-header__nav-link--active {
+  background-color: var(--color-coral-100);
+  color: var(--color-text-accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
 
 .site-header__chevron {
@@ -142,13 +151,22 @@
 
   &:hover {
     background-color: var(--color-coral-100);
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-focus);
     box-shadow: var(--shadow-focus);
   }
+}
+
+.site-header__dropdown-link--active {
+  background-color: var(--color-coral-100);
+  color: var(--color-text-accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
 
 .site-header__actions {
@@ -171,7 +189,7 @@
   transition: color 150ms ease;
 
   &:hover {
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {
@@ -298,13 +316,21 @@
   text-decoration: none;
 
   &:hover {
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-focus);
     box-shadow: var(--shadow-focus);
   }
+}
+
+.site-header__mobile-link--active {
+  color: var(--color-text-accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
 
 .site-header__mobile-label {
@@ -314,6 +340,10 @@
   font-weight: 600;
   line-height: var(--text-body-large-line-height);
   text-align: center;
+}
+
+.site-header__mobile-label--active {
+  color: var(--color-text-accent);
 }
 
 .site-header__mobile-sub {
@@ -337,13 +367,21 @@
   text-decoration: none;
 
   &:hover {
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-focus);
     box-shadow: var(--shadow-focus);
   }
+}
+
+.site-header__mobile-sub-link--active {
+  color: var(--color-text-accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
 
 .site-header__mobile-actions {
@@ -367,7 +405,7 @@
   transition: color 150ms ease;
 
   &:hover {
-    color: var(--color-coral-600);
+    color: var(--color-text-accent);
   }
 
   &:focus-visible {

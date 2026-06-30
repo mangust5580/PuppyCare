@@ -30,8 +30,8 @@
     imageHeight — intrinsic height hint (default '420')
     primaryText — primary button label (default 'Записаться на приём')
     primaryHref — primary button href (default 'appointment.html')
-    phone       — phone label (default '+7 (495) 120-45-67')
-    phoneHref   — phone href (default 'tel:+74951204567')
+    phone       — phone label; pass `contact.phone.label` from page context
+    phoneHref   — phone href; pass `contact.phone.href` from page context
 #}
 
 {% from "shared/components/button.njk" import button %}
@@ -42,8 +42,8 @@
 {%- set id = opts.id -%}
 {%- set primaryText = opts.primaryText | default("Записаться на приём") -%}
 {%- set primaryHref = opts.primaryHref | default("appointment.html") -%}
-{%- set phone = opts.phone | default("+7 (495) 120-45-67") -%}
-{%- set phoneHref = opts.phoneHref | default("tel:+74951204567") -%}
+{%- set phone = opts.phone | default("Связаться") -%}
+{%- set phoneHref = opts.phoneHref | default("contacts.html") -%}
 <section class="final-cta" aria-labelledby="{{ id }}-title">
   <div class="container">
     <div class="final-cta__card">

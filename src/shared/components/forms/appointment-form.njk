@@ -37,7 +37,7 @@
       <div class="appointment-form__grid">
         {{ field(id="appt-name", name="name", label="Ваше имя", autocomplete="name", placeholder="Например, Анна", required=true) }}
         {{ field(id="appt-phone", name="phone", label="Телефон", type="tel", autocomplete="tel", inputmode="tel", placeholder="+7 (___) ___-__-__", required=true) }}
-        {{ field(id="appt-email", name="email", label="E-mail", type="email", autocomplete="email", placeholder="you@example.com") }}
+        {{ field(id="appt-email", name="email", label="E-mail", type="email", autocomplete="email", placeholder="name@puppycare-demo.ru") }}
         {{ field(id="appt-pet-name", name="petName", label="Кличка питомца", placeholder="Например, Лаки") }}
         {{ select(id="appt-pet-type", name="petType", label="Вид питомца", placeholder="Выберите вид питомца", required=true, options=[
           { value: "dog", label: "Собака" },

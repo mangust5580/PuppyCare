@@ -13,12 +13,18 @@
   --color-navy-100: #eef1f7;
 
   // Coral scale
-  --color-coral-600: #ff405a;
-  --color-coral-500: #ff6077;
+  --color-coral-700: #b51632;
+  --color-coral-600: #d91f3b;
+  --color-coral-500: #c91938;
   --color-coral-400: #ff8a93;
   --color-coral-300: #ffc1c6;
   --color-coral-200: #ffe1e3;
-  --color-coral-100: #fff0f1;
+  --color-coral-100: #fff0f3;
+  --color-brand-coral-bright: #ff405a;
+  --color-action-coral: #d91f3b;
+  --color-action-coral-hover: #c91938;
+  --color-action-coral-active: #b51632;
+  --color-text-accent: #be123c;
 
   // Gray scale
   --color-gray-900: #1f232d;
@@ -29,12 +35,12 @@
   --color-gray-100: #f6f7fa;
 
   // Status
-  --color-success: #22c55e;
-  --color-info: #3b82f6;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-premium: #8b5cf6;
-  --color-accent: #14b8a6;
+  --color-success: #15803d;
+  --color-info: #1d4ed8;
+  --color-warning: #b45309;
+  --color-error: #b91c1c;
+  --color-premium: #6d28d9;
+  --color-accent: #0f766e;
 
   // State light
   --color-success-light: #dcfce7;
@@ -46,9 +52,9 @@
   // Semantic — text
   --text-primary: #0f1b3a;
   --text-secondary: #4b5563;
-  --text-tertiary: #8a93a4;
+  --text-tertiary: #667085;
   --text-inverse: #fff;
-  --text-disabled: #a0aec0;
+  --text-disabled: #687aa6;
 
   // Semantic — surface
   --surface-base: #fff;

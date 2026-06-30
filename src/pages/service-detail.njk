@@ -223,7 +223,7 @@
               <div class="page-service-detail__appointment-row">
                 <dt class="page-service-detail__appointment-label">Телефон</dt>
                 <dd class="page-service-detail__appointment-value">
-                  <a class="page-service-detail__appointment-phone" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                  <a class="page-service-detail__appointment-phone" href="{{ contact.phone.href }}">{{ contact.phone.label }}</a>
                 </dd>
               </div>
               <div class="page-service-detail__appointment-row">
@@ -331,11 +331,11 @@
             <div class="page-service-detail__preparation-note-body">
               <h3 class="page-service-detail__preparation-note-title" id="service-preparation-note-title">Важно</h3>
               <p class="page-service-detail__preparation-note-text">Если состояние питомца резко ухудшилось, лучше позвонить в клинику заранее — мы подскажем, как действовать до приезда.</p>
-              <a class="page-service-detail__preparation-note-phone" href="tel:+74951204567">
+              <a class="page-service-detail__preparation-note-phone" href="{{ contact.phone.href }}">
                 <span class="page-service-detail__preparation-note-phone-icon" aria-hidden="true">
                   {{ icon("contact-phone-handset", decorative=true) }}
                 </span>
-                +7 (495) 120-45-67
+                {{ contact.phone.label }}
               </a>
             </div>
           </aside>
@@ -428,7 +428,9 @@
         image: "images/pages/services/therapy/cta-banner.jpg",
         imageAlt: "Ветеринар PuppyCare заботится о собаке перед приёмом",
         primaryText: "Записаться на приём",
-        primaryHref: "appointment.html"
+        primaryHref: "appointment.html",
+        phone: contact.phone.label,
+        phoneHref: contact.phone.href
       }) }}
 
     </main>

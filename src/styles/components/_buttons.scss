@@ -48,16 +48,16 @@
 }
 
 .button--primary {
-  background-color: var(--color-coral-600);
+  background-color: var(--color-action-coral);
   color: var(--text-inverse);
 
   &:hover {
-    background-color: var(--color-coral-500);
+    background-color: var(--color-action-coral-hover);
   }
 
   &:active {
-    background-color: var(--color-coral-600);
-    filter: brightness(0.9);
+    background-color: var(--color-action-coral-active);
+    filter: none;
   }
 }
 
@@ -108,7 +108,9 @@
 
 .button:disabled,
 .button[aria-disabled="true"] {
-  opacity: 45%;
+  border-color: var(--border-strong);
+  background-color: var(--surface-subtle);
+  color: var(--text-disabled);
   pointer-events: none;
 }
 

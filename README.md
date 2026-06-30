@@ -11,6 +11,8 @@ PuppyCare is a multi-page static portfolio demo for a fictional pet care clinic.
 
 This is a static demo project. It has no backend, no production form handling and no real clinic, client, patient or appointment data. Forms and modal flows are portfolio interactions only and must be connected to a real backend or form service before commercial use.
 
+Visible clinic contact details, addresses and social links are fictional demo content.
+
 ## Pages And Features
 
 - Home page with clinic overview and primary calls to action.

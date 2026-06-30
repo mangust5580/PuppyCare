@@ -164,15 +164,15 @@
               <ul class="legal-page__contacts" role="list">
                 <li class="legal-page__contact-item">
                   <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-mail", decorative=true) }}</span>
-                  <a class="legal-page__contact-link" href="mailto:info@puppycare.ru">info@puppycare.ru</a>
+                  <a class="legal-page__contact-link" href="{{ contact.email.href }}">{{ contact.email.label }}</a>
                 </li>
                 <li class="legal-page__contact-item">
                   <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-phone", decorative=true) }}</span>
-                  <a class="legal-page__contact-link" href="tel:+74951204567">+7 (495) 120-45-67</a>
+                  <a class="legal-page__contact-link" href="{{ contact.phone.href }}">{{ contact.phone.label }}</a>
                 </li>
                 <li class="legal-page__contact-item">
                   <span class="legal-page__contact-icon" aria-hidden="true">{{ icon("contact-location", decorative=true) }}</span>
-                  <span class="legal-page__contact-text">Москва, ул. Лесная, 12</span>
+                  <span class="legal-page__contact-text">{{ contact.address.shortLabel }}</span>
                 </li>
               </ul>
             </section>
@@ -186,9 +186,9 @@
                 <a class="button button--primary button--large" href="contacts.html" data-feedback-modal-open>
                   <span class="button__text">Связаться с нами</span>
                 </a>
-                <a class="legal-page__cta-phone" href="tel:+74951204567">
+                <a class="legal-page__cta-phone" href="{{ contact.phone.href }}">
                   {{ icon("contact-phone", className="legal-page__cta-phone-icon", size="sm") }}
-                  <span>+7 (495) 120-45-67</span>
+                  <span>{{ contact.phone.label }}</span>
                 </a>
               </div>
             </aside>
