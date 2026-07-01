@@ -1,120 +1,321 @@
 # PuppyCare
 
-PuppyCare is a multi-page static portfolio demo for a fictional pet care clinic. It is built with Gulp 5, Nunjucks, SCSS and vanilla JavaScript, with a production pipeline for GitHub Pages.
+**PuppyCare** — демонстрационный многостраничный сайт ветеринарной клиники и pet-care сервиса. Проект сделан как портфолио-кейс: с адаптивной версткой, Nunjucks-шаблонами, SCSS-архитектурой, vanilla JavaScript, формами, видео-блоком, SEO-разметкой и базовыми проверками качества.
 
-- Repository: https://github.com/mangust5580/PuppyCare
-- Live demo: https://mangust5580.github.io/PuppyCare/
-- Production output: `public/`
-- Deploy: GitHub Actions uploads `public/` as the GitHub Pages artifact.
+Демо: https://mangust5580.github.io/PuppyCare/  
+Репозиторий: https://github.com/mangust5580/PuppyCare
 
-## Production Disclaimer
+> Все контакты, адреса, отзывы, специалисты, цены и описания услуг в проекте являются вымышленными demo-данными.
 
-This is a static demo project. It has no backend, no production form handling and no real clinic, client, patient or appointment data. Forms and modal flows are portfolio interactions only and must be connected to a real backend or form service before commercial use.
+---
 
-Visible clinic contact details, addresses and social links are fictional demo content.
+## О проекте
 
-## Pages And Features
+PuppyCare имитирует сайт современной ветеринарной клиники: пользователь может посмотреть услуги, цены, специалистов, отзывы, филиалы, статьи и оставить заявку на прием.
 
-- Home page with clinic overview and primary calls to action.
-- About page.
-- Services page.
-- Service detail page.
-- Team page.
-- Pricing page.
-- Reviews page.
-- Appointment page.
-- FAQ page.
-- Blog index.
-- Blog detail page.
-- Contacts page.
-- Locations page.
-- Privacy policy page.
-- Terms page.
-- Custom 404 page.
+Проект фокусируется на:
 
-## Stack
+- многостраничной структуре;
+- переиспользуемых Nunjucks-компонентах;
+- поддерживаемой SCSS-архитектуре;
+- доступности интерфейса;
+- адаптивной верстке;
+- оптимизации изображений и видео;
+- чистой структуре исходников;
+- автоматизированных проверках качества.
 
-- Gulp 5 build pipeline.
-- Nunjucks templates and reusable partials.
-- SCSS architecture with project tokens, helpers, components, sections and pages.
-- Vanilla JavaScript modules bundled through esbuild.
-- Responsive image pipeline with generated WebP and AVIF variants.
-- SVG sprite generation.
-- Source MP4 video with generated WebM and optimized video output.
-- GitHub Actions and GitHub Pages deployment.
+---
 
-## JavaScript Interactions
+## Страницы
 
-- Header behavior, burger navigation and dropdown menus.
-- Modal dialogs.
-- Demo form flows and client-side validation states.
-- FAQ and accordion interactions where used.
-- Video controls where media sections are present.
+В проекте предусмотрены основные пользовательские и служебные страницы:
 
-## Accessibility
+- Главная
+- О клинике
+- Услуги
+- Детальная страница услуги
+- Команда
+- Цены
+- Отзывы
+- Запись на прием
+- FAQ
+- Блог
+- Детальная страница статьи
+- Контакты
+- Филиалы
+- Политика конфиденциальности
+- Пользовательское соглашение
+- 404
 
-- Skip link and semantic landmarks.
-- Form labels and explicit required states.
-- Keyboard-visible focus states through `:focus-visible`.
-- Modal dialog behavior with ARIA state handling.
-- Reduced-motion handling for motion-sensitive users.
+---
 
-## Responsive Layout
+## Основной функционал
 
-- Layout supports narrow screens down to 320px.
-- Fluid spacing and type are handled through the shared SCSS system.
-- Internal links are designed to remain GitHub Pages-safe and relative to the deployed project path.
+### Навигация
 
-## Images And Video
+- Desktop и mobile navigation используют общий источник данных.
+- Текущая страница подсвечивается в меню.
+- Для активной ссылки добавляется `aria-current="page"`.
+- Для detail-страниц активируется соответствующая группа меню:
+  - service detail — раздел услуг;
+  - blog detail — раздел блога / пациентского блока.
+- Mobile menu скрывается из accessibility tree в закрытом состоянии.
 
-- Source images use high-density `@2x` assets where appropriate.
-- The build generates responsive WebP and AVIF variants.
-- SVG icons are optimized and assembled into a sprite.
-- Source MP4 files can be transcoded into WebM and optimized output by the build pipeline.
-- Image markup should preserve useful alt text and avoid layout shift with explicit dimensions where applicable.
+### Формы
+
+В проекте есть формы для пользовательских сценариев:
+
+- запись на прием;
+- контактная форма;
+- подписка / CTA-блоки;
+- поля с доступными label и error-состояниями.
+
+Формы являются демонстрационными и не отправляют реальные данные на backend.
+
+### Видео
+
+Проект содержит видео-ассеты и использует media pipeline сборки:
+
+- исходные видео находятся в `src/assets`;
+- в production-сборке видео обрабатываются через pipeline проекта;
+- video module должен быть включен в `config/features.js`.
+
+### Контентные блоки
+
+Реализованы типовые секции pet-care сайта:
+
+- hero;
+- услуги;
+- преимущества;
+- процесс записи;
+- специалисты;
+- отзывы;
+- цены;
+- FAQ;
+- блог;
+- филиалы;
+- финальные CTA-блоки;
+- legal pages.
+
+---
+
+## Технологии
+
+- **HTML / Nunjucks** — шаблоны, layouts, partials, macros.
+- **SCSS** — токены, компоненты, layouts, utilities.
+- **Vanilla JavaScript** — интерактивные компоненты без UI-фреймворка.
+- **Gulp 5** — сборка проекта.
+- **PostCSS / Autoprefixer / cssnano** — обработка CSS.
+- **Sharp** — обработка изображений.
+- **FFmpeg / media pipeline** — обработка видео, если включена в конфигурации.
+- **ESLint / Stylelint / Prettier** — статические проверки и форматирование.
+- **GitHub Actions** — quality checks и деплой на GitHub Pages.
+
+---
+
+## Структура проекта
+
+```text
+PuppyCare/
+├── .github/              # GitHub Actions workflows
+├── config/               # Конфигурация проекта и feature flags
+├── gulp/                 # Сборка и build tasks
+├── public/               # Сгенерированная сборка
+├── scripts/              # Вспомогательные scripts
+├── src/
+│   ├── assets/           # Исходные изображения, видео, иконки, шрифты
+│   ├── pages/            # Nunjucks-страницы
+│   ├── scripts/          # JS-модули
+│   ├── shared/           # Layouts, sections, components, macros, data
+│   ├── static/           # Статические файлы
+│   └── styles/           # SCSS-архитектура
+├── package.json
+└── README.md
+```
+
+---
+
+## Nunjucks и data-layer
+
+Проект использует Nunjucks как шаблонизатор для многостраничной статической сборки.
+
+В общий data-layer вынесены данные, которые повторяются между страницами и компонентами:
+
+- данные сайта;
+- контакты;
+- основная навигация;
+- ссылки footer;
+- social links.
+
+Это позволяет не дублировать desktop/mobile navigation и контактные данные вручную.
+
+При этом в `.njk` оставлены данные, которые относятся к уникальной композиции конкретной страницы:
+
+- одноразовые hero/CTA-тексты;
+- page-specific массивы;
+- секционная композиция;
+- разметка изображений, если она тесно связана с конкретным блоком.
+
+Markdown/content pipeline намеренно не добавлялся: проекту достаточно Nunjucks и JSON/data-слоя.
+
+---
+
+## Доступность
+
+В проекте учтены базовые accessibility-практики:
+
+- семантическая структура страниц;
+- доступная навигация;
+- `aria-current="page"` для текущей страницы;
+- корректное скрытие закрытого mobile menu;
+- видимые focus states;
+- доступные состояния форм;
+- читаемые error/success/warning states;
+- декоративные иконки скрываются от screen reader;
+- icon-only элементы получают доступное имя;
+- цвета интерактивных элементов вынесены в semantic tokens.
+
+Цветовая система разделяет:
+
+- яркий брендовый coral для декоративных акцентов;
+- доступный action coral для CTA и интерактивных элементов;
+- отдельные hover/active/focus/disabled states.
+
+---
+
+## Производительность
+
+Проект использует стандартные для статической сборки оптимизации:
+
+- responsive images;
+- оптимизация изображений через build pipeline;
+- обработка видео через media pipeline;
+- минификация CSS и JS;
+- генерация production build;
+- раздельная структура source и generated output.
+
+`public/` является результатом сборки и не должен редактироваться вручную.
+
+---
 
 ## SEO
 
-- Pages include project-specific titles and descriptions.
-- Canonical, Open Graph and Twitter metadata are generated from project data.
-- Sitemap and robots files are generated for production output.
-- The 404 page is excluded from indexing.
+В проекте предусмотрены базовые SEO-практики:
 
-## Commands
+- уникальные title/description для страниц;
+- структурированная HTML-разметка;
+- служебные legal pages;
+- 404-страница;
+- корректная генерация production output.
+
+---
+
+## Установка
 
 ```bash
 npm ci
-npm run dev
-npm run lint
-npm run build
-npm run check
-npm run preview
 ```
 
-`npm run check` runs linting and the production build.
+Если нужно установить зависимости без строгой проверки lockfile:
 
-## GitHub Pages
+```bash
+npm install
+```
 
-1. Open repository Settings -> Pages.
-2. Set Build and deployment -> Source to GitHub Actions.
-3. Push changes to `main`.
-4. Wait for the "Deploy GitHub Pages" workflow to finish.
-5. Open https://mangust5580.github.io/PuppyCare/.
+---
 
-The workflow builds the project, adds `public/.nojekyll` during CI, uploads `public/` with `actions/upload-pages-artifact`, and deploys it with `actions/deploy-pages`. It does not create a `gh-pages` branch and does not commit generated files.
+## Команды
 
-CI runs `npm ci` and `npm run check` with `SITE_URL=https://mangust5580.github.io` and `SITE_BASE_PATH=/PuppyCare`.
+```bash
+npm run dev
+```
 
-## Structure
+Запуск проекта в режиме разработки.
 
-- `src/pages` - page entry files.
-- `src/shared` - reusable Nunjucks partials.
-- `src/styles` - SCSS architecture.
-- `src/scripts` - JavaScript entry and modules.
-- `src/assets` - project fonts, images, icons, audio and video.
-- `config` - project and pipeline configuration.
-- `gulp` - build implementation.
+```bash
+npm run build
+```
 
-## License
+Production-сборка проекта.
 
-MIT License. See [LICENSE](LICENSE).
+```bash
+npm run check
+```
+
+Комплексная проверка проекта. Обычно включает lint и production build.
+
+```bash
+npm run ci:quality
+```
+
+CI-oriented quality check, если используется в текущей конфигурации проекта.
+
+---
+
+## GitHub Actions
+
+В проекте используются отдельные workflow:
+
+- **Quality** — запускает проверки на `push` и `pull_request`.
+- **Deploy GitHub Pages** — собирает и публикует сайт на GitHub Pages.
+
+Если проект содержит видео в `src/assets`, CI должен использовать build-профиль, в котором video processing включен. Fast/basic profile может отключать media modules и не подходит для проверки проекта с обязательными video assets.
+
+---
+
+## Работа с generated output
+
+Не редактировать вручную:
+
+```text
+public/
+dist/
+.cache/
+node_modules/
+```
+
+Эти директории либо генерируются сборкой, либо являются локальными служебными артефактами.
+
+Исходники находятся в:
+
+```text
+src/
+config/
+scripts/
+.github/
+```
+
+---
+
+## Проверки перед коммитом
+
+Перед коммитом рекомендуется выполнить:
+
+```bash
+npm run check
+```
+
+И проверить статус Git:
+
+```bash
+git status
+```
+
+В коммит не должны попадать локальные временные файлы и generated output.
+
+---
+
+## Особенности проекта
+
+- Проект не использует frontend-фреймворк.
+- Основная интерактивность реализована на vanilla JavaScript.
+- Layout и компоненты собраны через Nunjucks.
+- Повторяемые глобальные данные вынесены в общий data-layer.
+- Визуальный стиль сохранен мягким и дружелюбным, но contrast interactive-состояний приведен к более доступной модели.
+- Все данные являются demo/fake и не относятся к реальной клинике.
+
+---
+
+## Статус
+
+Проект является портфолио-кейсом и предназначен для демонстрации навыков верстки, организации статической многостраничной сборки, доступности, работы с шаблонами и поддерживаемой структуры проекта.

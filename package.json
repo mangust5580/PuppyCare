@@ -23,7 +23,7 @@
     "format": "prettier -w .",
     "check": "npm run lint && npm run build",
     "lint:report": "node ./scripts/lint-report.mjs",
-    "validate": "npm run build:fast",
+    "validate": "npm run build",
     "ci:quality": "npm run lint:report && npm run validate"
   },
   "devDependencies": {
